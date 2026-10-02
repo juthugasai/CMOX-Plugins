@@ -7,7 +7,6 @@ Version: v1.4.0
 
 import asyncio
 import json
-import hashlib
 import time
 import urllib.request
 from typing import Dict, Any, Optional
@@ -19,17 +18,13 @@ class DenoDeployEdgeKVDatabaseSyncEnginePythonClient:
         self.plugin_id = "deno-deploy-kv-sync"
 
     async def ingest(self, action: str, data: Dict[str, Any]) -> Dict[str, Any]:
-        """Asynchronously ingests a transaction or mutation event into Deno Deploy Edge KV Database Sync."""
+        """Asynchronously ingests an event into Deno Deploy Edge KV Database Sync."""
         payload = {
             "jsonrpc": "2.0",
             "id": f"py_{int(time.time() * 1000)}",
             "method": "ingest",
-            "params": {
-                "action": action,
-                "data": data
-            }
+            "params": {"action": action, "data": data}
         }
-        
         req = urllib.request.Request(
             f"{self.bridge_url}/",
             data=json.dumps(payload).encode('utf-8'),
@@ -40,26 +35,13 @@ class DenoDeployEdgeKVDatabaseSyncEnginePythonClient:
             },
             method="POST"
         )
-        
         loop = asyncio.get_event_loop()
         response = await loop.run_in_executor(None, urllib.request.urlopen, req)
         return json.loads(response.read().decode('utf-8')).get("result", {})
 
     async def get_health_report(self) -> Dict[str, Any]:
-        """Fetches live health report and metrics from Deno Deploy Edge KV Database Sync."""
+        """Fetches live health report and metrics."""
         req = urllib.request.Request(f"{self.bridge_url}/health")
         loop = asyncio.get_event_loop()
         response = await loop.run_in_executor(None, urllib.request.urlopen, req)
         return json.loads(response.read().decode('utf-8'))
-
-# Example Quickstart
-if __name__ == "__main__":
-    async def main():
-        client = DenoDeployEdgeKVDatabaseSyncEnginePythonClient()
-        print("Connected to Deno Deploy Edge KV Database Sync Python SDK")
-        event = await client.ingest("insert", {"entity": "sample_record", "status": "active"})
-        print("Ingested event:", event)
-        health = await client.get_health_report()
-        print("Health:", health.get("status"))
-
-    asyncio.run(main())

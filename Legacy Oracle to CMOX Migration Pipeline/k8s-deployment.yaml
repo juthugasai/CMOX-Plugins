@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cmox-plugin-oracle-migration-tool
+  labels:
+    app: cmox-plugin-oracle-migration-tool
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cmox-plugin-oracle-migration-tool
+  template:
+    metadata:
+      labels:
+        app: cmox-plugin-oracle-migration-tool
+    spec:
+      containers:
+      - name: plugin
+        image: cmox/plugin-oracle-migration-tool:2.6.0
+        ports:
+        - containerPort: 7890
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 7890
+          initialDelaySeconds: 5
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cmox-plugin-oracle-migration-tool-svc
+spec:
+  selector:
+    app: cmox-plugin-oracle-migration-tool
+  ports:
+  - port: 7890
+    targetPort: 7890

@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cmox-plugin-mongodb-bridge
+  labels:
+    app: cmox-plugin-mongodb-bridge
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cmox-plugin-mongodb-bridge
+  template:
+    metadata:
+      labels:
+        app: cmox-plugin-mongodb-bridge
+    spec:
+      containers:
+      - name: plugin
+        image: cmox/plugin-mongodb-bridge:3.1.2
+        ports:
+        - containerPort: 7890
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 7890
+          initialDelaySeconds: 5
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cmox-plugin-mongodb-bridge-svc
+spec:
+  selector:
+    app: cmox-plugin-mongodb-bridge
+  ports:
+  - port: 7890
+    targetPort: 7890

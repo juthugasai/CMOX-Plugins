@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cmox-plugin-slow-query-flamegraph
+  labels:
+    app: cmox-plugin-slow-query-flamegraph
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cmox-plugin-slow-query-flamegraph
+  template:
+    metadata:
+      labels:
+        app: cmox-plugin-slow-query-flamegraph
+    spec:
+      containers:
+      - name: plugin
+        image: cmox/plugin-slow-query-flamegraph:4.1.0
+        ports:
+        - containerPort: 7890
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 7890
+          initialDelaySeconds: 5
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cmox-plugin-slow-query-flamegraph-svc
+spec:
+  selector:
+    app: cmox-plugin-slow-query-flamegraph
+  ports:
+  - port: 7890
+    targetPort: 7890

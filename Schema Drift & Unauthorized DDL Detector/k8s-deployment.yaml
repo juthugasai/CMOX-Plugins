@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cmox-plugin-schema-drift-detector
+  labels:
+    app: cmox-plugin-schema-drift-detector
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cmox-plugin-schema-drift-detector
+  template:
+    metadata:
+      labels:
+        app: cmox-plugin-schema-drift-detector
+    spec:
+      containers:
+      - name: plugin
+        image: cmox/plugin-schema-drift-detector:1.7.0
+        ports:
+        - containerPort: 7890
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 7890
+          initialDelaySeconds: 5
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cmox-plugin-schema-drift-detector-svc
+spec:
+  selector:
+    app: cmox-plugin-schema-drift-detector
+  ports:
+  - port: 7890
+    targetPort: 7890

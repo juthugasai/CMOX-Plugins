@@ -9,7 +9,8 @@
   "license": "FIPS 140-2 Validated",
   "scripts": {
     "build": "tsc",
-    "test": "tsx test.ts"
+    "test": "tsx test.ts",
+    "bridge": "tsx bridge.ts"
   },
   "keywords": [
     "cmox",
@@ -20,6 +21,8 @@
     "python",
     "go",
     "rust",
+    "java",
+    "csharp",
     "AES-256",
     "Encryption",
     "FIPS",

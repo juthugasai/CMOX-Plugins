@@ -22,16 +22,36 @@
     "python": "client.py",
     "golang": "client.go",
     "rust": "client.rs",
-    "cli": "cli.sh",
+    "java": "Client.java",
+    "csharp": "Client.cs",
+    "php": "client.php",
+    "ruby": "client.rb",
+    "cliBash": "cli.sh",
+    "cliBatch": "cli.bat",
+    "openApi": "openapi.json",
     "universalBridge": "bridge.ts"
   },
   "thirdPartyExtensibility": {
     "adapter": "adapter.ts",
+    "webhookDispatcher": "webhook.ts",
+    "integrations": "integrations.ts",
     "supportsPreIngestHooks": true,
     "supportsPostProcessHooks": true,
     "supportsCustomSinks": true,
     "jsonRpc2": true,
     "restApi": true
+  },
+  "docker": {
+    "dockerfile": "Dockerfile",
+    "compose": "docker-compose.yml",
+    "kubernetes": "k8s-deployment.yaml"
+  },
+  "thirdPartyLinks": {
+    "officialDocs": "https://docs.cmox.io/extensions/fido2-passkey",
+    "githubRepo": "https://github.com/juthugasai/CMOX-Plugins/tree/main/FIDO2%20_%20Passkey%20WebAuthn%20Login%20Protection",
+    "openApiSpec": "https://api.cmox.io/openapi/v3/fido2-passkey.json",
+    "prometheusGrafana": "https://grafana.com/dashboards/cmox-fido2-passkey",
+    "slackCommunity": "https://cmox.io/community/slack"
   },
   "tags": [
     "FIDO2",

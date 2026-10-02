@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cmox-plugin-ai-hub
+  labels:
+    app: cmox-plugin-ai-hub
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cmox-plugin-ai-hub
+  template:
+    metadata:
+      labels:
+        app: cmox-plugin-ai-hub
+    spec:
+      containers:
+      - name: plugin
+        image: cmox/plugin-ai-hub:3.0.0
+        ports:
+        - containerPort: 7890
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 7890
+          initialDelaySeconds: 5
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cmox-plugin-ai-hub-svc
+spec:
+  selector:
+    app: cmox-plugin-ai-hub
+  ports:
+  - port: 7890
+    targetPort: 7890

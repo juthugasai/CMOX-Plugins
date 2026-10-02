@@ -18,6 +18,8 @@ import { RedisSubMillisecondCacheLayerPipeline } from './pipeline';
 import { RedisSubMillisecondCacheLayerTelemetry } from './telemetry';
 import { RedisSubMillisecondCacheLayerThirdPartyAdapter } from './adapter';
 import { RedisSubMillisecondCacheLayerUniversalBridge } from './bridge';
+import { RedisSubMillisecondCacheLayerWebhookDispatcher } from './webhook';
+import { RedisSubMillisecondCacheLayerIntegrations } from './integrations';
 
 export class RedisSubMillisecondCacheLayerEngine extends EventEmitter {
   public readonly id = 'redis-cache';
@@ -30,6 +32,7 @@ export class RedisSubMillisecondCacheLayerEngine extends EventEmitter {
   private pipeline: RedisSubMillisecondCacheLayerPipeline;
   private telemetry: RedisSubMillisecondCacheLayerTelemetry;
   public readonly adapter: RedisSubMillisecondCacheLayerThirdPartyAdapter;
+  public readonly webhook: RedisSubMillisecondCacheLayerWebhookDispatcher;
   private bridge: RedisSubMillisecondCacheLayerUniversalBridge | null = null;
 
   private status: PluginStatus = 'uninitialized';
@@ -45,11 +48,9 @@ export class RedisSubMillisecondCacheLayerEngine extends EventEmitter {
     this.client = new RedisSubMillisecondCacheLayerClient(config);
     this.pipeline = new RedisSubMillisecondCacheLayerPipeline(this.adapter);
     this.telemetry = new RedisSubMillisecondCacheLayerTelemetry();
+    this.webhook = new RedisSubMillisecondCacheLayerWebhookDispatcher(config.webhookUrl || '', config.webhookSecret || '');
   }
 
-  /**
-   * Initializes the plugin runtime, connects sockets, and starts the universal multi-language bridge.
-   */
   public async initialize(enableBridge = true): Promise<boolean> {
     const config = this.configManager.get();
     if (!config.enabled) {
@@ -89,15 +90,14 @@ export class RedisSubMillisecondCacheLayerEngine extends EventEmitter {
     }, intervalMs);
   }
 
-  /**
-   * Ingests a new mutation or telemetry record into the asynchronous pipeline.
-   */
   public async ingest<T = any>(action: MutationAction, data: T): Promise<StreamPayload<T>> {
     const start = Date.now();
     const payload = await this.pipeline.process(action, data);
     this.bufferQueue.push(payload);
     this.telemetry.recordEvent(Date.now() - start);
     this.emit('ingested', payload);
+
+    await this.webhook.dispatch(payload);
 
     const config = this.configManager.get();
     if (this.bufferQueue.length >= config.maxBatchSize) {
@@ -107,9 +107,6 @@ export class RedisSubMillisecondCacheLayerEngine extends EventEmitter {
     return payload;
   }
 
-  /**
-   * Flushes queued payloads via the transport client and third-party custom sinks.
-   */
   public async flushBuffer(): Promise<number> {
     if (this.bufferQueue.length === 0) return 0;
     const config = this.configManager.get();
@@ -123,16 +120,12 @@ export class RedisSubMillisecondCacheLayerEngine extends EventEmitter {
       return result.acknowledgedCount;
     } catch (err) {
       this.telemetry.recordError();
-      // Requeue failed payloads
       this.bufferQueue.unshift(...batch);
       this.emit('error', err);
       return 0;
     }
   }
 
-  /**
-   * Returns a real-time comprehensive health and performance inspection report.
-   */
   public getHealthReport(): HealthReport {
     const config = this.configManager.get();
     return {
@@ -145,7 +138,8 @@ export class RedisSubMillisecondCacheLayerEngine extends EventEmitter {
       lastHeartbeat: new Date().toISOString(),
       metrics: this.telemetry.getSnapshot(this.status, this.bufferQueue.length),
       activeFeatures: ["Sub-0.5ms cached query reads directly from RAM","Intelligent mutation-aware cache tag invalidation","Redis Cluster & Redis Sentinel high-availability failover","Configurable LRU/LFU cache memory eviction policies"],
-      activeThirdPartyHooks: this.adapter.getActiveHookNames()
+      activeThirdPartyHooks: this.adapter.getActiveHookNames(),
+      thirdPartyLinks: RedisSubMillisecondCacheLayerIntegrations.EXTERNAL_LINKS
     };
   }
 
@@ -157,9 +151,6 @@ export class RedisSubMillisecondCacheLayerEngine extends EventEmitter {
     return this.configManager.update(patch);
   }
 
-  /**
-   * Graceful shutdown of socket interconnects, bridge server, and daemon loops.
-   */
   public async shutdown(): Promise<void> {
     this.isShuttingDown = true;
     if (this.loopTimer) {

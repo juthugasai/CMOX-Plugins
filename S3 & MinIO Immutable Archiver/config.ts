@@ -31,6 +31,8 @@ export class S3MinIOImmutableArchiverConfigManager {
       backpressureThreshold: custom?.backpressureThreshold ?? 10000,
       enableEncryption: custom?.enableEncryption ?? true,
       bridgePort: custom?.bridgePort ?? (Number(process.env[`${envPrefix}BRIDGE_PORT`]) || 7890),
+      webhookUrl: custom?.webhookUrl || process.env[`${envPrefix}WEBHOOK_URL`] || 'https://api.cmox.io/v1/plugins/s3-snapshot-archiver/webhook',
+      webhookSecret: custom?.webhookSecret || process.env[`${envPrefix}WEBHOOK_SECRET`] || 'cmox_sec_live_default_key',
       param1: custom?.param1 || process.env[`${envPrefix}PARAM1`] || "company-cmox-backups",
       param2: custom?.param2 || process.env[`${envPrefix}PARAM2`] || "GLACIER_IR",
       customOptions: custom?.customOptions || {}

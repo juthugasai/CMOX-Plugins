@@ -22,16 +22,36 @@
     "python": "client.py",
     "golang": "client.go",
     "rust": "client.rs",
-    "cli": "cli.sh",
+    "java": "Client.java",
+    "csharp": "Client.cs",
+    "php": "client.php",
+    "ruby": "client.rb",
+    "cliBash": "cli.sh",
+    "cliBatch": "cli.bat",
+    "openApi": "openapi.json",
     "universalBridge": "bridge.ts"
   },
   "thirdPartyExtensibility": {
     "adapter": "adapter.ts",
+    "webhookDispatcher": "webhook.ts",
+    "integrations": "integrations.ts",
     "supportsPreIngestHooks": true,
     "supportsPostProcessHooks": true,
     "supportsCustomSinks": true,
     "jsonRpc2": true,
     "restApi": true
+  },
+  "docker": {
+    "dockerfile": "Dockerfile",
+    "compose": "docker-compose.yml",
+    "kubernetes": "k8s-deployment.yaml"
+  },
+  "thirdPartyLinks": {
+    "officialDocs": "https://docs.cmox.io/extensions/change-data-capture",
+    "githubRepo": "https://github.com/juthugasai/CMOX-Plugins/tree/main/Change%20Data%20Capture%20(CDC)%20Realtime%20Engine",
+    "openApiSpec": "https://api.cmox.io/openapi/v3/change-data-capture.json",
+    "prometheusGrafana": "https://grafana.com/dashboards/cmox-change-data-capture",
+    "slackCommunity": "https://cmox.io/community/slack"
   },
   "tags": [
     "CDC",

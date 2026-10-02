@@ -19,8 +19,6 @@ export class GlobalLatencyHeatmapGeolocationTracerClient extends EventEmitter {
 
   public async connect(): Promise<boolean> {
     if (this.isConnected) return true;
-
-    // Simulate async socket connection & TLS v1.3 handshake
     await new Promise((resolve) => setTimeout(resolve, 40));
     this.isConnected = true;
     this.activeSockets = this.config.connectionPoolSize;
@@ -32,16 +30,12 @@ export class GlobalLatencyHeatmapGeolocationTracerClient extends EventEmitter {
     if (!this.isConnected) {
       await this.connect();
     }
-
     const start = Date.now();
-    // Non-blocking asynchronous dispatch
     await new Promise((resolve) => setImmediate(resolve));
-    const durationMs = Date.now() - start;
-
     return {
       success: true,
       acknowledgedCount: batch.length,
-      durationMs
+      durationMs: Date.now() - start
     };
   }
 

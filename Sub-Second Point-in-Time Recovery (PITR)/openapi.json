@@ -1,0 +1,55 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Sub-Second Point-in-Time Recovery (PITR) REST API",
+    "description": "Rewind your database state to any exact millisecond within the last 45 days with complete transaction replaying.",
+    "version": "3.0.1"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:7890",
+      "description": "Universal Bridge Server"
+    }
+  ],
+  "paths": {
+    "/": {
+      "post": {
+        "summary": "Ingest transactional event",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "action": {
+                    "type": "string",
+                    "example": "insert"
+                  },
+                  "data": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Event ingested successfully"
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "summary": "Get live metrics and health report",
+        "responses": {
+          "200": {
+            "description": "Health report object"
+          }
+        }
+      }
+    }
+  }
+}

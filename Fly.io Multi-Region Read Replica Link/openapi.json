@@ -1,0 +1,55 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Fly.io Multi-Region Read Replica Link REST API",
+    "description": "Stream read replicas to 30+ Fly.io edge regions (iad, lhr, nrt, syd) with automatic connection routing.",
+    "version": "1.8.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:7890",
+      "description": "Universal Bridge Server"
+    }
+  ],
+  "paths": {
+    "/": {
+      "post": {
+        "summary": "Ingest transactional event",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "action": {
+                    "type": "string",
+                    "example": "insert"
+                  },
+                  "data": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Event ingested successfully"
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "summary": "Get live metrics and health report",
+        "responses": {
+          "200": {
+            "description": "Health report object"
+          }
+        }
+      }
+    }
+  }
+}

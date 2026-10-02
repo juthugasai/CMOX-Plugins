@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cmox-plugin-ip-geofencing
+  labels:
+    app: cmox-plugin-ip-geofencing
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cmox-plugin-ip-geofencing
+  template:
+    metadata:
+      labels:
+        app: cmox-plugin-ip-geofencing
+    spec:
+      containers:
+      - name: plugin
+        image: cmox/plugin-ip-geofencing:2.0.1
+        ports:
+        - containerPort: 7890
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 7890
+          initialDelaySeconds: 5
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cmox-plugin-ip-geofencing-svc
+spec:
+  selector:
+    app: cmox-plugin-ip-geofencing
+  ports:
+  - port: 7890
+    targetPort: 7890

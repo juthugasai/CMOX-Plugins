@@ -31,6 +31,8 @@ export class VisionAIDocumentOCRtoTablePipelineConfigManager {
       backpressureThreshold: custom?.backpressureThreshold ?? 10000,
       enableEncryption: custom?.enableEncryption ?? true,
       bridgePort: custom?.bridgePort ?? (Number(process.env[`${envPrefix}BRIDGE_PORT`]) || 7890),
+      webhookUrl: custom?.webhookUrl || process.env[`${envPrefix}WEBHOOK_URL`] || 'https://api.cmox.io/v1/plugins/vision-ocr-pipeline/webhook',
+      webhookSecret: custom?.webhookSecret || process.env[`${envPrefix}WEBHOOK_SECRET`] || 'cmox_sec_live_default_key',
       param1: custom?.param1 || process.env[`${envPrefix}PARAM1`] || "Gemini-Vision-Pro",
       param2: custom?.param2 || process.env[`${envPrefix}PARAM2`] || "0.85",
       customOptions: custom?.customOptions || {}

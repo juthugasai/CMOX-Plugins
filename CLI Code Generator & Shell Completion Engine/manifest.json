@@ -22,16 +22,36 @@
     "python": "client.py",
     "golang": "client.go",
     "rust": "client.rs",
-    "cli": "cli.sh",
+    "java": "Client.java",
+    "csharp": "Client.cs",
+    "php": "client.php",
+    "ruby": "client.rb",
+    "cliBash": "cli.sh",
+    "cliBatch": "cli.bat",
+    "openApi": "openapi.json",
     "universalBridge": "bridge.ts"
   },
   "thirdPartyExtensibility": {
     "adapter": "adapter.ts",
+    "webhookDispatcher": "webhook.ts",
+    "integrations": "integrations.ts",
     "supportsPreIngestHooks": true,
     "supportsPostProcessHooks": true,
     "supportsCustomSinks": true,
     "jsonRpc2": true,
     "restApi": true
+  },
+  "docker": {
+    "dockerfile": "Dockerfile",
+    "compose": "docker-compose.yml",
+    "kubernetes": "k8s-deployment.yaml"
+  },
+  "thirdPartyLinks": {
+    "officialDocs": "https://docs.cmox.io/extensions/cli-generator-zsh",
+    "githubRepo": "https://github.com/juthugasai/CMOX-Plugins/tree/main/CLI%20Code%20Generator%20%26%20Shell%20Completion%20Engine",
+    "openApiSpec": "https://api.cmox.io/openapi/v3/cli-generator-zsh.json",
+    "prometheusGrafana": "https://grafana.com/dashboards/cmox-cli-generator-zsh",
+    "slackCommunity": "https://cmox.io/community/slack"
   },
   "tags": [
     "CLI",

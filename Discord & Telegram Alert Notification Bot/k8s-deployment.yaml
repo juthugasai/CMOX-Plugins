@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cmox-plugin-telegram-discord-alerts
+  labels:
+    app: cmox-plugin-telegram-discord-alerts
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cmox-plugin-telegram-discord-alerts
+  template:
+    metadata:
+      labels:
+        app: cmox-plugin-telegram-discord-alerts
+    spec:
+      containers:
+      - name: plugin
+        image: cmox/plugin-telegram-discord-alerts:2.1.0
+        ports:
+        - containerPort: 7890
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 7890
+          initialDelaySeconds: 5
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cmox-plugin-telegram-discord-alerts-svc
+spec:
+  selector:
+    app: cmox-plugin-telegram-discord-alerts
+  ports:
+  - port: 7890
+    targetPort: 7890

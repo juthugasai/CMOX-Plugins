@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cmox-plugin-usb-auto-sync
+  labels:
+    app: cmox-plugin-usb-auto-sync
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cmox-plugin-usb-auto-sync
+  template:
+    metadata:
+      labels:
+        app: cmox-plugin-usb-auto-sync
+    spec:
+      containers:
+      - name: plugin
+        image: cmox/plugin-usb-auto-sync:1.2.0
+        ports:
+        - containerPort: 7890
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 7890
+          initialDelaySeconds: 5
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cmox-plugin-usb-auto-sync-svc
+spec:
+  selector:
+    app: cmox-plugin-usb-auto-sync
+  ports:
+  - port: 7890
+    targetPort: 7890

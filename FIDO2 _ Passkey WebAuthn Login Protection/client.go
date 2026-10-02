@@ -1,4 +1,4 @@
-// Package fido2passkeywebauthnloginprotection provides the official high-performance Go SDK for FIDO2 / Passkey WebAuthn Login Protection.
+// Package fido2passkeywebauthnloginprotection provides the official Go SDK for FIDO2 / Passkey WebAuthn Login Protection.
 package fido2passkeywebauthnloginprotection
 
 import (
@@ -17,14 +17,6 @@ type Client struct {
 	HTTPClient *http.Client
 }
 
-type StreamPayload struct {
-	ID        string      `json:"id"`
-	Timestamp int64       `json:"timestamp"`
-	Action    string      `json:"action"`
-	Data      interface{} `json:"data"`
-	Checksum  string      `json:"checksumSha256"`
-}
-
 func NewClient(bridgeURL string, apiKey string) *Client {
 	return &Client{
 		BridgeURL:  bridgeURL,
@@ -33,19 +25,11 @@ func NewClient(bridgeURL string, apiKey string) *Client {
 	}
 }
 
-func (c *Client) Ingest(action string, data interface{}) (*StreamPayload, error) {
-	dataBytes, err := json.Marshal(data)
-	if err != nil {
-		return nil, err
-	}
-	hash := sha256.Sum256(dataBytes)
-	checksum := hex.EncodeToString(hash[:])
-
+func (c *Client) Ingest(action string, data interface{}) (map[string]interface{}, error) {
 	reqBody, _ := json.Marshal(map[string]interface{}{
 		"action": action,
 		"data":   data,
 	})
-
 	req, err := http.NewRequest("POST", c.BridgeURL+"/", bytes.NewBuffer(reqBody))
 	if err != nil {
 		return nil, err
@@ -59,11 +43,7 @@ func (c *Client) Ingest(action string, data interface{}) (*StreamPayload, error)
 	}
 	defer resp.Body.Close()
 
-	return &StreamPayload{
-		ID:        fmt.Sprintf("go_%d", time.Now().UnixMilli()),
-		Timestamp: time.Now().UnixMilli(),
-		Action:    action,
-		Data:      data,
-		Checksum:  checksum,
-	}, nil
+	var result map[string]interface{}
+	json.NewDecoder(resp.Body).Decode(&result)
+	return result, nil
 }

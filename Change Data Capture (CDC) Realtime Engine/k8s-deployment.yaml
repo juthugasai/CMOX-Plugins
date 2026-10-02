@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cmox-plugin-change-data-capture
+  labels:
+    app: cmox-plugin-change-data-capture
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cmox-plugin-change-data-capture
+  template:
+    metadata:
+      labels:
+        app: cmox-plugin-change-data-capture
+    spec:
+      containers:
+      - name: plugin
+        image: cmox/plugin-change-data-capture:2.8.0
+        ports:
+        - containerPort: 7890
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 7890
+          initialDelaySeconds: 5
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cmox-plugin-change-data-capture-svc
+spec:
+  selector:
+    app: cmox-plugin-change-data-capture
+  ports:
+  - port: 7890
+    targetPort: 7890

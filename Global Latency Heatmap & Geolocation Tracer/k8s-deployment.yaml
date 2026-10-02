@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cmox-plugin-latency-heatmap
+  labels:
+    app: cmox-plugin-latency-heatmap
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cmox-plugin-latency-heatmap
+  template:
+    metadata:
+      labels:
+        app: cmox-plugin-latency-heatmap
+    spec:
+      containers:
+      - name: plugin
+        image: cmox/plugin-latency-heatmap:1.4.0
+        ports:
+        - containerPort: 7890
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 7890
+          initialDelaySeconds: 5
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cmox-plugin-latency-heatmap-svc
+spec:
+  selector:
+    app: cmox-plugin-latency-heatmap
+  ports:
+  - port: 7890
+    targetPort: 7890

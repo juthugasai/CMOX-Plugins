@@ -18,6 +18,8 @@ import { AINaturalLanguagetoSQLCopilotPipeline } from './pipeline';
 import { AINaturalLanguagetoSQLCopilotTelemetry } from './telemetry';
 import { AINaturalLanguagetoSQLCopilotThirdPartyAdapter } from './adapter';
 import { AINaturalLanguagetoSQLCopilotUniversalBridge } from './bridge';
+import { AINaturalLanguagetoSQLCopilotWebhookDispatcher } from './webhook';
+import { AINaturalLanguagetoSQLCopilotIntegrations } from './integrations';
 
 export class AINaturalLanguagetoSQLCopilotEngine extends EventEmitter {
   public readonly id = 'ai-nl-sql-copilot';
@@ -30,6 +32,7 @@ export class AINaturalLanguagetoSQLCopilotEngine extends EventEmitter {
   private pipeline: AINaturalLanguagetoSQLCopilotPipeline;
   private telemetry: AINaturalLanguagetoSQLCopilotTelemetry;
   public readonly adapter: AINaturalLanguagetoSQLCopilotThirdPartyAdapter;
+  public readonly webhook: AINaturalLanguagetoSQLCopilotWebhookDispatcher;
   private bridge: AINaturalLanguagetoSQLCopilotUniversalBridge | null = null;
 
   private status: PluginStatus = 'uninitialized';
@@ -45,11 +48,9 @@ export class AINaturalLanguagetoSQLCopilotEngine extends EventEmitter {
     this.client = new AINaturalLanguagetoSQLCopilotClient(config);
     this.pipeline = new AINaturalLanguagetoSQLCopilotPipeline(this.adapter);
     this.telemetry = new AINaturalLanguagetoSQLCopilotTelemetry();
+    this.webhook = new AINaturalLanguagetoSQLCopilotWebhookDispatcher(config.webhookUrl || '', config.webhookSecret || '');
   }
 
-  /**
-   * Initializes the plugin runtime, connects sockets, and starts the universal multi-language bridge.
-   */
   public async initialize(enableBridge = true): Promise<boolean> {
     const config = this.configManager.get();
     if (!config.enabled) {
@@ -89,15 +90,14 @@ export class AINaturalLanguagetoSQLCopilotEngine extends EventEmitter {
     }, intervalMs);
   }
 
-  /**
-   * Ingests a new mutation or telemetry record into the asynchronous pipeline.
-   */
   public async ingest<T = any>(action: MutationAction, data: T): Promise<StreamPayload<T>> {
     const start = Date.now();
     const payload = await this.pipeline.process(action, data);
     this.bufferQueue.push(payload);
     this.telemetry.recordEvent(Date.now() - start);
     this.emit('ingested', payload);
+
+    await this.webhook.dispatch(payload);
 
     const config = this.configManager.get();
     if (this.bufferQueue.length >= config.maxBatchSize) {
@@ -107,9 +107,6 @@ export class AINaturalLanguagetoSQLCopilotEngine extends EventEmitter {
     return payload;
   }
 
-  /**
-   * Flushes queued payloads via the transport client and third-party custom sinks.
-   */
   public async flushBuffer(): Promise<number> {
     if (this.bufferQueue.length === 0) return 0;
     const config = this.configManager.get();
@@ -123,16 +120,12 @@ export class AINaturalLanguagetoSQLCopilotEngine extends EventEmitter {
       return result.acknowledgedCount;
     } catch (err) {
       this.telemetry.recordError();
-      // Requeue failed payloads
       this.bufferQueue.unshift(...batch);
       this.emit('error', err);
       return 0;
     }
   }
 
-  /**
-   * Returns a real-time comprehensive health and performance inspection report.
-   */
   public getHealthReport(): HealthReport {
     const config = this.configManager.get();
     return {
@@ -145,7 +138,8 @@ export class AINaturalLanguagetoSQLCopilotEngine extends EventEmitter {
       lastHeartbeat: new Date().toISOString(),
       metrics: this.telemetry.getSnapshot(this.status, this.bufferQueue.length),
       activeFeatures: ["Real-time Streaming","Lock-Free Ring Buffer","Dynamic Backpressure"],
-      activeThirdPartyHooks: this.adapter.getActiveHookNames()
+      activeThirdPartyHooks: this.adapter.getActiveHookNames(),
+      thirdPartyLinks: AINaturalLanguagetoSQLCopilotIntegrations.EXTERNAL_LINKS
     };
   }
 
@@ -157,9 +151,6 @@ export class AINaturalLanguagetoSQLCopilotEngine extends EventEmitter {
     return this.configManager.update(patch);
   }
 
-  /**
-   * Graceful shutdown of socket interconnects, bridge server, and daemon loops.
-   */
   public async shutdown(): Promise<void> {
     this.isShuttingDown = true;
     if (this.loopTimer) {

@@ -11,25 +11,16 @@ export class UltraFastCSVExcelBulkStreamImporterThirdPartyAdapter {
   private postProcessMiddlewares: { name: string; handler: MiddlewareHandler }[] = [];
   private customSinkAdapters: Map<string, (payloads: StreamPayload[]) => Promise<boolean>> = new Map();
 
-  /**
-   * Registers a third-party interceptor before data enters the core execution ring buffer.
-   */
   public usePreIngest(name: string, handler: MiddlewareHandler): this {
     this.preIngestMiddlewares.push({ name, handler });
     return this;
   }
 
-  /**
-   * Registers a third-party interceptor after batch processing.
-   */
   public usePostProcess(name: string, handler: MiddlewareHandler): this {
     this.postProcessMiddlewares.push({ name, handler });
     return this;
   }
 
-  /**
-   * Registers a custom destination sink (e.g. AWS SQS, Webhook, Custom DB).
-   */
   public registerCustomSink(name: string, sinkFn: (payloads: StreamPayload[]) => Promise<boolean>): this {
     this.customSinkAdapters.set(name, sinkFn);
     return this;

@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  plugin-parquet-arrow-exporter:
+    build: .
+    container_name: cmox-plugin-parquet-arrow-exporter
+    ports:
+      - "7890:7890"
+    environment:
+      - CMOX_PLUGIN_PORT=7890
+      - NODE_ENV=production
+    restart: unless-stopped

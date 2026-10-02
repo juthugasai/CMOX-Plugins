@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cmox-plugin-trino-query-federation
+  labels:
+    app: cmox-plugin-trino-query-federation
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cmox-plugin-trino-query-federation
+  template:
+    metadata:
+      labels:
+        app: cmox-plugin-trino-query-federation
+    spec:
+      containers:
+      - name: plugin
+        image: cmox/plugin-trino-query-federation:2.2.0
+        ports:
+        - containerPort: 7890
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 7890
+          initialDelaySeconds: 5
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cmox-plugin-trino-query-federation-svc
+spec:
+  selector:
+    app: cmox-plugin-trino-query-federation
+  ports:
+  - port: 7890
+    targetPort: 7890

@@ -18,6 +18,8 @@ import { ElasticsearchFullTextSearchSyncPipeline } from './pipeline';
 import { ElasticsearchFullTextSearchSyncTelemetry } from './telemetry';
 import { ElasticsearchFullTextSearchSyncThirdPartyAdapter } from './adapter';
 import { ElasticsearchFullTextSearchSyncUniversalBridge } from './bridge';
+import { ElasticsearchFullTextSearchSyncWebhookDispatcher } from './webhook';
+import { ElasticsearchFullTextSearchSyncIntegrations } from './integrations';
 
 export class ElasticsearchFullTextSearchSyncEngine extends EventEmitter {
   public readonly id = 'elasticsearch-sync';
@@ -30,6 +32,7 @@ export class ElasticsearchFullTextSearchSyncEngine extends EventEmitter {
   private pipeline: ElasticsearchFullTextSearchSyncPipeline;
   private telemetry: ElasticsearchFullTextSearchSyncTelemetry;
   public readonly adapter: ElasticsearchFullTextSearchSyncThirdPartyAdapter;
+  public readonly webhook: ElasticsearchFullTextSearchSyncWebhookDispatcher;
   private bridge: ElasticsearchFullTextSearchSyncUniversalBridge | null = null;
 
   private status: PluginStatus = 'uninitialized';
@@ -45,11 +48,9 @@ export class ElasticsearchFullTextSearchSyncEngine extends EventEmitter {
     this.client = new ElasticsearchFullTextSearchSyncClient(config);
     this.pipeline = new ElasticsearchFullTextSearchSyncPipeline(this.adapter);
     this.telemetry = new ElasticsearchFullTextSearchSyncTelemetry();
+    this.webhook = new ElasticsearchFullTextSearchSyncWebhookDispatcher(config.webhookUrl || '', config.webhookSecret || '');
   }
 
-  /**
-   * Initializes the plugin runtime, connects sockets, and starts the universal multi-language bridge.
-   */
   public async initialize(enableBridge = true): Promise<boolean> {
     const config = this.configManager.get();
     if (!config.enabled) {
@@ -89,15 +90,14 @@ export class ElasticsearchFullTextSearchSyncEngine extends EventEmitter {
     }, intervalMs);
   }
 
-  /**
-   * Ingests a new mutation or telemetry record into the asynchronous pipeline.
-   */
   public async ingest<T = any>(action: MutationAction, data: T): Promise<StreamPayload<T>> {
     const start = Date.now();
     const payload = await this.pipeline.process(action, data);
     this.bufferQueue.push(payload);
     this.telemetry.recordEvent(Date.now() - start);
     this.emit('ingested', payload);
+
+    await this.webhook.dispatch(payload);
 
     const config = this.configManager.get();
     if (this.bufferQueue.length >= config.maxBatchSize) {
@@ -107,9 +107,6 @@ export class ElasticsearchFullTextSearchSyncEngine extends EventEmitter {
     return payload;
   }
 
-  /**
-   * Flushes queued payloads via the transport client and third-party custom sinks.
-   */
   public async flushBuffer(): Promise<number> {
     if (this.bufferQueue.length === 0) return 0;
     const config = this.configManager.get();
@@ -123,16 +120,12 @@ export class ElasticsearchFullTextSearchSyncEngine extends EventEmitter {
       return result.acknowledgedCount;
     } catch (err) {
       this.telemetry.recordError();
-      // Requeue failed payloads
       this.bufferQueue.unshift(...batch);
       this.emit('error', err);
       return 0;
     }
   }
 
-  /**
-   * Returns a real-time comprehensive health and performance inspection report.
-   */
   public getHealthReport(): HealthReport {
     const config = this.configManager.get();
     return {
@@ -145,7 +138,8 @@ export class ElasticsearchFullTextSearchSyncEngine extends EventEmitter {
       lastHeartbeat: new Date().toISOString(),
       metrics: this.telemetry.getSnapshot(this.status, this.bufferQueue.length),
       activeFeatures: ["Instant fuzzy search and typo tolerance across database records","Auto-generated phonetic, soundex, and n-gram analyzers","Bulk batch indexing pipeline supporting 50k docs/sec","Compatible with Elasticsearch 8.x and OpenSearch 2.x"],
-      activeThirdPartyHooks: this.adapter.getActiveHookNames()
+      activeThirdPartyHooks: this.adapter.getActiveHookNames(),
+      thirdPartyLinks: ElasticsearchFullTextSearchSyncIntegrations.EXTERNAL_LINKS
     };
   }
 
@@ -157,9 +151,6 @@ export class ElasticsearchFullTextSearchSyncEngine extends EventEmitter {
     return this.configManager.update(patch);
   }
 
-  /**
-   * Graceful shutdown of socket interconnects, bridge server, and daemon loops.
-   */
   public async shutdown(): Promise<void> {
     this.isShuttingDown = true;
     if (this.loopTimer) {

@@ -31,6 +31,8 @@ export class TimescaleDBAutomatedHypertablePartitionerConfigManager {
       backpressureThreshold: custom?.backpressureThreshold ?? 10000,
       enableEncryption: custom?.enableEncryption ?? true,
       bridgePort: custom?.bridgePort ?? (Number(process.env[`${envPrefix}BRIDGE_PORT`]) || 7890),
+      webhookUrl: custom?.webhookUrl || process.env[`${envPrefix}WEBHOOK_URL`] || 'https://api.cmox.io/v1/plugins/timescaledb-partitioner/webhook',
+      webhookSecret: custom?.webhookSecret || process.env[`${envPrefix}WEBHOOK_SECRET`] || 'cmox_sec_live_default_key',
       param1: custom?.param1 || process.env[`${envPrefix}PARAM1`] || "7 days",
       param2: custom?.param2 || process.env[`${envPrefix}PARAM2`] || "30 days",
       customOptions: custom?.customOptions || {}

@@ -18,6 +18,8 @@ import { AWSLambdaServerlessDatabaseTriggerPipeline } from './pipeline';
 import { AWSLambdaServerlessDatabaseTriggerTelemetry } from './telemetry';
 import { AWSLambdaServerlessDatabaseTriggerThirdPartyAdapter } from './adapter';
 import { AWSLambdaServerlessDatabaseTriggerUniversalBridge } from './bridge';
+import { AWSLambdaServerlessDatabaseTriggerWebhookDispatcher } from './webhook';
+import { AWSLambdaServerlessDatabaseTriggerIntegrations } from './integrations';
 
 export class AWSLambdaServerlessDatabaseTriggerEngine extends EventEmitter {
   public readonly id = 'lambda-serverless-trigger';
@@ -30,6 +32,7 @@ export class AWSLambdaServerlessDatabaseTriggerEngine extends EventEmitter {
   private pipeline: AWSLambdaServerlessDatabaseTriggerPipeline;
   private telemetry: AWSLambdaServerlessDatabaseTriggerTelemetry;
   public readonly adapter: AWSLambdaServerlessDatabaseTriggerThirdPartyAdapter;
+  public readonly webhook: AWSLambdaServerlessDatabaseTriggerWebhookDispatcher;
   private bridge: AWSLambdaServerlessDatabaseTriggerUniversalBridge | null = null;
 
   private status: PluginStatus = 'uninitialized';
@@ -45,11 +48,9 @@ export class AWSLambdaServerlessDatabaseTriggerEngine extends EventEmitter {
     this.client = new AWSLambdaServerlessDatabaseTriggerClient(config);
     this.pipeline = new AWSLambdaServerlessDatabaseTriggerPipeline(this.adapter);
     this.telemetry = new AWSLambdaServerlessDatabaseTriggerTelemetry();
+    this.webhook = new AWSLambdaServerlessDatabaseTriggerWebhookDispatcher(config.webhookUrl || '', config.webhookSecret || '');
   }
 
-  /**
-   * Initializes the plugin runtime, connects sockets, and starts the universal multi-language bridge.
-   */
   public async initialize(enableBridge = true): Promise<boolean> {
     const config = this.configManager.get();
     if (!config.enabled) {
@@ -89,15 +90,14 @@ export class AWSLambdaServerlessDatabaseTriggerEngine extends EventEmitter {
     }, intervalMs);
   }
 
-  /**
-   * Ingests a new mutation or telemetry record into the asynchronous pipeline.
-   */
   public async ingest<T = any>(action: MutationAction, data: T): Promise<StreamPayload<T>> {
     const start = Date.now();
     const payload = await this.pipeline.process(action, data);
     this.bufferQueue.push(payload);
     this.telemetry.recordEvent(Date.now() - start);
     this.emit('ingested', payload);
+
+    await this.webhook.dispatch(payload);
 
     const config = this.configManager.get();
     if (this.bufferQueue.length >= config.maxBatchSize) {
@@ -107,9 +107,6 @@ export class AWSLambdaServerlessDatabaseTriggerEngine extends EventEmitter {
     return payload;
   }
 
-  /**
-   * Flushes queued payloads via the transport client and third-party custom sinks.
-   */
   public async flushBuffer(): Promise<number> {
     if (this.bufferQueue.length === 0) return 0;
     const config = this.configManager.get();
@@ -123,16 +120,12 @@ export class AWSLambdaServerlessDatabaseTriggerEngine extends EventEmitter {
       return result.acknowledgedCount;
     } catch (err) {
       this.telemetry.recordError();
-      // Requeue failed payloads
       this.bufferQueue.unshift(...batch);
       this.emit('error', err);
       return 0;
     }
   }
 
-  /**
-   * Returns a real-time comprehensive health and performance inspection report.
-   */
   public getHealthReport(): HealthReport {
     const config = this.configManager.get();
     return {
@@ -145,7 +138,8 @@ export class AWSLambdaServerlessDatabaseTriggerEngine extends EventEmitter {
       lastHeartbeat: new Date().toISOString(),
       metrics: this.telemetry.getSnapshot(this.status, this.bufferQueue.length),
       activeFeatures: ["Real-time Streaming","Lock-Free Ring Buffer","Dynamic Backpressure"],
-      activeThirdPartyHooks: this.adapter.getActiveHookNames()
+      activeThirdPartyHooks: this.adapter.getActiveHookNames(),
+      thirdPartyLinks: AWSLambdaServerlessDatabaseTriggerIntegrations.EXTERNAL_LINKS
     };
   }
 
@@ -157,9 +151,6 @@ export class AWSLambdaServerlessDatabaseTriggerEngine extends EventEmitter {
     return this.configManager.update(patch);
   }
 
-  /**
-   * Graceful shutdown of socket interconnects, bridge server, and daemon loops.
-   */
   public async shutdown(): Promise<void> {
     this.isShuttingDown = true;
     if (this.loopTimer) {

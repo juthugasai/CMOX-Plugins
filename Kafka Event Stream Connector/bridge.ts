@@ -1,7 +1,6 @@
 /**
  * @file bridge.ts
- * @description Universal JSON-RPC 2.0 & HTTP REST Bridge enabling ANY programming language
- * (Python, Go, Rust, Java, C#, PHP, C++, Ruby) to execute real-time operations on Kafka Event Stream Connector.
+ * @description Universal JSON-RPC 2.0 & HTTP REST Bridge for Kafka Event Stream Connector.
  * @module @cmox/plugin-kafka-connector/bridge
  */
 
@@ -21,7 +20,6 @@ export class KafkaEventStreamConnectorUniversalBridge {
   public start(): Promise<number> {
     return new Promise((resolve) => {
       this.server = http.createServer(async (req, res) => {
-        // Enable CORS for universal access
         res.setHeader('Access-Control-Allow-Origin', '*');
         res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
         res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-CMOX-Plugin');
@@ -32,14 +30,12 @@ export class KafkaEventStreamConnectorUniversalBridge {
           return;
         }
 
-        // Health endpoint
         if (req.url === '/health' || req.url === '/status') {
           res.writeHead(200, { 'Content-Type': 'application/json' });
           res.end(JSON.stringify(this.engine.getHealthReport(), null, 2));
           return;
         }
 
-        // JSON-RPC 2.0 & REST Ingest Endpoint
         if (req.method === 'POST') {
           let body = '';
           req.on('data', chunk => { body += chunk; });
@@ -47,7 +43,6 @@ export class KafkaEventStreamConnectorUniversalBridge {
             try {
               const parsed = JSON.parse(body || '{}');
 
-              // JSON-RPC 2.0 Protocol Handler
               if (parsed.jsonrpc === '2.0') {
                 const result = await this.handleJsonRpc(parsed.method, parsed.params);
                 res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -55,7 +50,6 @@ export class KafkaEventStreamConnectorUniversalBridge {
                 return;
               }
 
-              // Standard REST Ingest
               const action = parsed.action || 'stream';
               const data = parsed.data || parsed;
               const event = await this.engine.ingest(action, data);

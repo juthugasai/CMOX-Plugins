@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  plugin-rust-go-struct-gen:
+    build: .
+    container_name: cmox-plugin-rust-go-struct-gen
+    ports:
+      - "7890:7890"
+    environment:
+      - CMOX_PLUGIN_PORT=7890
+      - NODE_ENV=production
+    restart: unless-stopped

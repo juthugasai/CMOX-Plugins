@@ -31,6 +31,8 @@ export class MasterDataManagementMDMEntityDeduplicatorConfigManager {
       backpressureThreshold: custom?.backpressureThreshold ?? 10000,
       enableEncryption: custom?.enableEncryption ?? true,
       bridgePort: custom?.bridgePort ?? (Number(process.env[`${envPrefix}BRIDGE_PORT`]) || 7890),
+      webhookUrl: custom?.webhookUrl || process.env[`${envPrefix}WEBHOOK_URL`] || 'https://api.cmox.io/v1/plugins/mdm-deduplicator/webhook',
+      webhookSecret: custom?.webhookSecret || process.env[`${envPrefix}WEBHOOK_SECRET`] || 'cmox_sec_live_default_key',
       param1: custom?.param1 || process.env[`${envPrefix}PARAM1`] || "0.92",
       param2: custom?.param2 || process.env[`${envPrefix}PARAM2`] || "0.98",
       customOptions: custom?.customOptions || {}

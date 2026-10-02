@@ -1,0 +1,55 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Quantum-Resistant Kyber Encryption Bridge REST API",
+    "description": "Post-quantum cryptographic key exchange utilizing NIST ML-KEM (Kyber-768/1024) algorithms.",
+    "version": "1.1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:7890",
+      "description": "Universal Bridge Server"
+    }
+  ],
+  "paths": {
+    "/": {
+      "post": {
+        "summary": "Ingest transactional event",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "action": {
+                    "type": "string",
+                    "example": "insert"
+                  },
+                  "data": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Event ingested successfully"
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "summary": "Get live metrics and health report",
+        "responses": {
+          "200": {
+            "description": "Health report object"
+          }
+        }
+      }
+    }
+  }
+}

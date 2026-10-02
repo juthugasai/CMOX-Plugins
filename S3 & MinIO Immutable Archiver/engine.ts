@@ -18,6 +18,8 @@ import { S3MinIOImmutableArchiverPipeline } from './pipeline';
 import { S3MinIOImmutableArchiverTelemetry } from './telemetry';
 import { S3MinIOImmutableArchiverThirdPartyAdapter } from './adapter';
 import { S3MinIOImmutableArchiverUniversalBridge } from './bridge';
+import { S3MinIOImmutableArchiverWebhookDispatcher } from './webhook';
+import { S3MinIOImmutableArchiverIntegrations } from './integrations';
 
 export class S3MinIOImmutableArchiverEngine extends EventEmitter {
   public readonly id = 's3-snapshot-archiver';
@@ -30,6 +32,7 @@ export class S3MinIOImmutableArchiverEngine extends EventEmitter {
   private pipeline: S3MinIOImmutableArchiverPipeline;
   private telemetry: S3MinIOImmutableArchiverTelemetry;
   public readonly adapter: S3MinIOImmutableArchiverThirdPartyAdapter;
+  public readonly webhook: S3MinIOImmutableArchiverWebhookDispatcher;
   private bridge: S3MinIOImmutableArchiverUniversalBridge | null = null;
 
   private status: PluginStatus = 'uninitialized';
@@ -45,11 +48,9 @@ export class S3MinIOImmutableArchiverEngine extends EventEmitter {
     this.client = new S3MinIOImmutableArchiverClient(config);
     this.pipeline = new S3MinIOImmutableArchiverPipeline(this.adapter);
     this.telemetry = new S3MinIOImmutableArchiverTelemetry();
+    this.webhook = new S3MinIOImmutableArchiverWebhookDispatcher(config.webhookUrl || '', config.webhookSecret || '');
   }
 
-  /**
-   * Initializes the plugin runtime, connects sockets, and starts the universal multi-language bridge.
-   */
   public async initialize(enableBridge = true): Promise<boolean> {
     const config = this.configManager.get();
     if (!config.enabled) {
@@ -89,15 +90,14 @@ export class S3MinIOImmutableArchiverEngine extends EventEmitter {
     }, intervalMs);
   }
 
-  /**
-   * Ingests a new mutation or telemetry record into the asynchronous pipeline.
-   */
   public async ingest<T = any>(action: MutationAction, data: T): Promise<StreamPayload<T>> {
     const start = Date.now();
     const payload = await this.pipeline.process(action, data);
     this.bufferQueue.push(payload);
     this.telemetry.recordEvent(Date.now() - start);
     this.emit('ingested', payload);
+
+    await this.webhook.dispatch(payload);
 
     const config = this.configManager.get();
     if (this.bufferQueue.length >= config.maxBatchSize) {
@@ -107,9 +107,6 @@ export class S3MinIOImmutableArchiverEngine extends EventEmitter {
     return payload;
   }
 
-  /**
-   * Flushes queued payloads via the transport client and third-party custom sinks.
-   */
   public async flushBuffer(): Promise<number> {
     if (this.bufferQueue.length === 0) return 0;
     const config = this.configManager.get();
@@ -123,16 +120,12 @@ export class S3MinIOImmutableArchiverEngine extends EventEmitter {
       return result.acknowledgedCount;
     } catch (err) {
       this.telemetry.recordError();
-      // Requeue failed payloads
       this.bufferQueue.unshift(...batch);
       this.emit('error', err);
       return 0;
     }
   }
 
-  /**
-   * Returns a real-time comprehensive health and performance inspection report.
-   */
   public getHealthReport(): HealthReport {
     const config = this.configManager.get();
     return {
@@ -145,7 +138,8 @@ export class S3MinIOImmutableArchiverEngine extends EventEmitter {
       lastHeartbeat: new Date().toISOString(),
       metrics: this.telemetry.getSnapshot(this.status, this.bufferQueue.length),
       activeFeatures: ["Real-time Streaming","Lock-Free Ring Buffer","Dynamic Backpressure"],
-      activeThirdPartyHooks: this.adapter.getActiveHookNames()
+      activeThirdPartyHooks: this.adapter.getActiveHookNames(),
+      thirdPartyLinks: S3MinIOImmutableArchiverIntegrations.EXTERNAL_LINKS
     };
   }
 
@@ -157,9 +151,6 @@ export class S3MinIOImmutableArchiverEngine extends EventEmitter {
     return this.configManager.update(patch);
   }
 
-  /**
-   * Graceful shutdown of socket interconnects, bridge server, and daemon loops.
-   */
   public async shutdown(): Promise<void> {
     this.isShuttingDown = true;
     if (this.loopTimer) {

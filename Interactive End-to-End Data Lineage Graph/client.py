@@ -7,7 +7,6 @@ Version: v3.0.0
 
 import asyncio
 import json
-import hashlib
 import time
 import urllib.request
 from typing import Dict, Any, Optional
@@ -19,17 +18,13 @@ class InteractiveEndtoEndDataLineageGraphEnginePythonClient:
         self.plugin_id = "data-lineage-graph"
 
     async def ingest(self, action: str, data: Dict[str, Any]) -> Dict[str, Any]:
-        """Asynchronously ingests a transaction or mutation event into Interactive End-to-End Data Lineage Graph."""
+        """Asynchronously ingests an event into Interactive End-to-End Data Lineage Graph."""
         payload = {
             "jsonrpc": "2.0",
             "id": f"py_{int(time.time() * 1000)}",
             "method": "ingest",
-            "params": {
-                "action": action,
-                "data": data
-            }
+            "params": {"action": action, "data": data}
         }
-        
         req = urllib.request.Request(
             f"{self.bridge_url}/",
             data=json.dumps(payload).encode('utf-8'),
@@ -40,26 +35,13 @@ class InteractiveEndtoEndDataLineageGraphEnginePythonClient:
             },
             method="POST"
         )
-        
         loop = asyncio.get_event_loop()
         response = await loop.run_in_executor(None, urllib.request.urlopen, req)
         return json.loads(response.read().decode('utf-8')).get("result", {})
 
     async def get_health_report(self) -> Dict[str, Any]:
-        """Fetches live health report and metrics from Interactive End-to-End Data Lineage Graph."""
+        """Fetches live health report and metrics."""
         req = urllib.request.Request(f"{self.bridge_url}/health")
         loop = asyncio.get_event_loop()
         response = await loop.run_in_executor(None, urllib.request.urlopen, req)
         return json.loads(response.read().decode('utf-8'))
-
-# Example Quickstart
-if __name__ == "__main__":
-    async def main():
-        client = InteractiveEndtoEndDataLineageGraphEnginePythonClient()
-        print("Connected to Interactive End-to-End Data Lineage Graph Python SDK")
-        event = await client.ingest("insert", {"entity": "sample_record", "status": "active"})
-        print("Ingested event:", event)
-        health = await client.get_health_report()
-        print("Health:", health.get("status"))
-
-    asyncio.run(main())

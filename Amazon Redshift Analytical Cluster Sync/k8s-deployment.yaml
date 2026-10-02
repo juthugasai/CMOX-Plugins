@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cmox-plugin-redshift-cluster-sync
+  labels:
+    app: cmox-plugin-redshift-cluster-sync
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cmox-plugin-redshift-cluster-sync
+  template:
+    metadata:
+      labels:
+        app: cmox-plugin-redshift-cluster-sync
+    spec:
+      containers:
+      - name: plugin
+        image: cmox/plugin-redshift-cluster-sync:2.4.0
+        ports:
+        - containerPort: 7890
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 7890
+          initialDelaySeconds: 5
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cmox-plugin-redshift-cluster-sync-svc
+spec:
+  selector:
+    app: cmox-plugin-redshift-cluster-sync
+  ports:
+  - port: 7890
+    targetPort: 7890

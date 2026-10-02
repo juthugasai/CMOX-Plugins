@@ -31,6 +31,8 @@ export class InteractiveEndtoEndDataLineageGraphConfigManager {
       backpressureThreshold: custom?.backpressureThreshold ?? 10000,
       enableEncryption: custom?.enableEncryption ?? true,
       bridgePort: custom?.bridgePort ?? (Number(process.env[`${envPrefix}BRIDGE_PORT`]) || 7890),
+      webhookUrl: custom?.webhookUrl || process.env[`${envPrefix}WEBHOOK_URL`] || 'https://api.cmox.io/v1/plugins/data-lineage-graph/webhook',
+      webhookSecret: custom?.webhookSecret || process.env[`${envPrefix}WEBHOOK_SECRET`] || 'cmox_sec_live_default_key',
       param1: custom?.param1 || process.env[`${envPrefix}PARAM1`] || "5",
       param2: custom?.param2 || process.env[`${envPrefix}PARAM2`] || "true",
       customOptions: custom?.customOptions || {}

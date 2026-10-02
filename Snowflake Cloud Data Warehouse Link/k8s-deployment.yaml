@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cmox-plugin-snowflake-sync
+  labels:
+    app: cmox-plugin-snowflake-sync
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cmox-plugin-snowflake-sync
+  template:
+    metadata:
+      labels:
+        app: cmox-plugin-snowflake-sync
+    spec:
+      containers:
+      - name: plugin
+        image: cmox/plugin-snowflake-sync:2.1.0
+        ports:
+        - containerPort: 7890
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 7890
+          initialDelaySeconds: 5
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cmox-plugin-snowflake-sync-svc
+spec:
+  selector:
+    app: cmox-plugin-snowflake-sync
+  ports:
+  - port: 7890
+    targetPort: 7890

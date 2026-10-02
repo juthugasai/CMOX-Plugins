@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cmox-plugin-planetscale-proxy
+  labels:
+    app: cmox-plugin-planetscale-proxy
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cmox-plugin-planetscale-proxy
+  template:
+    metadata:
+      labels:
+        app: cmox-plugin-planetscale-proxy
+    spec:
+      containers:
+      - name: plugin
+        image: cmox/plugin-planetscale-proxy:2.0.0
+        ports:
+        - containerPort: 7890
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 7890
+          initialDelaySeconds: 5
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cmox-plugin-planetscale-proxy-svc
+spec:
+  selector:
+    app: cmox-plugin-planetscale-proxy
+  ports:
+  - port: 7890
+    targetPort: 7890

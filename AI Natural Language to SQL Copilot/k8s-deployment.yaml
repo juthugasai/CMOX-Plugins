@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cmox-plugin-ai-nl-sql-copilot
+  labels:
+    app: cmox-plugin-ai-nl-sql-copilot
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cmox-plugin-ai-nl-sql-copilot
+  template:
+    metadata:
+      labels:
+        app: cmox-plugin-ai-nl-sql-copilot
+    spec:
+      containers:
+      - name: plugin
+        image: cmox/plugin-ai-nl-sql-copilot:4.5.0
+        ports:
+        - containerPort: 7890
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 7890
+          initialDelaySeconds: 5
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cmox-plugin-ai-nl-sql-copilot-svc
+spec:
+  selector:
+    app: cmox-plugin-ai-nl-sql-copilot
+  ports:
+  - port: 7890
+    targetPort: 7890

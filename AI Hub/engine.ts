@@ -18,6 +18,8 @@ import { AIHubPipeline } from './pipeline';
 import { AIHubTelemetry } from './telemetry';
 import { AIHubThirdPartyAdapter } from './adapter';
 import { AIHubUniversalBridge } from './bridge';
+import { AIHubWebhookDispatcher } from './webhook';
+import { AIHubIntegrations } from './integrations';
 
 export class AIHubEngine extends EventEmitter {
   public readonly id = 'ai-hub';
@@ -30,6 +32,7 @@ export class AIHubEngine extends EventEmitter {
   private pipeline: AIHubPipeline;
   private telemetry: AIHubTelemetry;
   public readonly adapter: AIHubThirdPartyAdapter;
+  public readonly webhook: AIHubWebhookDispatcher;
   private bridge: AIHubUniversalBridge | null = null;
 
   private status: PluginStatus = 'uninitialized';
@@ -45,11 +48,9 @@ export class AIHubEngine extends EventEmitter {
     this.client = new AIHubClient(config);
     this.pipeline = new AIHubPipeline(this.adapter);
     this.telemetry = new AIHubTelemetry();
+    this.webhook = new AIHubWebhookDispatcher(config.webhookUrl || '', config.webhookSecret || '');
   }
 
-  /**
-   * Initializes the plugin runtime, connects sockets, and starts the universal multi-language bridge.
-   */
   public async initialize(enableBridge = true): Promise<boolean> {
     const config = this.configManager.get();
     if (!config.enabled) {
@@ -89,15 +90,14 @@ export class AIHubEngine extends EventEmitter {
     }, intervalMs);
   }
 
-  /**
-   * Ingests a new mutation or telemetry record into the asynchronous pipeline.
-   */
   public async ingest<T = any>(action: MutationAction, data: T): Promise<StreamPayload<T>> {
     const start = Date.now();
     const payload = await this.pipeline.process(action, data);
     this.bufferQueue.push(payload);
     this.telemetry.recordEvent(Date.now() - start);
     this.emit('ingested', payload);
+
+    await this.webhook.dispatch(payload);
 
     const config = this.configManager.get();
     if (this.bufferQueue.length >= config.maxBatchSize) {
@@ -107,9 +107,6 @@ export class AIHubEngine extends EventEmitter {
     return payload;
   }
 
-  /**
-   * Flushes queued payloads via the transport client and third-party custom sinks.
-   */
   public async flushBuffer(): Promise<number> {
     if (this.bufferQueue.length === 0) return 0;
     const config = this.configManager.get();
@@ -123,16 +120,12 @@ export class AIHubEngine extends EventEmitter {
       return result.acknowledgedCount;
     } catch (err) {
       this.telemetry.recordError();
-      // Requeue failed payloads
       this.bufferQueue.unshift(...batch);
       this.emit('error', err);
       return 0;
     }
   }
 
-  /**
-   * Returns a real-time comprehensive health and performance inspection report.
-   */
   public getHealthReport(): HealthReport {
     const config = this.configManager.get();
     return {
@@ -145,7 +138,8 @@ export class AIHubEngine extends EventEmitter {
       lastHeartbeat: new Date().toISOString(),
       metrics: this.telemetry.getSnapshot(this.status, this.bufferQueue.length),
       activeFeatures: ["Multi-provider LLM gateway (Google Gemini 3.5, OpenAI GPT-4o, Claude 3.7, Local Ollama)","Autonomous schema blueprint generator from natural language prompts","Real-time text-to-SQL query generation with safety AST guardrails","High-dimensional vector embedding generation & cosine similarity search","Semantic prompt caching with 90%+ latency reduction for repeated analytical queries","Automated slow query remediation & index synthesis"],
-      activeThirdPartyHooks: this.adapter.getActiveHookNames()
+      activeThirdPartyHooks: this.adapter.getActiveHookNames(),
+      thirdPartyLinks: AIHubIntegrations.EXTERNAL_LINKS
     };
   }
 
@@ -157,9 +151,6 @@ export class AIHubEngine extends EventEmitter {
     return this.configManager.update(patch);
   }
 
-  /**
-   * Graceful shutdown of socket interconnects, bridge server, and daemon loops.
-   */
   public async shutdown(): Promise<void> {
     this.isShuttingDown = true;
     if (this.loopTimer) {

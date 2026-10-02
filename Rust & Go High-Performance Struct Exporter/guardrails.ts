@@ -12,9 +12,6 @@ export class RustGoHighPerformanceStructExporterGuardrails {
   private currentWindowStart: number = Date.now();
   private requestCount: number = 0;
 
-  /**
-   * Sanitizes and validates a transaction or telemetry event before engine ingestion.
-   */
   public validatePayload<T>(payload: Partial<StreamPayload<T>>): ValidationResult {
     const errors: string[] = [];
 
@@ -25,7 +22,6 @@ export class RustGoHighPerformanceStructExporterGuardrails {
       errors.push('Payload "data" cannot be null or undefined.');
     }
 
-    // Rate limiting check
     const now = Date.now();
     if (now - this.currentWindowStart > this.rateLimitWindowMs) {
       this.currentWindowStart = now;

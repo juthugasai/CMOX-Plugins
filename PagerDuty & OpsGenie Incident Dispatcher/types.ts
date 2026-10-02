@@ -9,7 +9,7 @@
 
 export type PluginLogLevel = 'debug' | 'info' | 'warn' | 'error';
 export type PluginStatus = 'uninitialized' | 'initializing' | 'connected' | 'healthy' | 'degraded' | 'reconnecting' | 'disconnected' | 'terminated';
-export type MutationAction = 'insert' | 'update' | 'delete' | 'stream' | 'telemetry' | 'schema_change' | 'audit_event' | 'custom_hook';
+export type MutationAction = 'insert' | 'update' | 'delete' | 'stream' | 'telemetry' | 'schema_change' | 'audit_event' | 'webhook_dispatch' | 'custom_hook';
 
 export interface PagerDutyOpsGenieIncidentDispatcherEngineConfig {
   enabled: boolean;
@@ -24,7 +24,9 @@ export interface PagerDutyOpsGenieIncidentDispatcherEngineConfig {
   connectionPoolSize: number;
   backpressureThreshold: number;
   enableEncryption: boolean;
-  bridgePort?: number;
+  bridgePort: number;
+  webhookUrl?: string;
+  webhookSecret?: string;
   param1?: string;
   param2?: string;
   customOptions?: Record<string, any>;
@@ -68,12 +70,21 @@ export interface HealthReport {
   metrics: MetricSnapshot;
   activeFeatures: string[];
   activeThirdPartyHooks: string[];
+  thirdPartyLinks: Record<string, string>;
 }
 
 export interface ValidationResult {
   valid: boolean;
   errors: string[];
   sanitizedData?: any;
+}
+
+export interface ThirdPartyIntegrationTarget {
+  name: string;
+  url: string;
+  type: 'webhook' | 'rest_api' | 'cloud_service' | 'docs';
+  authHeader?: string;
+  enabled: boolean;
 }
 
 export type MiddlewareHandler<T = any> = (payload: StreamPayload<T>) => Promise<StreamPayload<T>> | StreamPayload<T>;

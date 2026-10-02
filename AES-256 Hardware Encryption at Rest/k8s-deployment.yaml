@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cmox-plugin-aes256-encryption
+  labels:
+    app: cmox-plugin-aes256-encryption
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cmox-plugin-aes256-encryption
+  template:
+    metadata:
+      labels:
+        app: cmox-plugin-aes256-encryption
+    spec:
+      containers:
+      - name: plugin
+        image: cmox/plugin-aes256-encryption:5.0.0
+        ports:
+        - containerPort: 7890
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 7890
+          initialDelaySeconds: 5
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cmox-plugin-aes256-encryption-svc
+spec:
+  selector:
+    app: cmox-plugin-aes256-encryption
+  ports:
+  - port: 7890
+    targetPort: 7890

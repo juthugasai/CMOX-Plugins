@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cmox-plugin-audit-trail-ledger
+  labels:
+    app: cmox-plugin-audit-trail-ledger
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cmox-plugin-audit-trail-ledger
+  template:
+    metadata:
+      labels:
+        app: cmox-plugin-audit-trail-ledger
+    spec:
+      containers:
+      - name: plugin
+        image: cmox/plugin-audit-trail-ledger:2.4.0
+        ports:
+        - containerPort: 7890
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 7890
+          initialDelaySeconds: 5
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cmox-plugin-audit-trail-ledger-svc
+spec:
+  selector:
+    app: cmox-plugin-audit-trail-ledger
+  ports:
+  - port: 7890
+    targetPort: 7890

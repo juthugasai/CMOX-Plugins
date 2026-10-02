@@ -18,6 +18,8 @@ import { AES256HardwareEncryptionatRestPipeline } from './pipeline';
 import { AES256HardwareEncryptionatRestTelemetry } from './telemetry';
 import { AES256HardwareEncryptionatRestThirdPartyAdapter } from './adapter';
 import { AES256HardwareEncryptionatRestUniversalBridge } from './bridge';
+import { AES256HardwareEncryptionatRestWebhookDispatcher } from './webhook';
+import { AES256HardwareEncryptionatRestIntegrations } from './integrations';
 
 export class AES256HardwareEncryptionatRestEngine extends EventEmitter {
   public readonly id = 'aes256-encryption';
@@ -30,6 +32,7 @@ export class AES256HardwareEncryptionatRestEngine extends EventEmitter {
   private pipeline: AES256HardwareEncryptionatRestPipeline;
   private telemetry: AES256HardwareEncryptionatRestTelemetry;
   public readonly adapter: AES256HardwareEncryptionatRestThirdPartyAdapter;
+  public readonly webhook: AES256HardwareEncryptionatRestWebhookDispatcher;
   private bridge: AES256HardwareEncryptionatRestUniversalBridge | null = null;
 
   private status: PluginStatus = 'uninitialized';
@@ -45,11 +48,9 @@ export class AES256HardwareEncryptionatRestEngine extends EventEmitter {
     this.client = new AES256HardwareEncryptionatRestClient(config);
     this.pipeline = new AES256HardwareEncryptionatRestPipeline(this.adapter);
     this.telemetry = new AES256HardwareEncryptionatRestTelemetry();
+    this.webhook = new AES256HardwareEncryptionatRestWebhookDispatcher(config.webhookUrl || '', config.webhookSecret || '');
   }
 
-  /**
-   * Initializes the plugin runtime, connects sockets, and starts the universal multi-language bridge.
-   */
   public async initialize(enableBridge = true): Promise<boolean> {
     const config = this.configManager.get();
     if (!config.enabled) {
@@ -89,15 +90,14 @@ export class AES256HardwareEncryptionatRestEngine extends EventEmitter {
     }, intervalMs);
   }
 
-  /**
-   * Ingests a new mutation or telemetry record into the asynchronous pipeline.
-   */
   public async ingest<T = any>(action: MutationAction, data: T): Promise<StreamPayload<T>> {
     const start = Date.now();
     const payload = await this.pipeline.process(action, data);
     this.bufferQueue.push(payload);
     this.telemetry.recordEvent(Date.now() - start);
     this.emit('ingested', payload);
+
+    await this.webhook.dispatch(payload);
 
     const config = this.configManager.get();
     if (this.bufferQueue.length >= config.maxBatchSize) {
@@ -107,9 +107,6 @@ export class AES256HardwareEncryptionatRestEngine extends EventEmitter {
     return payload;
   }
 
-  /**
-   * Flushes queued payloads via the transport client and third-party custom sinks.
-   */
   public async flushBuffer(): Promise<number> {
     if (this.bufferQueue.length === 0) return 0;
     const config = this.configManager.get();
@@ -123,16 +120,12 @@ export class AES256HardwareEncryptionatRestEngine extends EventEmitter {
       return result.acknowledgedCount;
     } catch (err) {
       this.telemetry.recordError();
-      // Requeue failed payloads
       this.bufferQueue.unshift(...batch);
       this.emit('error', err);
       return 0;
     }
   }
 
-  /**
-   * Returns a real-time comprehensive health and performance inspection report.
-   */
   public getHealthReport(): HealthReport {
     const config = this.configManager.get();
     return {
@@ -145,7 +138,8 @@ export class AES256HardwareEncryptionatRestEngine extends EventEmitter {
       lastHeartbeat: new Date().toISOString(),
       metrics: this.telemetry.getSnapshot(this.status, this.bufferQueue.length),
       activeFeatures: ["Zero-overhead hardware acceleration using CPU AES-NI instructions","Full encryption for tables, JSON files, indexes, and WAL logs","Local master key derivation via Argon2id (100k rounds)","Zero plain-text residual data in RAM or swap files"],
-      activeThirdPartyHooks: this.adapter.getActiveHookNames()
+      activeThirdPartyHooks: this.adapter.getActiveHookNames(),
+      thirdPartyLinks: AES256HardwareEncryptionatRestIntegrations.EXTERNAL_LINKS
     };
   }
 
@@ -157,9 +151,6 @@ export class AES256HardwareEncryptionatRestEngine extends EventEmitter {
     return this.configManager.update(patch);
   }
 
-  /**
-   * Graceful shutdown of socket interconnects, bridge server, and daemon loops.
-   */
   public async shutdown(): Promise<void> {
     this.isShuttingDown = true;
     if (this.loopTimer) {

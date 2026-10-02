@@ -9,7 +9,8 @@
   "license": "Commercial",
   "scripts": {
     "build": "tsc",
-    "test": "tsx test.ts"
+    "test": "tsx test.ts",
+    "bridge": "tsx bridge.ts"
   },
   "keywords": [
     "cmox",
@@ -20,6 +21,8 @@
     "python",
     "go",
     "rust",
+    "java",
+    "csharp",
     "PITR",
     "WAL",
     "Recovery",

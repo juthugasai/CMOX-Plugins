@@ -12,6 +12,8 @@ export * from './client';
 export * from './pipeline';
 export * from './adapter';
 export * from './bridge';
+export * from './webhook';
+export * from './integrations';
 export * from './engine';
 
 import { PostgreSQLNativeDumpRestoreWizardEngine } from './engine';

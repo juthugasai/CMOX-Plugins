@@ -22,16 +22,36 @@
     "python": "client.py",
     "golang": "client.go",
     "rust": "client.rs",
-    "cli": "cli.sh",
+    "java": "Client.java",
+    "csharp": "Client.cs",
+    "php": "client.php",
+    "ruby": "client.rb",
+    "cliBash": "cli.sh",
+    "cliBatch": "cli.bat",
+    "openApi": "openapi.json",
     "universalBridge": "bridge.ts"
   },
   "thirdPartyExtensibility": {
     "adapter": "adapter.ts",
+    "webhookDispatcher": "webhook.ts",
+    "integrations": "integrations.ts",
     "supportsPreIngestHooks": true,
     "supportsPostProcessHooks": true,
     "supportsCustomSinks": true,
     "jsonRpc2": true,
     "restApi": true
+  },
+  "docker": {
+    "dockerfile": "Dockerfile",
+    "compose": "docker-compose.yml",
+    "kubernetes": "k8s-deployment.yaml"
+  },
+  "thirdPartyLinks": {
+    "officialDocs": "https://docs.cmox.io/extensions/json-validator",
+    "githubRepo": "https://github.com/juthugasai/CMOX-Plugins/tree/main/JSON%20_%20BSON%20Document%20Schema%20Validator",
+    "openApiSpec": "https://api.cmox.io/openapi/v3/json-validator.json",
+    "prometheusGrafana": "https://grafana.com/dashboards/cmox-json-validator",
+    "slackCommunity": "https://cmox.io/community/slack"
   },
   "tags": [
     "JSON",

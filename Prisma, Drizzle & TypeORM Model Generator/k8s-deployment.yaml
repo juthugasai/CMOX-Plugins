@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cmox-plugin-orm-models-generator
+  labels:
+    app: cmox-plugin-orm-models-generator
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cmox-plugin-orm-models-generator
+  template:
+    metadata:
+      labels:
+        app: cmox-plugin-orm-models-generator
+    spec:
+      containers:
+      - name: plugin
+        image: cmox/plugin-orm-models-generator:3.7.0
+        ports:
+        - containerPort: 7890
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 7890
+          initialDelaySeconds: 5
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cmox-plugin-orm-models-generator-svc
+spec:
+  selector:
+    app: cmox-plugin-orm-models-generator
+  ports:
+  - port: 7890
+    targetPort: 7890
