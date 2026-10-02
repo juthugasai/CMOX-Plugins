@@ -1,0 +1,37 @@
+{
+  "id": "cassandra-bridge",
+  "name": "Apache Cassandra Wide-Column Bridge",
+  "version": "v2.0.1",
+  "category": "Connectors",
+  "price": "$15/mo",
+  "author": "BigData Systems",
+  "license": "Apache-2.0",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Cassandra",
+    "ScyllaDB",
+    "NoSQL",
+    "Big Data"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "endpoint": "cassandra://127.0.0.1:9042",
+    "logLevel": "info",
+    "param1Label": "Keyspace Name",
+    "param1Value": "cmox_keyspace",
+    "param2Label": "Consistency Level",
+    "param2Value": "LOCAL_QUORUM"
+  }
+}

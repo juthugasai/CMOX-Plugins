@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-multi-cloud-dr",
+  "version": "1.7.0",
+  "description": "Geo-replicate backups concurrently across three tier-1 cloud providers to guarantee 99.999% data survivability.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Multi-Cloud",
+    "Geo",
+    "Redundancy",
+    "High Availability"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-postgres-native-wizard",
+  "version": "3.5.0",
+  "description": "Import or export standard .sql, .tar, and .pgdump files with multi-threaded parallel restore pipelines.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "CDUS Tech Core",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Postgres",
+    "Dump",
+    "pg_restore",
+    "SQL"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

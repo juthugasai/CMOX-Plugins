@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-vercel-cache-invalidator",
+  "version": "2.3.0",
+  "description": "Purge Next.js Incremental Static Regeneration (ISR) and Vercel Data Cache tags automatically on table updates.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "Vercel Partner",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Vercel",
+    "Next.js",
+    "ISR",
+    "Cache Invalidation"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

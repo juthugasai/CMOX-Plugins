@@ -1,0 +1,36 @@
+{
+  "id": "schema-architect-ai",
+  "name": "Natural Language Database Schema Architect",
+  "version": "v2.9.0",
+  "category": "AI & Automation",
+  "price": "Free",
+  "author": "CDUS Tech Core",
+  "license": "MIT",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Schema",
+    "AI",
+    "Design",
+    "Architecture"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "logLevel": "info",
+    "param1Label": "Naming Convention",
+    "param1Value": "snake_case_plural",
+    "param2Label": "Enforce Soft Deletes",
+    "param2Value": "true"
+  }
+}

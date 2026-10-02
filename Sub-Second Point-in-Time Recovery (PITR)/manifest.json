@@ -1,0 +1,36 @@
+{
+  "id": "pitr-recovery",
+  "name": "Sub-Second Point-in-Time Recovery (PITR)",
+  "version": "v3.0.1",
+  "category": "Backup & DR",
+  "price": "$24/mo",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "PITR",
+    "WAL",
+    "Recovery",
+    "Time-Travel"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "logLevel": "info",
+    "param1Label": "Retention Window Days",
+    "param1Value": "45",
+    "param2Label": "WAL Segment Size MB",
+    "param2Value": "16"
+  }
+}

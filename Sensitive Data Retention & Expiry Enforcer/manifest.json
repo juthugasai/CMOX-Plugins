@@ -1,0 +1,38 @@
+{
+  "id": "retention-expiry-enforcer",
+  "name": "Sensitive Data Retention & Expiry Enforcer",
+  "version": "v2.0.0",
+  "category": "Data Governance",
+  "price": "Free",
+  "author": "Compliance Guard",
+  "license": "MIT",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "GDPR",
+    "Retention",
+    "Expiry",
+    "Compliance",
+    "Shredder"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "syncIntervalSec": 86400,
+    "logLevel": "info",
+    "param1Label": "Default Retention Days",
+    "param1Value": "730",
+    "param2Label": "Hard Delete Overwrite Passes",
+    "param2Value": "3"
+  }
+}

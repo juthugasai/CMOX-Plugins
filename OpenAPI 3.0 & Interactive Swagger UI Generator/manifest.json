@@ -1,0 +1,37 @@
+{
+  "id": "swagger-openapi-ui",
+  "name": "OpenAPI 3.0 & Interactive Swagger UI Generator",
+  "version": "v2.3.0",
+  "category": "Dev Tools",
+  "price": "Free",
+  "author": "CDUS Tech Core",
+  "license": "MIT",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "OpenAPI",
+    "Swagger",
+    "Docs",
+    "Postman"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "endpoint": "/api/docs",
+    "logLevel": "info",
+    "param1Label": "API Title",
+    "param1Value": "CMOX Database API",
+    "param2Label": "API Version",
+    "param2Value": "v1.0.0"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-postman-newman-ci",
+  "version": "1.7.0",
+  "description": "Export ready-to-run Postman v2.1 test suites with automated assertions for GitHub Actions CI/CD pipelines.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "QA Tooling",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Postman",
+    "Newman",
+    "CI/CD",
+    "Testing"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "id": "bigquery-etl-link",
+  "name": "Google BigQuery Synchronous ETL Link",
+  "version": "v2.8.0",
+  "category": "Analytics & OLAP",
+  "price": "$25/mo",
+  "author": "Cloud Infrastructure",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "BigQuery",
+    "GCP",
+    "Data Warehouse",
+    "ETL"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "apiKeyPlaceholder": "gcp_service_account_json_key",
+    "logLevel": "info",
+    "param1Label": "GCP Project ID",
+    "param1Value": "corp-production-ai",
+    "param2Label": "Dataset ID",
+    "param2Value": "cmox_analytics"
+  }
+}

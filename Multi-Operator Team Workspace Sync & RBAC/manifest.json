@@ -1,0 +1,36 @@
+{
+  "id": "team-workspace-rbac",
+  "name": "Multi-Operator Team Workspace Sync & RBAC",
+  "version": "v2.5.0",
+  "category": "Dev Tools",
+  "price": "$8/mo",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Team",
+    "RBAC",
+    "Collaboration",
+    "Multiplayer"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "logLevel": "info",
+    "param1Label": "Default Member Role",
+    "param1Value": "Developer",
+    "param2Label": "Realtime Cursor Presence",
+    "param2Value": "true"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-kyber-quantum-encryption",
+  "version": "1.1.0",
+  "description": "Post-quantum cryptographic key exchange utilizing NIST ML-KEM (Kyber-768/1024) algorithms.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "Quantum Cryptography Labs",
+  "license": "FIPS 203 Approved",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Post-Quantum",
+    "Kyber",
+    "NIST",
+    "Cryptography"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

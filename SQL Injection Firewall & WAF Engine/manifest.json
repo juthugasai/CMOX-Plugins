@@ -1,0 +1,36 @@
+{
+  "id": "sqli-firewall",
+  "name": "SQL Injection Firewall & WAF Engine",
+  "version": "v4.2.0",
+  "category": "Security & IAM",
+  "price": "Free",
+  "author": "CDUS Tech Core",
+  "license": "MIT",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "WAF",
+    "SQLi",
+    "Defense",
+    "Firewall"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "logLevel": "warn",
+    "param1Label": "Inspection Mode",
+    "param1Value": "block-and-alert",
+    "param2Label": "Max Allowed Stacked Queries",
+    "param2Value": "1"
+  }
+}

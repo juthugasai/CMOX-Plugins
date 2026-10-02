@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-spark-batch-runner",
+  "version": "3.1.0",
+  "description": "Submit PySpark and Scala Spark cluster jobs directly against your CMOX database partitions.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "Enterprise BigData",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Spark",
+    "PySpark",
+    "Distributed",
+    "Hadoop"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

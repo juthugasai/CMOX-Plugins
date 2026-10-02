@@ -1,0 +1,27 @@
+{
+  "name": "@cmox/plugin-rust-go-struct-gen",
+  "version": "2.1.0",
+  "description": "Generate idiomatic Rust `serde` structs with Diesel/SQLx derivations and Go `sqlx` tagged structs.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "Systems Dev Team",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Rust",
+    "Go",
+    "Diesel",
+    "SQLx",
+    "Serde"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

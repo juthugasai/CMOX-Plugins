@@ -1,0 +1,37 @@
+{
+  "id": "nats-messaging",
+  "name": "NATS.io Cloud-Native Messaging Driver",
+  "version": "v2.3.0",
+  "category": "Connectors",
+  "price": "Free",
+  "author": "Cloud Native Labs",
+  "license": "Apache-2.0",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "NATS",
+    "JetStream",
+    "Microservices",
+    "PubSub"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "endpoint": "nats://127.0.0.1:4222",
+    "logLevel": "info",
+    "param1Label": "Stream Name",
+    "param1Value": "CMOX_STREAM",
+    "param2Label": "Subject Filter",
+    "param2Value": "database.*"
+  }
+}

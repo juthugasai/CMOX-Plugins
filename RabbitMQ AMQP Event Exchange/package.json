@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-rabbitmq-exchange",
+  "version": "1.8.2",
+  "description": "Broadcast table lifecycle events and mutation notifications into RabbitMQ routing keys and fanout exchanges.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "Community",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "RabbitMQ",
+    "AMQP",
+    "Queues",
+    "Async"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

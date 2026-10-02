@@ -1,0 +1,37 @@
+{
+  "id": "lambda-serverless-trigger",
+  "name": "AWS Lambda Serverless Database Trigger",
+  "version": "v2.7.0",
+  "category": "Cloud & Edge",
+  "price": "$12/mo",
+  "author": "AWS Solutions Partner",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "AWS",
+    "Lambda",
+    "Serverless",
+    "Events"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "endpoint": "arn:aws:lambda:us-east-1:123456789:function:ProcessDbEvent",
+    "logLevel": "info",
+    "param1Label": "Invocation Type",
+    "param1Value": "Event (Async)",
+    "param2Label": "Max Batch Size",
+    "param2Value": "100"
+  }
+}

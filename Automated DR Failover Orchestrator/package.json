@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-auto-failover",
+  "version": "1.5.1",
+  "description": "Automatic heartbeat health detection with zero-downtime leader election and standby database promotion.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Failover",
+    "HA",
+    "Cluster",
+    "Zero-Downtime"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

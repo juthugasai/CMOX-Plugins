@@ -1,0 +1,43 @@
+{
+  "id": "redis-cache",
+  "name": "Redis Sub-Millisecond Cache Layer",
+  "version": "v4.0.1",
+  "category": "Connectors",
+  "price": "$12/mo",
+  "author": "CDUS Tech Core",
+  "license": "Commercial / Proprietary",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse"
+  ],
+  "tags": [
+    "Redis",
+    "Caching",
+    "In-Memory",
+    "Performance",
+    "Speed"
+  ],
+  "features": [
+    "Sub-0.5ms cached query reads directly from RAM",
+    "Intelligent mutation-aware cache tag invalidation",
+    "Redis Cluster & Redis Sentinel high-availability failover",
+    "Configurable LRU/LFU cache memory eviction policies"
+  ],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "endpoint": "redis://127.0.0.1:6379",
+    "cacheTtlSec": 300,
+    "logLevel": "info",
+    "param1Label": "Max Memory Policy",
+    "param1Value": "allkeys-lru",
+    "param2Label": "Key Prefix",
+    "param2Value": "cmox:cache:"
+  }
+}

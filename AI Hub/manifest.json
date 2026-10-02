@@ -1,0 +1,50 @@
+{
+  "id": "ai-hub",
+  "name": "AI Hub",
+  "version": "v3.0.0",
+  "category": "AI & Automation",
+  "price": "Free",
+  "author": "CDUS Tech Core",
+  "license": "Apache-2.0",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MongoDB",
+    "MySQL",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "AI",
+    "AI Hub",
+    "Gemini",
+    "LLM",
+    "Orchestration",
+    "Vector",
+    "Agents",
+    "Copilot"
+  ],
+  "features": [
+    "Multi-provider LLM gateway (Google Gemini 3.5, OpenAI GPT-4o, Claude 3.7, Local Ollama)",
+    "Autonomous schema blueprint generator from natural language prompts",
+    "Real-time text-to-SQL query generation with safety AST guardrails",
+    "High-dimensional vector embedding generation & cosine similarity search",
+    "Semantic prompt caching with 90%+ latency reduction for repeated analytical queries",
+    "Automated slow query remediation & index synthesis"
+  ],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "endpoint": "https://generativelanguage.googleapis.com",
+    "apiKeyPlaceholder": "AIzaSy...",
+    "logLevel": "info",
+    "param1Label": "Default AI Model",
+    "param1Value": "gemini-3.5-flash",
+    "param2Label": "Semantic Cache & Guardrails",
+    "param2Value": "enabled",
+    "syncIntervalSec": 5
+  }
+}

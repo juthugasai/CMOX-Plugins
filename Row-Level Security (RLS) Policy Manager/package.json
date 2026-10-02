@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-rls-policy-manager",
+  "version": "2.6.0",
+  "description": "Define granular declarative row access policies based on user roles, tenant IDs, department attributes, or JWT claims.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "RLS",
+    "Multi-Tenant",
+    "Policies",
+    "RBAC"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

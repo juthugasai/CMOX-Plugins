@@ -1,0 +1,37 @@
+{
+  "id": "duckdb-engine",
+  "name": "DuckDB In-Memory OLAP Calculation Engine",
+  "version": "v2.5.0",
+  "category": "Analytics & OLAP",
+  "price": "Free",
+  "author": "CDUS Tech Core",
+  "license": "MIT",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "DuckDB",
+    "In-Memory",
+    "Fast",
+    "OLAP",
+    "Pandas"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "logLevel": "info",
+    "param1Label": "Threads Count",
+    "param1Value": "8",
+    "param2Label": "Memory Limit MB",
+    "param2Value": "4096"
+  }
+}

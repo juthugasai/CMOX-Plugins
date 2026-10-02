@@ -1,0 +1,36 @@
+{
+  "id": "geojson-spatial-engine",
+  "name": "GeoJSON & Spatial GIS Data Engine",
+  "version": "v1.7.0",
+  "category": "Import/Export",
+  "price": "$14/mo",
+  "author": "GIS Pro",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "GeoJSON",
+    "GIS",
+    "PostGIS",
+    "Spatial"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "logLevel": "info",
+    "param1Label": "Default Spatial SRID",
+    "param1Value": "4326 (WGS84)",
+    "param2Label": "Auto-Index Geometry Columns",
+    "param2Value": "true"
+  }
+}

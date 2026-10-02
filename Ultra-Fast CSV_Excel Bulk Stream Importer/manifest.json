@@ -1,0 +1,36 @@
+{
+  "id": "csv-excel-importer",
+  "name": "Ultra-Fast CSV/Excel Bulk Stream Importer",
+  "version": "v4.2.0",
+  "category": "Import/Export",
+  "price": "Free",
+  "author": "CDUS Tech Core",
+  "license": "MIT",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "CSV",
+    "Excel",
+    "Bulk",
+    "Importer"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "logLevel": "info",
+    "param1Label": "Batch Insert Chunk Size",
+    "param1Value": "5000",
+    "param2Label": "Auto-Create Missing Tables",
+    "param2Value": "true"
+  }
+}

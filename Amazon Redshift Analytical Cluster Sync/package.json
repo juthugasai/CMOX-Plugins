@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-redshift-cluster-sync",
+  "version": "2.4.0",
+  "description": "High-throughput micro-batching into Amazon Redshift Serverless and RA3 cluster storage.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "AWS Solutions Partner",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Redshift",
+    "AWS",
+    "OLAP",
+    "Data Warehouse"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

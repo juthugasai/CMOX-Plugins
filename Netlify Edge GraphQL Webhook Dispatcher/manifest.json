@@ -1,0 +1,37 @@
+{
+  "id": "netlify-edge-dispatcher",
+  "name": "Netlify Edge GraphQL Webhook Dispatcher",
+  "version": "v1.5.0",
+  "category": "Cloud & Edge",
+  "price": "Free",
+  "author": "Community",
+  "license": "MIT",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": false,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Netlify",
+    "Edge",
+    "Jamstack",
+    "Webhooks"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "endpoint": "https://api.netlify.com/build_hooks/...",
+    "logLevel": "info",
+    "param1Label": "Clear Cache on Build",
+    "param1Value": "true",
+    "param2Label": "Max Build Trigger Frequency",
+    "param2Value": "60s"
+  }
+}

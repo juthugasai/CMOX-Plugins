@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-disk-iops-profiler",
+  "version": "1.3.0",
+  "description": "Monitor physical drive write amplification, read/write IOPS, queue depth, and SSD remaining lifespan.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "Hardware Lab",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "IOPS",
+    "NVMe",
+    "Hardware",
+    "Storage"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

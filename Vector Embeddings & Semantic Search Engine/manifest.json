@@ -1,0 +1,36 @@
+{
+  "id": "vector-embeddings-engine",
+  "name": "Vector Embeddings & Semantic Search Engine",
+  "version": "v3.0.0",
+  "category": "AI & Automation",
+  "price": "$25/mo",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Vector",
+    "pgvector",
+    "RAG",
+    "LLM"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "logLevel": "info",
+    "param1Label": "Vector Dimensions",
+    "param1Value": "1536",
+    "param2Label": "Index Algorithm",
+    "param2Value": "HNSW (m=16, ef_construction=64)"
+  }
+}

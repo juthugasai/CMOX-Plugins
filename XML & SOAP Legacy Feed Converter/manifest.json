@@ -1,0 +1,36 @@
+{
+  "id": "xml-soap-converter",
+  "name": "XML & SOAP Legacy Feed Converter",
+  "version": "v1.4.0",
+  "category": "Import/Export",
+  "price": "Free",
+  "author": "Community",
+  "license": "MIT",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": false,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "XML",
+    "SOAP",
+    "XSD",
+    "Legacy"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "logLevel": "info",
+    "param1Label": "Root Record XPath",
+    "param1Value": "//Envelope/Body/Record",
+    "param2Label": "Attribute Prefix",
+    "param2Value": "@"
+  }
+}

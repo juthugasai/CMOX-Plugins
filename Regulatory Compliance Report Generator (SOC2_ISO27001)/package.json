@@ -1,0 +1,27 @@
+{
+  "name": "@cmox/plugin-regulatory-report-generator",
+  "version": "2.2.0",
+  "description": "Automated audit evidence collection compiling encryption status, user access lists, and backup proofs.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "Security Labs",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "SOC2",
+    "ISO27001",
+    "Compliance",
+    "Auditing",
+    "HIPAA"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

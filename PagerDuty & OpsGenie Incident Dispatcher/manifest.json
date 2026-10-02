@@ -1,0 +1,37 @@
+{
+  "id": "pagerduty-dispatcher",
+  "name": "PagerDuty & OpsGenie Incident Dispatcher",
+  "version": "v1.5.0",
+  "category": "Monitoring & Ops",
+  "price": "$8/mo",
+  "author": "Incident Labs",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "PagerDuty",
+    "Alerts",
+    "On-Call",
+    "Incident"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "apiKeyPlaceholder": "pd_integration_routing_key",
+    "logLevel": "warn",
+    "param1Label": "Urgency Level",
+    "param1Value": "high",
+    "param2Label": "Auto-Resolve on Recovery",
+    "param2Value": "true"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-typescript-zod-exporter",
+  "version": "4.0.0",
+  "description": "Auto-generate type-safe TypeScript interfaces, Zod validator schemas, and Prisma client models in one click.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "CDUS Tech Core",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "TypeScript",
+    "Zod",
+    "Types",
+    "Full-Stack"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

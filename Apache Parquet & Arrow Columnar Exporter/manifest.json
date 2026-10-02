@@ -1,0 +1,36 @@
+{
+  "id": "parquet-arrow-exporter",
+  "name": "Apache Parquet & Arrow Columnar Exporter",
+  "version": "v2.0.0",
+  "category": "Import/Export",
+  "price": "$16/mo",
+  "author": "Data Science Labs",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Parquet",
+    "Arrow",
+    "Analytics",
+    "Data Science"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "logLevel": "info",
+    "param1Label": "Compression Codec",
+    "param1Value": "SNAPPY",
+    "param2Label": "Row Group Size",
+    "param2Value": "100000"
+  }
+}

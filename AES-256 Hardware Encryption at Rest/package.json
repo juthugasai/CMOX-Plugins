@@ -1,0 +1,27 @@
+{
+  "name": "@cmox/plugin-aes256-encryption",
+  "version": "5.0.0",
+  "description": "Military-grade AES-256-GCM disk encryption using hardware AES-NI acceleration with local master key management.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "CDUS Tech Core",
+  "license": "FIPS 140-2 Validated",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "AES-256",
+    "Encryption",
+    "FIPS",
+    "Hardware",
+    "Security"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

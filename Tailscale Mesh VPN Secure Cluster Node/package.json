@@ -1,0 +1,27 @@
+{
+  "name": "@cmox/plugin-tailscale-mesh-node",
+  "version": "3.0.0",
+  "description": "Connect your CMOX database server directly to private Tailscale tailnets with WireGuard encryption.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "Tailscale Partner",
+  "license": "BSD-3-Clause",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Tailscale",
+    "WireGuard",
+    "VPN",
+    "Mesh",
+    "Security"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

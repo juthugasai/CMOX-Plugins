@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-nats-messaging",
+  "version": "2.3.0",
+  "description": "Ultra-lightweight publish/subscribe messaging and JetStream streaming for edge microservices.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "Cloud Native Labs",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "NATS",
+    "JetStream",
+    "Microservices",
+    "PubSub"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

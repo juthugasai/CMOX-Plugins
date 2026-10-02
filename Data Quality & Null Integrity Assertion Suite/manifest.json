@@ -1,0 +1,37 @@
+{
+  "id": "data-quality-assertions",
+  "name": "Data Quality & Null Integrity Assertion Suite",
+  "version": "v2.1.0",
+  "category": "Data Governance",
+  "price": "$10/mo",
+  "author": "DataOps Labs",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "DataQuality",
+    "Testing",
+    "Assertions",
+    "GreatExpectations"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "syncIntervalSec": 3600,
+    "logLevel": "info",
+    "param1Label": "Quarantine Corrupted Rows",
+    "param1Value": "true",
+    "param2Label": "Max Allowed Null %",
+    "param2Value": "0.0"
+  }
+}

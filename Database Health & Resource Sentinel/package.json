@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-health-sentinel",
+  "version": "3.9.0",
+  "description": "Comprehensive real-time telemetry tracking connection pools, buffer hit ratios, disk I/O, and CPU load.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "CDUS Tech Core",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Health",
+    "CPU",
+    "RAM",
+    "Telemetry"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

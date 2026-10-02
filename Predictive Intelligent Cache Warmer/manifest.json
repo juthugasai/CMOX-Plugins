@@ -1,0 +1,36 @@
+{
+  "id": "predictive-cache-warmer",
+  "name": "Predictive Intelligent Cache Warmer",
+  "version": "v1.4.0",
+  "category": "AI & Automation",
+  "price": "$11/mo",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Caching",
+    "Predictive",
+    "Speed",
+    "AI"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "logLevel": "info",
+    "param1Label": "Lookahead Window Minutes",
+    "param1Value": "30",
+    "param2Label": "Max Pre-warm Buffer %",
+    "param2Value": "40"
+  }
+}

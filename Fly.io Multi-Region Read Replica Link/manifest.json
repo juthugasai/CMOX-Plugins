@@ -1,0 +1,37 @@
+{
+  "id": "flyio-read-replicas",
+  "name": "Fly.io Multi-Region Read Replica Link",
+  "version": "v1.8.0",
+  "category": "Cloud & Edge",
+  "price": "$15/mo",
+  "author": "Edge Labs",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Fly.io",
+    "Replicas",
+    "Global",
+    "Edge"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "endpoint": "postgres://user:pass@top2.nearest.of.cmox-db.internal:5432",
+    "logLevel": "info",
+    "param1Label": "Primary Region",
+    "param1Value": "iad (Virginia)",
+    "param2Label": "Replica Regions",
+    "param2Value": "lhr, nrt, fra, syd"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-geojson-spatial-engine",
+  "version": "1.7.0",
+  "description": "Ingest and visualize Shapefiles, GeoJSON, and KML maps with integrated PostGIS spatial calculations.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "GIS Pro",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "GeoJSON",
+    "GIS",
+    "PostGIS",
+    "Spatial"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

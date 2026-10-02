@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-apache-atlas-governance",
+  "version": "2.6.0",
+  "description": "Enterprise metadata management, automated business glossaries, and classification tag management.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "Enterprise Governance",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Atlas",
+    "Governance",
+    "Glossary",
+    "Compliance"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

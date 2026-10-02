@@ -1,0 +1,37 @@
+{
+  "id": "auto-maintenance-agent",
+  "name": "Scheduled Automated Maintenance Agent",
+  "version": "v2.0.0",
+  "category": "AI & Automation",
+  "price": "Free",
+  "author": "Community",
+  "license": "MIT",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Vacuum",
+    "Analyze",
+    "Maintenance",
+    "Cron"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "syncIntervalSec": 86400,
+    "logLevel": "info",
+    "param1Label": "Maintenance Window Start (UTC)",
+    "param1Value": "02:00",
+    "param2Label": "Bloat Threshold %",
+    "param2Value": "20"
+  }
+}

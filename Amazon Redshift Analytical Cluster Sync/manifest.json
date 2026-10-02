@@ -1,0 +1,37 @@
+{
+  "id": "redshift-cluster-sync",
+  "name": "Amazon Redshift Analytical Cluster Sync",
+  "version": "v2.4.0",
+  "category": "Analytics & OLAP",
+  "price": "$25/mo",
+  "author": "AWS Solutions Partner",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Redshift",
+    "AWS",
+    "OLAP",
+    "Data Warehouse"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "endpoint": "redshift-cluster.xyz.us-east-1.redshift.amazonaws.com:5439",
+    "logLevel": "info",
+    "param1Label": "IAM Role ARN",
+    "param1Value": "arn:aws:iam::123456789:role/RedshiftCopy",
+    "param2Label": "Target Schema",
+    "param2Value": "public"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "id": "supabase-replicator",
+  "name": "Supabase Realtime WebSocket Replicator",
+  "version": "v3.1.0",
+  "category": "Cloud & Edge",
+  "price": "Free",
+  "author": "CDUS Tech Core",
+  "license": "MIT",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Supabase",
+    "Realtime",
+    "Postgres",
+    "BaaS"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "endpoint": "https://your-project.supabase.co",
+    "apiKeyPlaceholder": "supabase_service_role_key",
+    "logLevel": "info",
+    "param1Label": "Schema Name",
+    "param1Value": "public",
+    "param2Label": "Enable Realtime Broadcasts",
+    "param2Value": "true"
+  }
+}

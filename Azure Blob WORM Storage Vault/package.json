@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-azure-blob-vault",
+  "version": "1.9.0",
+  "description": "Enterprise immutable storage in Microsoft Azure Blob with legal hold and time-based retention policy locks.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "Microsoft Partner",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Azure",
+    "Blob",
+    "WORM",
+    "Compliance"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

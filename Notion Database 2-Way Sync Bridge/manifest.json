@@ -1,0 +1,38 @@
+{
+  "id": "notion-bridge",
+  "name": "Notion Database 2-Way Sync Bridge",
+  "version": "v1.9.4",
+  "category": "Connectors",
+  "price": "Free",
+  "author": "Community",
+  "license": "MIT",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": false,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Notion",
+    "Productivity",
+    "Sync",
+    "No-Code"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "apiKeyPlaceholder": "secret_notion_api_token",
+    "syncIntervalSec": 60,
+    "logLevel": "warn",
+    "param1Label": "Notion Database ID",
+    "param1Value": "8f7e2d9a1b4c...",
+    "param2Label": "Conflict Resolution",
+    "param2Value": "cmox-wins"
+  }
+}

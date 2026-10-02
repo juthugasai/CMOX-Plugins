@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-flyio-read-replicas",
+  "version": "1.8.0",
+  "description": "Stream read replicas to 30+ Fly.io edge regions (iad, lhr, nrt, syd) with automatic connection routing.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "Edge Labs",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Fly.io",
+    "Replicas",
+    "Global",
+    "Edge"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

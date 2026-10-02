@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-cli-generator-zsh",
+  "version": "1.8.0",
+  "description": "Generate bash, zsh, and powershell CLI autocompletions and scripts for headless database automation.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "CDUS Tech Core",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "CLI",
+    "Bash",
+    "Zsh",
+    "Terminal"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

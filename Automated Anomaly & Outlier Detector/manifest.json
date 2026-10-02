@@ -1,0 +1,37 @@
+{
+  "id": "anomaly-detector",
+  "name": "Automated Anomaly & Outlier Detector",
+  "version": "v1.6.0",
+  "category": "AI & Automation",
+  "price": "$15/mo",
+  "author": "AI Labs",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Anomaly",
+    "Fraud",
+    "Detection",
+    "ML"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "syncIntervalSec": 1800,
+    "logLevel": "info",
+    "param1Label": "Sensitivity Threshold (Sigma)",
+    "param1Value": "3.0",
+    "param2Label": "Alert Channel",
+    "param2Value": "console,webhook"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-oracle-migration-tool",
+  "version": "2.6.0",
+  "description": "Automated schema conversion, PL/SQL package translation, and streaming data migration from Oracle 11g-19c.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "Enterprise Migrations",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Oracle",
+    "PL/SQL",
+    "Migration",
+    "Enterprise"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

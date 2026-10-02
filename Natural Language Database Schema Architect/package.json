@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-schema-architect-ai",
+  "version": "2.9.0",
+  "description": "Generate 3NF normalized tables, foreign keys, enums, and constraint checks simply by describing your business logic.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "CDUS Tech Core",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Schema",
+    "AI",
+    "Design",
+    "Architecture"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

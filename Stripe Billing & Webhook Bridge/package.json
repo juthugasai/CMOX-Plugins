@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-stripe-webhook-bridge",
+  "version": "3.4.0",
+  "description": "Auto-sync customers, subscriptions, payment intents, and dispute webhooks directly to relational tables.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Stripe",
+    "Fintech",
+    "Payments",
+    "Billing"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

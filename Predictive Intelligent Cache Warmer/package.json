@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-predictive-cache-warmer",
+  "version": "1.4.0",
+  "description": "Predicts impending high-traffic tables using historical trends and pre-warms RAM buffer caches ahead of time.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Caching",
+    "Predictive",
+    "Speed",
+    "AI"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "id": "air-gap-vault",
+  "name": "Air-Gapped Cold Storage Vault",
+  "version": "v2.2.0",
+  "category": "Backup & DR",
+  "price": "$39/mo",
+  "author": "Security Labs",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Air-Gap",
+    "Offline",
+    "Defense",
+    "FIPS"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": false,
+    "logLevel": "warn",
+    "param1Label": "Signing Key ID",
+    "param1Value": "0x98A4B21F7C",
+    "param2Label": "Require Dual Sign-off",
+    "param2Value": "true"
+  }
+}

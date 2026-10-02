@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-trino-query-federation",
+  "version": "2.2.0",
+  "description": "Join tables across PostgreSQL, MongoDB, Snowflake, and S3 Parquet in a single unified SQL SELECT statement.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "Trino Community",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Trino",
+    "Presto",
+    "Federation",
+    "SQL"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

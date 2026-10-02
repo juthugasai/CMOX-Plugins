@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-vault-secrets",
+  "version": "2.1.0",
+  "description": "Dynamic secret leasing and automated rotation of database credentials directly from HashiCorp Vault.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "Vault Partner",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Vault",
+    "KMS",
+    "Keys",
+    "Rotation"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

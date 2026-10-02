@@ -1,0 +1,36 @@
+{
+  "id": "orm-models-generator",
+  "name": "Prisma, Drizzle & TypeORM Model Generator",
+  "version": "v3.7.0",
+  "category": "Dev Tools",
+  "price": "Free",
+  "author": "Community",
+  "license": "MIT",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Prisma",
+    "Drizzle",
+    "ORM",
+    "TypeORM"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "logLevel": "info",
+    "param1Label": "Default Target ORM",
+    "param1Value": "Prisma & Drizzle",
+    "param2Label": "Include Comments as JSDoc",
+    "param2Value": "true"
+  }
+}

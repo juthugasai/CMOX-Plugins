@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-ip-geofencing",
+  "version": "2.0.1",
+  "description": "Instantly drop database requests originating from non-whitelisted countries, VPN exit nodes, or unknown CIDR blocks.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "CDUS Tech Core",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Firewall",
+    "IP",
+    "Geofence",
+    "Security"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

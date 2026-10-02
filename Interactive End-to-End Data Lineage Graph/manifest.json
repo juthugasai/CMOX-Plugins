@@ -1,0 +1,37 @@
+{
+  "id": "data-lineage-graph",
+  "name": "Interactive End-to-End Data Lineage Graph",
+  "version": "v3.0.0",
+  "category": "Data Governance",
+  "price": "$14/mo",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Lineage",
+    "Graph",
+    "DAG",
+    "Metadata",
+    "D3"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "logLevel": "info",
+    "param1Label": "Max Depth Level",
+    "param1Value": "5",
+    "param2Label": "Include Views & Triggers",
+    "param2Value": "true"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "id": "mongodb-bridge",
+  "name": "MongoDB Bidirectional Bridge",
+  "version": "v3.1.2",
+  "category": "Connectors",
+  "price": "Free",
+  "author": "Community Verified",
+  "license": "MIT",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "MongoDB",
+    "PostgreSQL",
+    "SQLite"
+  ],
+  "tags": [
+    "MongoDB",
+    "NoSQL",
+    "Sync",
+    "Document DB"
+  ],
+  "features": [
+    "Two-way real-time replication via MongoDB Change Streams",
+    "Automatic BSON ObjectId to UUID translation",
+    "Nested JSON column schema inference",
+    "Configurable write concerns (majority, w:1, w:0)"
+  ],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "endpoint": "mongodb://localhost:27017/cmox_sync",
+    "syncIntervalSec": 5,
+    "logLevel": "info",
+    "param1Label": "Target Database",
+    "param1Value": "production_bridge",
+    "param2Label": "Write Concern",
+    "param2Value": "majority"
+  }
+}

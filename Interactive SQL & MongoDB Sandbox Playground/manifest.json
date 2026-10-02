@@ -1,0 +1,36 @@
+{
+  "id": "sql-playground-sandbox",
+  "name": "Interactive SQL & MongoDB Sandbox Playground",
+  "version": "v2.8.0",
+  "category": "Dev Tools",
+  "price": "Free",
+  "author": "CDUS Tech Core",
+  "license": "MIT",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Playground",
+    "SQL",
+    "Testing",
+    "Sandbox"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "logLevel": "info",
+    "param1Label": "Isolation Engine",
+    "param1Value": "in-memory-wasm",
+    "param2Label": "Auto-Rollback on Error",
+    "param2Value": "true"
+  }
+}

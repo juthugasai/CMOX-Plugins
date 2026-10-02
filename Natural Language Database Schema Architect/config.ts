@@ -1,0 +1,58 @@
+/**
+ * @file config.ts
+ * @description Configuration parser, schema validator, and environment resolver for Natural Language Database Schema Architect.
+ * @module @cmox/plugin-schema-architect-ai/config
+ */
+
+import { NaturalLanguageDatabaseSchemaArchitectEngineConfig, PluginLogLevel } from './types';
+
+export class NaturalLanguageDatabaseSchemaArchitectConfigManager {
+  private config: NaturalLanguageDatabaseSchemaArchitectEngineConfig;
+
+  constructor(custom?: Partial<NaturalLanguageDatabaseSchemaArchitectEngineConfig>) {
+    this.config = this.resolveDefaults(custom);
+    this.validate();
+  }
+
+  private resolveDefaults(custom?: Partial<NaturalLanguageDatabaseSchemaArchitectEngineConfig>): NaturalLanguageDatabaseSchemaArchitectEngineConfig {
+    const envPrefix = 'CMOX_PLUGIN_SCHEMA_ARCHITECT_AI_';
+
+    return {
+      enabled: custom?.enabled ?? (process.env[`${envPrefix}ENABLED`] ? process.env[`${envPrefix}ENABLED`] !== 'false' : true),
+      autoUpdate: custom?.autoUpdate ?? (process.env[`${envPrefix}AUTO_UPDATE`] ? process.env[`${envPrefix}AUTO_UPDATE`] !== 'false' : true),
+      endpoint: custom?.endpoint || process.env[`${envPrefix}ENDPOINT`] || "http://localhost:9092",
+      apiKey: custom?.apiKey || process.env[`${envPrefix}API_KEY`] || "",
+      logLevel: (custom?.logLevel || process.env[`${envPrefix}LOG_LEVEL`] || 'info') as PluginLogLevel,
+      syncIntervalSec: custom?.syncIntervalSec ?? (Number(process.env[`${envPrefix}SYNC_INTERVAL`]) || 10),
+      maxBatchSize: custom?.maxBatchSize ?? (Number(process.env[`${envPrefix}MAX_BATCH_SIZE`]) || 250),
+      timeoutMs: custom?.timeoutMs ?? (Number(process.env[`${envPrefix}TIMEOUT_MS`]) || 5000),
+      retryAttempts: custom?.retryAttempts ?? 3,
+      connectionPoolSize: custom?.connectionPoolSize ?? 8,
+      backpressureThreshold: custom?.backpressureThreshold ?? 10000,
+      enableEncryption: custom?.enableEncryption ?? true,
+      param1: custom?.param1 || process.env[`${envPrefix}PARAM1`] || "snake_case_plural",
+      param2: custom?.param2 || process.env[`${envPrefix}PARAM2`] || "true",
+      customOptions: custom?.customOptions || {}
+    };
+  }
+
+  public get(): NaturalLanguageDatabaseSchemaArchitectEngineConfig {
+    return { ...this.config };
+  }
+
+  public update(patch: Partial<NaturalLanguageDatabaseSchemaArchitectEngineConfig>): NaturalLanguageDatabaseSchemaArchitectEngineConfig {
+    this.config = { ...this.config, ...patch };
+    this.validate();
+    return this.get();
+  }
+
+  public validate(): boolean {
+    if (this.config.syncIntervalSec < 1) {
+      throw new Error('[Natural Language Database Schema Architect] syncIntervalSec must be at least 1 second.');
+    }
+    if (this.config.maxBatchSize < 1 || this.config.maxBatchSize > 50000) {
+      throw new Error('[Natural Language Database Schema Architect] maxBatchSize must be between 1 and 50,000.');
+    }
+    return true;
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-data-quality-assertions",
+  "version": "2.1.0",
+  "description": "Run automated Great Expectations style data quality test suites on newly inserted rows.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "DataOps Labs",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "DataQuality",
+    "Testing",
+    "Assertions",
+    "GreatExpectations"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

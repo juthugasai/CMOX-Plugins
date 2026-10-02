@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-fido2-passkey",
+  "version": "1.4.0",
+  "description": "Protect operator administrative console with physical YubiKey hardware tokens and biometric Windows Hello passkeys.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "Community",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "FIDO2",
+    "Passkeys",
+    "2FA",
+    "Hardware Key"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

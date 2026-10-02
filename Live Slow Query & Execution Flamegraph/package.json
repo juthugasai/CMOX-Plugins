@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-slow-query-flamegraph",
+  "version": "4.1.0",
+  "description": "Identify query performance bottlenecks with interactive flamegraphs, lock wait graphs, and IO wait percentages.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "CDUS Tech Core",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Profiling",
+    "Flamegraph",
+    "Slow Queries",
+    "APM"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

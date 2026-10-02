@@ -1,0 +1,27 @@
+{
+  "name": "@cmox/plugin-cloudflare-workers-d1",
+  "version": "2.9.0",
+  "description": "Replicate database subsets globally to Cloudflare D1 edge SQLite databases and KV key-value stores.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "Edge Labs",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Cloudflare",
+    "D1",
+    "Workers",
+    "Edge",
+    "KV"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

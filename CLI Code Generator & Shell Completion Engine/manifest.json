@@ -1,0 +1,36 @@
+{
+  "id": "cli-generator-zsh",
+  "name": "CLI Code Generator & Shell Completion Engine",
+  "version": "v1.8.0",
+  "category": "Dev Tools",
+  "price": "Free",
+  "author": "CDUS Tech Core",
+  "license": "MIT",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "CLI",
+    "Bash",
+    "Zsh",
+    "Terminal"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "logLevel": "info",
+    "param1Label": "Target Shell",
+    "param1Value": "zsh & powershell",
+    "param2Label": "Install Path",
+    "param2Value": "~/.cmox/bin"
+  }
+}

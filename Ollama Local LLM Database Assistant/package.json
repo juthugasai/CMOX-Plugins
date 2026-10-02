@@ -1,0 +1,27 @@
+{
+  "name": "@cmox/plugin-ollama-local-llm",
+  "version": "2.0.0",
+  "description": "100% offline local AI query assistant powered by Llama 3, DeepSeek Coder, and Mistral via Ollama.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "OpenSource AI",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Ollama",
+    "Local LLM",
+    "Llama3",
+    "DeepSeek",
+    "Offline AI"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

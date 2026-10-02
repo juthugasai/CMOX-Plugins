@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-pitr-recovery",
+  "version": "3.0.1",
+  "description": "Rewind your database state to any exact millisecond within the last 45 days with complete transaction replaying.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "PITR",
+    "WAL",
+    "Recovery",
+    "Time-Travel"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

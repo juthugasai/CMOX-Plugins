@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-orm-models-generator",
+  "version": "3.7.0",
+  "description": "One-click schema generation for Prisma (`schema.prisma`), Drizzle ORM, and TypeORM entity definitions.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "Community",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Prisma",
+    "Drizzle",
+    "ORM",
+    "TypeORM"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

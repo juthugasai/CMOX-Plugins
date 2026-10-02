@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-supabase-replicator",
+  "version": "3.1.0",
+  "description": "Two-way replication bridge connecting CMOX projects with Supabase PostgreSQL and Storage buckets.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "CDUS Tech Core",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Supabase",
+    "Realtime",
+    "Postgres",
+    "BaaS"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

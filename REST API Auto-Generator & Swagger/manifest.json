@@ -1,0 +1,38 @@
+{
+  "id": "rest-generator",
+  "name": "REST API Auto-Generator & Swagger",
+  "version": "v3.0.0",
+  "category": "Connectors",
+  "price": "Free",
+  "author": "CDUS Tech Core",
+  "license": "MIT",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "REST",
+    "CRUD",
+    "OpenAPI",
+    "Swagger",
+    "HTTP"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "endpoint": "/api/v1",
+    "logLevel": "info",
+    "param1Label": "Default Page Size",
+    "param1Value": "50",
+    "param2Label": "Max Page Size Limit",
+    "param2Value": "250"
+  }
+}

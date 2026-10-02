@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-incremental-backup",
+  "version": "2.0.5",
+  "description": "Only snapshot byte-level delta changes since previous backup, reducing storage overhead by up to 94%.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Incremental",
+    "Storage",
+    "Fast",
+    "WAL"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

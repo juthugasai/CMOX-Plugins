@@ -1,0 +1,37 @@
+{
+  "id": "slack-teams-webhooks",
+  "name": "Slack & Microsoft Teams Alert Webhooks",
+  "version": "v3.1.0",
+  "category": "Dev Tools",
+  "price": "Free",
+  "author": "Community",
+  "license": "MIT",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Slack",
+    "Teams",
+    "Webhooks",
+    "ChatOps"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "endpoint": "https://hooks.slack.com/services/...",
+    "logLevel": "info",
+    "param1Label": "Target Channel",
+    "param1Value": "#database-alerts",
+    "param2Label": "Notify on Schema Migrations",
+    "param2Value": "true"
+  }
+}

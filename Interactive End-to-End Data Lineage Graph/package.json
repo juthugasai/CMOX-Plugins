@@ -1,0 +1,27 @@
+{
+  "name": "@cmox/plugin-data-lineage-graph",
+  "version": "3.0.0",
+  "description": "Visualize exactly where table data originates, what transformations it undergoes, and where it outputs.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Lineage",
+    "Graph",
+    "DAG",
+    "Metadata",
+    "D3"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

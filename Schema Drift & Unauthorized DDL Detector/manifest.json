@@ -1,0 +1,36 @@
+{
+  "id": "schema-drift-detector",
+  "name": "Schema Drift & Unauthorized DDL Detector",
+  "version": "v1.7.0",
+  "category": "Data Governance",
+  "price": "$12/mo",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "SchemaDrift",
+    "DDL",
+    "Security",
+    "Auditing"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "logLevel": "warn",
+    "param1Label": "Approved CI/CD User Whitelist",
+    "param1Value": "github_actions_bot,deploy_agent",
+    "param2Label": "Auto-Rollback Unauthorized DDL",
+    "param2Value": "false"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-langchain-tools",
+  "version": "3.2.0",
+  "description": "Expose your CMOX database tables directly as callable Tools and Retrievers for LangChain autonomous AI agents.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "AI Integrations",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "LangChain",
+    "LlamaIndex",
+    "Agents",
+    "RAG"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

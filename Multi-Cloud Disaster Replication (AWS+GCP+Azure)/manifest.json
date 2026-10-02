@@ -1,0 +1,36 @@
+{
+  "id": "multi-cloud-dr",
+  "name": "Multi-Cloud Disaster Replication (AWS+GCP+Azure)",
+  "version": "v1.7.0",
+  "category": "Backup & DR",
+  "price": "$29/mo",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Multi-Cloud",
+    "Geo",
+    "Redundancy",
+    "High Availability"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "logLevel": "info",
+    "param1Label": "Primary Mirror Target",
+    "param1Value": "AWS-us-east-1",
+    "param2Label": "Secondary Mirror Target",
+    "param2Value": "GCP-europe-west3"
+  }
+}

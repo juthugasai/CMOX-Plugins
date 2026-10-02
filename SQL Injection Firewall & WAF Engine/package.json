@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-sqli-firewall",
+  "version": "4.2.0",
+  "description": "Real-time AST query parser blocking malicious SQL injection payloads, stacked queries, and blind exploits.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "CDUS Tech Core",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "WAF",
+    "SQLi",
+    "Defense",
+    "Firewall"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

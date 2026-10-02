@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-cassandra-bridge",
+  "version": "2.0.1",
+  "description": "Sync high-volume write workloads into Apache Cassandra and ScyllaDB wide-column ring clusters.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "BigData Systems",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Cassandra",
+    "ScyllaDB",
+    "NoSQL",
+    "Big Data"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

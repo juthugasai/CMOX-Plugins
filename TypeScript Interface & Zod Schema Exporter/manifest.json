@@ -1,0 +1,36 @@
+{
+  "id": "typescript-zod-exporter",
+  "name": "TypeScript Interface & Zod Schema Exporter",
+  "version": "v4.0.0",
+  "category": "Dev Tools",
+  "price": "Free",
+  "author": "CDUS Tech Core",
+  "license": "MIT",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "TypeScript",
+    "Zod",
+    "Types",
+    "Full-Stack"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "logLevel": "info",
+    "param1Label": "Generate Zod Schemas",
+    "param1Value": "true",
+    "param2Label": "Export File Name",
+    "param2Value": "database.types.ts"
+  }
+}

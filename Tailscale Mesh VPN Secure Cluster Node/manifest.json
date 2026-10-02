@@ -1,0 +1,38 @@
+{
+  "id": "tailscale-mesh-node",
+  "name": "Tailscale Mesh VPN Secure Cluster Node",
+  "version": "v3.0.0",
+  "category": "Cloud & Edge",
+  "price": "Free",
+  "author": "Tailscale Partner",
+  "license": "BSD-3-Clause",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Tailscale",
+    "WireGuard",
+    "VPN",
+    "Mesh",
+    "Security"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "apiKeyPlaceholder": "tskey-auth-...",
+    "logLevel": "info",
+    "param1Label": "Tailnet Node Name",
+    "param1Value": "cmox-database-prod",
+    "param2Label": "Accept Routes",
+    "param2Value": "true"
+  }
+}

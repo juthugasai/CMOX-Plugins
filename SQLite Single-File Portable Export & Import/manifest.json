@@ -1,0 +1,36 @@
+{
+  "id": "sqlite-portable-export",
+  "name": "SQLite Single-File Portable Export & Import",
+  "version": "v3.0.0",
+  "category": "Import/Export",
+  "price": "Free",
+  "author": "CDUS Tech Core",
+  "license": "MIT",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "SQLite",
+    "Portable",
+    "Offline",
+    "Edge DB"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "logLevel": "info",
+    "param1Label": "Journal Mode",
+    "param1Value": "WAL",
+    "param2Label": "Vacuum On Export",
+    "param2Value": "true"
+  }
+}

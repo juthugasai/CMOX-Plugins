@@ -1,0 +1,36 @@
+{
+  "id": "json-validator",
+  "name": "JSON / BSON Document Schema Validator",
+  "version": "v1.9.0",
+  "category": "Import/Export",
+  "price": "Free",
+  "author": "Community",
+  "license": "MIT",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "JSON",
+    "Schema",
+    "Validation",
+    "JSONB"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "logLevel": "info",
+    "param1Label": "Validation Draft Standard",
+    "param1Value": "draft-07",
+    "param2Label": "Coerce Missing Types",
+    "param2Value": "false"
+  }
+}

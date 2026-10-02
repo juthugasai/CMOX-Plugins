@@ -1,0 +1,36 @@
+{
+  "id": "timescaledb-partitioner",
+  "name": "TimescaleDB Automated Hypertable Partitioner",
+  "version": "v3.1.0",
+  "category": "Analytics & OLAP",
+  "price": "$16/mo",
+  "author": "Timescale Partner",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "TimescaleDB",
+    "Time-Series",
+    "Hypertables",
+    "IoT"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "logLevel": "info",
+    "param1Label": "Chunk Time Interval",
+    "param1Value": "7 days",
+    "param2Label": "Compress After",
+    "param2Value": "30 days"
+  }
+}

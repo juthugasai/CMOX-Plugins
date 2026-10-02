@@ -1,0 +1,16 @@
+/**
+ * @file index.ts
+ * @description Main entrypoint for Apache Spark Distributed Compute Batch Runner extension module.
+ * @module @cmox/plugin-spark-batch-runner
+ */
+
+export * from './types';
+export * from './config';
+export * from './guardrails';
+export * from './telemetry';
+export * from './client';
+export * from './pipeline';
+export * from './engine';
+
+import { ApacheSparkDistributedComputeBatchRunnerEngine } from './engine';
+export default ApacheSparkDistributedComputeBatchRunnerEngine;

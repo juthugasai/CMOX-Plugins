@@ -1,0 +1,36 @@
+{
+  "id": "data-dictionary-pdf",
+  "name": "Automated Data Dictionary & PDF ERD Generator",
+  "version": "v3.2.0",
+  "category": "Data Governance",
+  "price": "Free",
+  "author": "CDUS Tech Core",
+  "license": "MIT",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "ERD",
+    "Documentation",
+    "PDF",
+    "Dictionary"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "logLevel": "info",
+    "param1Label": "Output Format",
+    "param1Value": "PDF & Markdown",
+    "param2Label": "Include Sample Data Rows",
+    "param2Value": "false"
+  }
+}

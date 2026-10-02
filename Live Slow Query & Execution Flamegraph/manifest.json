@@ -1,0 +1,36 @@
+{
+  "id": "slow-query-flamegraph",
+  "name": "Live Slow Query & Execution Flamegraph",
+  "version": "v4.1.0",
+  "category": "Monitoring & Ops",
+  "price": "Free",
+  "author": "CDUS Tech Core",
+  "license": "MIT",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Profiling",
+    "Flamegraph",
+    "Slow Queries",
+    "APM"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "logLevel": "info",
+    "param1Label": "Slow Query Threshold (ms)",
+    "param1Value": "100",
+    "param2Label": "Max Recorded Samples",
+    "param2Value": "1000"
+  }
+}

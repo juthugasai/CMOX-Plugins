@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-vector-embeddings-engine",
+  "version": "3.0.0",
+  "description": "Store high-dimensional vector embeddings with HNSW / IVFFlat indexing for fast semantic search and RAG pipelines.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Vector",
+    "pgvector",
+    "RAG",
+    "LLM"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "id": "oracle-migration-tool",
+  "name": "Legacy Oracle to CMOX Migration Pipeline",
+  "version": "v2.6.0",
+  "category": "Import/Export",
+  "price": "$29/mo",
+  "author": "Enterprise Migrations",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Oracle",
+    "PL/SQL",
+    "Migration",
+    "Enterprise"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "endpoint": "oracle://system:password@oracle-host:1521/ORCL",
+    "logLevel": "info",
+    "param1Label": "Source Schema",
+    "param1Value": "SCOTT",
+    "param2Label": "Parallel Workers Count",
+    "param2Value": "8"
+  }
+}

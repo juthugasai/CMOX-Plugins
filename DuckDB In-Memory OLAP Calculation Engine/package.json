@@ -1,0 +1,27 @@
+{
+  "name": "@cmox/plugin-duckdb-engine",
+  "version": "2.5.0",
+  "description": "Run complex aggregations, window functions, and pivot tables 100x faster directly in local RAM using DuckDB.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "CDUS Tech Core",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "DuckDB",
+    "In-Memory",
+    "Fast",
+    "OLAP",
+    "Pandas"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

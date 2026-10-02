@@ -1,0 +1,38 @@
+{
+  "id": "cloudflare-workers-d1",
+  "name": "Cloudflare Workers D1 & KV Mirror",
+  "version": "v2.9.0",
+  "category": "Cloud & Edge",
+  "price": "Free",
+  "author": "Edge Labs",
+  "license": "MIT",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Cloudflare",
+    "D1",
+    "Workers",
+    "Edge",
+    "KV"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "apiKeyPlaceholder": "cf_api_token_here",
+    "logLevel": "info",
+    "param1Label": "Account ID",
+    "param1Value": "cf_account_12345",
+    "param2Label": "D1 Database ID",
+    "param2Value": "d1-database-uuid"
+  }
+}

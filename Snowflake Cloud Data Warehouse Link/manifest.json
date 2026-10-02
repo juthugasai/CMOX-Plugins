@@ -1,0 +1,38 @@
+{
+  "id": "snowflake-sync",
+  "name": "Snowflake Cloud Data Warehouse Link",
+  "version": "v2.1.0",
+  "category": "Connectors",
+  "price": "$35/mo",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Snowflake",
+    "ETL",
+    "OLAP",
+    "Data Warehouse"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "endpoint": "https://xyz12345.snowflakecomputing.com",
+    "syncIntervalSec": 300,
+    "logLevel": "info",
+    "param1Label": "Warehouse Name",
+    "param1Value": "COMPUTE_WH",
+    "param2Label": "Target Schema",
+    "param2Value": "CMOX_RAW"
+  }
+}

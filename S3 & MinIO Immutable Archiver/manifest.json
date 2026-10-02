@@ -1,0 +1,37 @@
+{
+  "id": "s3-snapshot-archiver",
+  "name": "S3 & MinIO Immutable Archiver",
+  "version": "v4.1.0",
+  "category": "Backup & DR",
+  "price": "$9/mo",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "S3",
+    "MinIO",
+    "Object Storage",
+    "WORM"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "endpoint": "https://s3.us-east-1.amazonaws.com",
+    "logLevel": "info",
+    "param1Label": "S3 Bucket Name",
+    "param1Value": "company-cmox-backups",
+    "param2Label": "Storage Class",
+    "param2Value": "GLACIER_IR"
+  }
+}

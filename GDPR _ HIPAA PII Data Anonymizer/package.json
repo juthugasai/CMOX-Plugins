@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-gdpr-anonymizer",
+  "version": "3.1.0",
+  "description": "Automatic pattern detection and irreversible masking/hashing of SSNs, emails, phone numbers, and health records.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "Compliance Guard",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "GDPR",
+    "HIPAA",
+    "PII",
+    "Compliance"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

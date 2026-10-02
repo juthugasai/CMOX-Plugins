@@ -1,0 +1,43 @@
+{
+  "id": "kafka-connector",
+  "name": "Kafka Event Stream Connector",
+  "version": "v2.8.0",
+  "category": "Connectors",
+  "price": "Free",
+  "author": "CDUS Tech Core",
+  "license": "Apache-2.0",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MongoDB",
+    "MySQL",
+    "SQLite"
+  ],
+  "tags": [
+    "Kafka",
+    "Streaming",
+    "CDC",
+    "Message Queue",
+    "Events"
+  ],
+  "features": [
+    "Sub-millisecond write-to-topic latency",
+    "Confluent Schema Registry Avro & Protobuf integration",
+    "Automatic partition key hashing on primary keys",
+    "Dead-letter queue (DLQ) retry orchestration",
+    "SASL/SSL, Kerberos, and mTLS security handshakes"
+  ],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "endpoint": "kafka://127.0.0.1:9092",
+    "syncIntervalSec": 1,
+    "logLevel": "info",
+    "param1Label": "Target Topic Prefix",
+    "param1Value": "cmox.events.",
+    "param2Label": "Compression Codec",
+    "param2Value": "snappy"
+  }
+}

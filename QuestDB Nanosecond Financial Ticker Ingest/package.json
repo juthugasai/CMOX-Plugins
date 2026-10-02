@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-questdb-ticker",
+  "version": "1.9.0",
+  "description": "Sub-microsecond Influx Line Protocol (ILP) streaming for order books, cryptocurrency trades, and sensor streams.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "High-Freq Finance Lab",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "QuestDB",
+    "Fintech",
+    "High-Frequency",
+    "Trading"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

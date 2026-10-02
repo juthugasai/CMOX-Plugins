@@ -1,0 +1,37 @@
+{
+  "id": "questdb-ticker",
+  "name": "QuestDB Nanosecond Financial Ticker Ingest",
+  "version": "v1.9.0",
+  "category": "Analytics & OLAP",
+  "price": "$20/mo",
+  "author": "High-Freq Finance Lab",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "QuestDB",
+    "Fintech",
+    "High-Frequency",
+    "Trading"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "endpoint": "http://localhost:9000",
+    "logLevel": "info",
+    "param1Label": "Protocol",
+    "param1Value": "ILP (Influx Line Protocol)",
+    "param2Label": "Designated Timestamp",
+    "param2Value": "timestamp_ns"
+  }
+}

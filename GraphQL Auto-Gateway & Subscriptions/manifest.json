@@ -1,0 +1,41 @@
+{
+  "id": "graphql-gateway",
+  "name": "GraphQL Auto-Gateway & Subscriptions",
+  "version": "v2.5.0",
+  "category": "Connectors",
+  "price": "$19/mo",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MongoDB",
+    "MySQL",
+    "SQLite"
+  ],
+  "tags": [
+    "GraphQL",
+    "API",
+    "Realtime",
+    "Subscriptions",
+    "Apollo"
+  ],
+  "features": [
+    "Zero-config auto-generation of GraphQL types, queries & mutations",
+    "Real-time WebSocket subscriptions on table mutations",
+    "Query complexity analysis and depth limiting",
+    "Interactive embedded GraphQL Playground UI"
+  ],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "endpoint": "http://localhost:4000/graphql",
+    "logLevel": "info",
+    "param1Label": "Playground UI Enabled",
+    "param1Value": "true",
+    "param2Label": "Query Complexity Limit",
+    "param2Value": "1000"
+  }
+}

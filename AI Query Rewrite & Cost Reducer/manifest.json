@@ -1,0 +1,36 @@
+{
+  "id": "query-cost-reducer",
+  "name": "AI Query Rewrite & Cost Reducer",
+  "version": "v2.1.0",
+  "category": "AI & Automation",
+  "price": "$13/mo",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Query Optimizer",
+    "Cost",
+    "Speed",
+    "Refactor"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "logLevel": "info",
+    "param1Label": "Max EXPLAIN Cost Cap",
+    "param1Value": "10000",
+    "param2Label": "Suggest CTE Rewrites",
+    "param2Value": "true"
+  }
+}

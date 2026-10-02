@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-s3-snapshot-archiver",
+  "version": "4.1.0",
+  "description": "Store encrypted, versioned, and Object Lock immutable database backups in Amazon S3 or self-hosted MinIO.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "S3",
+    "MinIO",
+    "Object Storage",
+    "WORM"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

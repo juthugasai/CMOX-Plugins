@@ -1,0 +1,42 @@
+{
+  "id": "nas-backup",
+  "name": "Local NAS & SAN Storage Archiver",
+  "version": "v3.2.0",
+  "category": "Backup & DR",
+  "price": "Free",
+  "author": "CDUS Tech Core",
+  "license": "MIT",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MongoDB",
+    "MySQL",
+    "SQLite",
+    "All Engines"
+  ],
+  "tags": [
+    "NAS",
+    "Local",
+    "On-Prem",
+    "Offline Backup"
+  ],
+  "features": [
+    "100% On-Premise data path — zero external cloud telemetry",
+    "Direct SMB, NFSv4, and local UNC file path support",
+    "Automatic digital signature and SHA-256 integrity checks",
+    "Automated grandfather-father-son (GFS) rotation retention"
+  ],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "endpoint": "\\\\192.168.1.100\\Backups\\CMOX",
+    "syncIntervalSec": 3600,
+    "logLevel": "info",
+    "param1Label": "Retention Snapshots Count",
+    "param1Value": "30",
+    "param2Label": "Compression Algorithm",
+    "param2Value": "zstd-level-19"
+  }
+}

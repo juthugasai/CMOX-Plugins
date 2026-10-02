@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-swagger-openapi-ui",
+  "version": "2.3.0",
+  "description": "Generate live interactive Swagger UI and Postman collection files with sample payloads for all database endpoints.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "CDUS Tech Core",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "OpenAPI",
+    "Swagger",
+    "Docs",
+    "Postman"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

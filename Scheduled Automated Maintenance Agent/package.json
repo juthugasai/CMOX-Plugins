@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-auto-maintenance-agent",
+  "version": "2.0.0",
+  "description": "Autonomously runs VACUUM FULL, ANALYZE, and table re-clustering during low-traffic off-peak hours.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "Community",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Vacuum",
+    "Analyze",
+    "Maintenance",
+    "Cron"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "@cmox/plugin-elasticsearch-sync",
+  "version": "2.3.0",
+  "description": "Mirror database tables into Elasticsearch indices with automatic fuzzy search, typos, and phonetic matching.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "Elastic Partner",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Elasticsearch",
+    "Search",
+    "NLP",
+    "OpenSearch",
+    "Lucene"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

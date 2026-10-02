@@ -1,0 +1,36 @@
+{
+  "id": "synthetic-data-generator",
+  "name": "AI Synthetic Mock Data Generator",
+  "version": "v2.2.0",
+  "category": "AI & Automation",
+  "price": "Free",
+  "author": "Community",
+  "license": "MIT",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Synthetic",
+    "Mock Data",
+    "Testing",
+    "Faker"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "logLevel": "info",
+    "param1Label": "Default Rows Per Table",
+    "param1Value": "100",
+    "param2Label": "Locale",
+    "param2Value": "en_US"
+  }
+}

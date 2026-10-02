@@ -1,0 +1,38 @@
+{
+  "id": "ollama-local-llm",
+  "name": "Ollama Local LLM Database Assistant",
+  "version": "v2.0.0",
+  "category": "AI & Automation",
+  "price": "Free",
+  "author": "OpenSource AI",
+  "license": "MIT",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Ollama",
+    "Local LLM",
+    "Llama3",
+    "DeepSeek",
+    "Offline AI"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "endpoint": "http://localhost:11434",
+    "logLevel": "info",
+    "param1Label": "Model Tag",
+    "param1Value": "deepseek-coder:6.7b",
+    "param2Label": "GPU Layers Offload",
+    "param2Value": "33"
+  }
+}

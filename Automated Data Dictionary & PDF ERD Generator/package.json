@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-data-dictionary-pdf",
+  "version": "3.2.0",
+  "description": "1-Click PDF and Markdown documentation generator with visual entity-relationship diagrams (ERD).",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "CDUS Tech Core",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "ERD",
+    "Documentation",
+    "PDF",
+    "Dictionary"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-mssql-bcp-ingest",
+  "version": "2.2.0",
+  "description": "High-speed bulk copy program (BCP) ingestion from Microsoft SQL Server 2012-2022 instances.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "Enterprise Migrations",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "MSSQL",
+    "SQL Server",
+    "BCP",
+    "TDS"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

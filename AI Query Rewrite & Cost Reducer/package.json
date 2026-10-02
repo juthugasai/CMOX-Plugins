@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-query-cost-reducer",
+  "version": "2.1.0",
+  "description": "Automatically rewrites suboptimal nested joins and subqueries into CTEs and partition-aware expressions.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Query Optimizer",
+    "Cost",
+    "Speed",
+    "Refactor"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

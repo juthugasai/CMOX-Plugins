@@ -1,0 +1,37 @@
+{
+  "id": "rabbitmq-exchange",
+  "name": "RabbitMQ AMQP Event Exchange",
+  "version": "v1.8.2",
+  "category": "Connectors",
+  "price": "Free",
+  "author": "Community",
+  "license": "MIT",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "RabbitMQ",
+    "AMQP",
+    "Queues",
+    "Async"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "endpoint": "amqp://guest:guest@localhost:5672",
+    "logLevel": "info",
+    "param1Label": "Exchange Name",
+    "param1Value": "cmox.direct",
+    "param2Label": "Delivery Mode",
+    "param2Value": "persistent"
+  }
+}

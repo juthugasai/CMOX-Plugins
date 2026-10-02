@@ -1,0 +1,36 @@
+{
+  "id": "mtls-certificates",
+  "name": "Zero-Trust mTLS Client Certificates",
+  "version": "v2.0.0",
+  "category": "Security & IAM",
+  "price": "$19/mo",
+  "author": "Security Labs",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "mTLS",
+    "Certificates",
+    "Zero-Trust",
+    "x509"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "logLevel": "warn",
+    "param1Label": "CA Certificate Path",
+    "param1Value": "/etc/ssl/cmox/root-ca.crt",
+    "param2Label": "Min TLS Version",
+    "param2Value": "TLSv1.3"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-datadog-apm",
+  "version": "2.4.0",
+  "description": "Full distributed tracing propagation with Datadog ddtrace and New Relic APM spans.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "APM Solutions",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Datadog",
+    "NewRelic",
+    "APM",
+    "Distributed Tracing"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-lock-visualizer",
+  "version": "1.8.0",
+  "description": "Visualize lock contention dependency graphs in real-time and resolve blocking transaction deadlocks instantly.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Deadlock",
+    "Locks",
+    "Concurrency",
+    "Troubleshooting"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

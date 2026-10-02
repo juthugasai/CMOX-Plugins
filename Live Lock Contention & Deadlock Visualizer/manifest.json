@@ -1,0 +1,37 @@
+{
+  "id": "lock-visualizer",
+  "name": "Live Lock Contention & Deadlock Visualizer",
+  "version": "v1.8.0",
+  "category": "Monitoring & Ops",
+  "price": "$15/mo",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Deadlock",
+    "Locks",
+    "Concurrency",
+    "Troubleshooting"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "syncIntervalSec": 3,
+    "logLevel": "info",
+    "param1Label": "Lock Wait Alert Threshold (ms)",
+    "param1Value": "5000",
+    "param2Label": "Auto-Kill Deadlocks",
+    "param2Value": "false"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "id": "ip-geofencing",
+  "name": "IP Geofencing & CIDR Whitelist Guard",
+  "version": "v2.0.1",
+  "category": "Security & IAM",
+  "price": "Free",
+  "author": "CDUS Tech Core",
+  "license": "MIT",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Firewall",
+    "IP",
+    "Geofence",
+    "Security"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "logLevel": "warn",
+    "param1Label": "Allowed Countries",
+    "param1Value": "US, CA, GB, DE, JP, IN",
+    "param2Label": "Allowed CIDRs",
+    "param2Value": "10.0.0.0/8, 192.168.0.0/16"
+  }
+}

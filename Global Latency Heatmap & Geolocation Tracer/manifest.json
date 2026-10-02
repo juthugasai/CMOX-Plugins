@@ -1,0 +1,36 @@
+{
+  "id": "latency-heatmap",
+  "name": "Global Latency Heatmap & Geolocation Tracer",
+  "version": "v1.4.0",
+  "category": "Monitoring & Ops",
+  "price": "$12/mo",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Latency",
+    "Geo",
+    "Tracer",
+    "Global"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "logLevel": "info",
+    "param1Label": "Map Projection",
+    "param1Value": "orthographic-3d",
+    "param2Label": "Sampling Rate %",
+    "param2Value": "25"
+  }
+}

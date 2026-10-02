@@ -1,0 +1,36 @@
+{
+  "id": "change-data-capture",
+  "name": "Change Data Capture (CDC) Realtime Engine",
+  "version": "v2.8.0",
+  "category": "AI & Automation",
+  "price": "$17/mo",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "CDC",
+    "Realtime",
+    "Debezium",
+    "Replication"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "logLevel": "info",
+    "param1Label": "Include Before State",
+    "param1Value": "true",
+    "param2Label": "Batch Buffer Size",
+    "param2Value": "500"
+  }
+}

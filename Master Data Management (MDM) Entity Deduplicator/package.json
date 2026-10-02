@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-mdm-deduplicator",
+  "version": "1.8.0",
+  "description": "Fuzzy deduplication engine merging duplicate customer profiles, addresses, and transaction records.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "Enterprise MDM",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "MDM",
+    "Deduplication",
+    "FuzzyMatch",
+    "GoldenRecord"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

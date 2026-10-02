@@ -1,0 +1,38 @@
+{
+  "id": "planetscale-proxy",
+  "name": "PlanetScale Branching Database Proxy",
+  "version": "v2.0.0",
+  "category": "Cloud & Edge",
+  "price": "$16/mo",
+  "author": "Vitess Community",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "PlanetScale",
+    "Vitess",
+    "Branching",
+    "MySQL"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "endpoint": "https://api.planetscale.com/v1",
+    "apiKeyPlaceholder": "pscale_service_token",
+    "logLevel": "info",
+    "param1Label": "Organization",
+    "param1Value": "my-org",
+    "param2Label": "Database Name",
+    "param2Value": "main-production"
+  }
+}

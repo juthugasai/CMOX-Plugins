@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-mtls-certificates",
+  "version": "2.0.0",
+  "description": "Enforce bidirectional mutual TLS x509 certificate authentication for all incoming database client connections.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "Security Labs",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "mTLS",
+    "Certificates",
+    "Zero-Trust",
+    "x509"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

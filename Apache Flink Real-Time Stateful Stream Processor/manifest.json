@@ -1,0 +1,37 @@
+{
+  "id": "flink-stream-processor",
+  "name": "Apache Flink Real-Time Stateful Stream Processor",
+  "version": "v2.0.0",
+  "category": "Analytics & OLAP",
+  "price": "$28/mo",
+  "author": "Streaming BigData",
+  "license": "Apache-2.0",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Flink",
+    "Streaming",
+    "Stateful",
+    "Big Data"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "endpoint": "http://flink-jobmanager:8081",
+    "logLevel": "info",
+    "param1Label": "Checkpoint Interval (ms)",
+    "param1Value": "5000",
+    "param2Label": "State Backend",
+    "param2Value": "RocksDB"
+  }
+}

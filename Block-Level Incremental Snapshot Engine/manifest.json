@@ -1,0 +1,37 @@
+{
+  "id": "incremental-backup",
+  "name": "Block-Level Incremental Snapshot Engine",
+  "version": "v2.0.5",
+  "category": "Backup & DR",
+  "price": "$9/mo",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Incremental",
+    "Storage",
+    "Fast",
+    "WAL"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "syncIntervalSec": 900,
+    "logLevel": "info",
+    "param1Label": "Full Backup Frequency",
+    "param1Value": "weekly",
+    "param2Label": "Checksum Verification",
+    "param2Value": "sha256"
+  }
+}

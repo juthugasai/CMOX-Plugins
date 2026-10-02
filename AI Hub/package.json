@@ -1,0 +1,30 @@
+{
+  "name": "@cmox/plugin-ai-hub",
+  "version": "3.0.0",
+  "description": "Centralized AI orchestration center integrating Google Gemini, OpenAI, Claude, and local Ollama models with automated text-to-SQL, schema design, and vector intelligence.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "CDUS Tech Core",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "AI",
+    "AI Hub",
+    "Gemini",
+    "LLM",
+    "Orchestration",
+    "Vector",
+    "Agents",
+    "Copilot"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

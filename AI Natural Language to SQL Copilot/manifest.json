@@ -1,0 +1,36 @@
+{
+  "id": "ai-nl-sql-copilot",
+  "name": "AI Natural Language to SQL Copilot",
+  "version": "v4.5.0",
+  "category": "AI & Automation",
+  "price": "$19/mo",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "AI",
+    "NL-SQL",
+    "Gemini",
+    "Copilot"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "logLevel": "info",
+    "param1Label": "AI Model Engine",
+    "param1Value": "gemini-3.5-flash",
+    "param2Label": "Dialect Format",
+    "param2Value": "PostgreSQL 16+"
+  }
+}

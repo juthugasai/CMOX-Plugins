@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-mongodb-bridge",
+  "version": "3.1.2",
+  "description": "Sync collections bidirectionally between CMOX and MongoDB clusters in real time with schema translation.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "Community Verified",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "MongoDB",
+    "NoSQL",
+    "Sync",
+    "Document DB"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

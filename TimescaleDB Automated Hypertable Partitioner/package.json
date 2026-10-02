@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-timescaledb-partitioner",
+  "version": "3.1.0",
+  "description": "Converts time-series tables into automated chunked hypertables with columnar compression policies.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "Timescale Partner",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "TimescaleDB",
+    "Time-Series",
+    "Hypertables",
+    "IoT"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

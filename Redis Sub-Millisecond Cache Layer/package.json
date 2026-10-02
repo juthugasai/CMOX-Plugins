@@ -1,0 +1,27 @@
+{
+  "name": "@cmox/plugin-redis-cache",
+  "version": "4.0.1",
+  "description": "Auto-cache frequently executed queries and read operations in Redis for sub-millisecond query response latency.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "CDUS Tech Core",
+  "license": "Commercial / Proprietary",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Redis",
+    "Caching",
+    "In-Memory",
+    "Performance",
+    "Speed"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-lambda-serverless-trigger",
+  "version": "2.7.0",
+  "description": "Invoke AWS Lambda serverless functions asynchronously on table INSERT, UPDATE, or DELETE events.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "AWS Solutions Partner",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "AWS",
+    "Lambda",
+    "Serverless",
+    "Events"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

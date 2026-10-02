@@ -1,0 +1,36 @@
+{
+  "id": "gdpr-anonymizer",
+  "name": "GDPR / HIPAA PII Data Anonymizer",
+  "version": "v3.1.0",
+  "category": "Security & IAM",
+  "price": "$12/mo",
+  "author": "Compliance Guard",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "GDPR",
+    "HIPAA",
+    "PII",
+    "Compliance"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "logLevel": "info",
+    "param1Label": "Salt Hash Strategy",
+    "param1Value": "HMAC-SHA256",
+    "param2Label": "Auto-Scan Staging Dumps",
+    "param2Value": "true"
+  }
+}

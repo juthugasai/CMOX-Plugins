@@ -1,0 +1,38 @@
+{
+  "id": "clickhouse-driver",
+  "name": "ClickHouse High-Throughput Analytics Driver",
+  "version": "v3.0.0",
+  "category": "Analytics & OLAP",
+  "price": "$24/mo",
+  "author": "ClickHouse Partner",
+  "license": "Apache-2.0",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "ClickHouse",
+    "Columnar",
+    "OLAP",
+    "Big Data",
+    "Analytics"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "endpoint": "clickhouse://default:password@localhost:9000/analytics",
+    "logLevel": "info",
+    "param1Label": "Target MergeTree Table",
+    "param1Value": "events_columnar",
+    "param2Label": "Batch Block Size",
+    "param2Value": "100000"
+  }
+}

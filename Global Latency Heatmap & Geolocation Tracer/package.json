@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-latency-heatmap",
+  "version": "1.4.0",
+  "description": "Map incoming queries across world geographies with connection latency and SSL handshake timing breakdown.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Latency",
+    "Geo",
+    "Tracer",
+    "Global"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

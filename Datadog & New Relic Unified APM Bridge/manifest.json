@@ -1,0 +1,37 @@
+{
+  "id": "datadog-apm",
+  "name": "Datadog & New Relic Unified APM Bridge",
+  "version": "v2.4.0",
+  "category": "Monitoring & Ops",
+  "price": "$14/mo",
+  "author": "APM Solutions",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Datadog",
+    "NewRelic",
+    "APM",
+    "Distributed Tracing"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "apiKeyPlaceholder": "dd_api_key_here",
+    "logLevel": "info",
+    "param1Label": "Service Name",
+    "param1Value": "cmox-db-prod",
+    "param2Label": "Environment",
+    "param2Value": "production"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "@cmox/plugin-retention-expiry-enforcer",
+  "version": "2.0.0",
+  "description": "Automated GDPR Article 17 right-to-be-forgotten and time-based row expiration shredder.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "Compliance Guard",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "GDPR",
+    "Retention",
+    "Expiry",
+    "Compliance",
+    "Shredder"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

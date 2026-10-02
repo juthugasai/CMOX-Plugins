@@ -1,0 +1,38 @@
+{
+  "id": "active-directory-ldap",
+  "name": "Active Directory & LDAP Single Sign-On",
+  "version": "v3.0.0",
+  "category": "Security & IAM",
+  "price": "$20/mo",
+  "author": "Enterprise Auth",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "LDAP",
+    "ActiveDirectory",
+    "SSO",
+    "SAML",
+    "Okta"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "endpoint": "ldaps://ad.corp.internal:636",
+    "logLevel": "info",
+    "param1Label": "Base DN",
+    "param1Value": "dc=corp,dc=internal",
+    "param2Label": "Group Filter",
+    "param2Value": "(&(objectClass=group)(cn=DBA_*))"
+  }
+}

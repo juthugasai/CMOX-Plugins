@@ -1,0 +1,37 @@
+{
+  "id": "stripe-webhook-bridge",
+  "name": "Stripe Billing & Webhook Bridge",
+  "version": "v3.4.0",
+  "category": "Connectors",
+  "price": "$18/mo",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Stripe",
+    "Fintech",
+    "Payments",
+    "Billing"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "apiKeyPlaceholder": "sk_live_stripe_secret_key",
+    "logLevel": "info",
+    "param1Label": "Webhook Signing Secret",
+    "param1Value": "whsec_...",
+    "param2Label": "Sync Inactive Subscriptions",
+    "param2Value": "true"
+  }
+}

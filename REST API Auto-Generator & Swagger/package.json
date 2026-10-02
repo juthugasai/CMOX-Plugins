@@ -1,0 +1,27 @@
+{
+  "name": "@cmox/plugin-rest-generator",
+  "version": "3.0.0",
+  "description": "Auto-generate full CRUD REST endpoints with JWT authorization and automated OpenAPI 3.0 documentation.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "CDUS Tech Core",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "REST",
+    "CRUD",
+    "OpenAPI",
+    "Swagger",
+    "HTTP"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "@cmox/plugin-active-directory-ldap",
+  "version": "3.0.0",
+  "description": "Map corporate Active Directory security groups directly to database schemas, roles, and table permissions.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "Enterprise Auth",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "LDAP",
+    "ActiveDirectory",
+    "SSO",
+    "SAML",
+    "Okta"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

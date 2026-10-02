@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-csv-excel-importer",
+  "version": "4.2.0",
+  "description": "Drag-and-drop CSV, XLSX, and TSV spreadsheets to bulk-insert millions of rows with automated schema mapping.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "CDUS Tech Core",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "CSV",
+    "Excel",
+    "Bulk",
+    "Importer"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "id": "elasticsearch-sync",
+  "name": "Elasticsearch Full-Text Search Sync",
+  "version": "v2.3.0",
+  "category": "Connectors",
+  "price": "$14/mo",
+  "author": "Elastic Partner",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MongoDB",
+    "MySQL"
+  ],
+  "tags": [
+    "Elasticsearch",
+    "Search",
+    "NLP",
+    "OpenSearch",
+    "Lucene"
+  ],
+  "features": [
+    "Instant fuzzy search and typo tolerance across database records",
+    "Auto-generated phonetic, soundex, and n-gram analyzers",
+    "Bulk batch indexing pipeline supporting 50k docs/sec",
+    "Compatible with Elasticsearch 8.x and OpenSearch 2.x"
+  ],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "endpoint": "http://localhost:9200",
+    "syncIntervalSec": 10,
+    "logLevel": "info",
+    "param1Label": "Index Prefix",
+    "param1Value": "cmox_idx_",
+    "param2Label": "Shards / Replicas",
+    "param2Value": "3 / 1"
+  }
+}

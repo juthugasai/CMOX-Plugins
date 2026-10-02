@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-dynamic-column-masking",
+  "version": "1.9.0",
+  "description": "Dynamically mask credit card numbers, passwords, and sensitive fields on-the-fly depending on viewer permissions.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Masking",
+    "Redaction",
+    "RBAC",
+    "PCI-DSS"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

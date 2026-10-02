@@ -1,0 +1,36 @@
+{
+  "id": "rls-policy-manager",
+  "name": "Row-Level Security (RLS) Policy Manager",
+  "version": "v2.6.0",
+  "category": "Security & IAM",
+  "price": "$15/mo",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "RLS",
+    "Multi-Tenant",
+    "Policies",
+    "RBAC"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "logLevel": "info",
+    "param1Label": "Default Policy Mode",
+    "param1Value": "deny-by-default",
+    "param2Label": "Tenant Header Key",
+    "param2Value": "X-Tenant-ID"
+  }
+}

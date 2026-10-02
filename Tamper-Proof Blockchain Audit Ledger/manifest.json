@@ -1,0 +1,36 @@
+{
+  "id": "audit-trail-ledger",
+  "name": "Tamper-Proof Blockchain Audit Ledger",
+  "version": "v2.4.0",
+  "category": "Security & IAM",
+  "price": "Free",
+  "author": "CDUS Tech Core",
+  "license": "MIT",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Audit",
+    "Immutable",
+    "Compliance",
+    "SOC2"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "logLevel": "info",
+    "param1Label": "Digest Hash Algorithm",
+    "param1Value": "SHA-256",
+    "param2Label": "Export Format",
+    "param2Value": "JSON-Lines"
+  }
+}

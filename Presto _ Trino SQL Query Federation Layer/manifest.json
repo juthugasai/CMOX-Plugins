@@ -1,0 +1,37 @@
+{
+  "id": "trino-query-federation",
+  "name": "Presto / Trino SQL Query Federation Layer",
+  "version": "v2.2.0",
+  "category": "Analytics & OLAP",
+  "price": "$28/mo",
+  "author": "Trino Community",
+  "license": "Apache-2.0",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Trino",
+    "Presto",
+    "Federation",
+    "SQL"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "endpoint": "http://trino-coordinator:8080",
+    "logLevel": "info",
+    "param1Label": "Catalog Name",
+    "param1Value": "cmox_federation",
+    "param2Label": "Max Query Memory",
+    "param2Value": "16GB"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "id": "azure-blob-vault",
+  "name": "Azure Blob WORM Storage Vault",
+  "version": "v1.9.0",
+  "category": "Backup & DR",
+  "price": "$9/mo",
+  "author": "Microsoft Partner",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Azure",
+    "Blob",
+    "WORM",
+    "Compliance"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "endpoint": "https://cmoxbackup.blob.core.windows.net",
+    "logLevel": "info",
+    "param1Label": "Container Name",
+    "param1Value": "immutable-vault",
+    "param2Label": "Legal Hold Enabled",
+    "param2Value": "true"
+  }
+}

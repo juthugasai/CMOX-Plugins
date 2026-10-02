@@ -1,0 +1,36 @@
+{
+  "id": "postgres-native-wizard",
+  "name": "PostgreSQL Native Dump & Restore Wizard",
+  "version": "v3.5.0",
+  "category": "Import/Export",
+  "price": "Free",
+  "author": "CDUS Tech Core",
+  "license": "MIT",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Postgres",
+    "Dump",
+    "pg_restore",
+    "SQL"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "logLevel": "info",
+    "param1Label": "Default Dump Format",
+    "param1Value": "custom-compressed-pgdump",
+    "param2Label": "Parallel Jobs Count",
+    "param2Value": "4"
+  }
+}

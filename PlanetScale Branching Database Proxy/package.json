@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-planetscale-proxy",
+  "version": "2.0.0",
+  "description": "Non-blocking schema migration proxy powered by PlanetScale and Vitess sharding technology.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "Vitess Community",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "PlanetScale",
+    "Vitess",
+    "Branching",
+    "MySQL"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "id": "schema-git-versioning",
+  "name": "Database Schema Version Control & Git Diff",
+  "version": "v3.4.0",
+  "category": "Dev Tools",
+  "price": "$12/mo",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Git",
+    "Versioning",
+    "Migrations",
+    "CI/CD"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": true,
+    "autoUpdate": true,
+    "logLevel": "info",
+    "param1Label": "Migration Output Folder",
+    "param1Value": "./migrations",
+    "param2Label": "Auto-Generate Down Migrations",
+    "param2Value": "true"
+  }
+}

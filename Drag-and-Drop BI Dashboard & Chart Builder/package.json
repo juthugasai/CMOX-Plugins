@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-bi-dashboard-builder",
+  "version": "2.5.0",
+  "description": "Build executive KPI dashboards, bar charts, time-series graphs, and heatmaps on live database tables.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "BI",
+    "Charts",
+    "Dashboards",
+    "Reporting"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

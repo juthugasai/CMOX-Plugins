@@ -1,0 +1,36 @@
+{
+  "id": "langchain-tools",
+  "name": "LangChain & LlamaIndex Vector Tool Integrator",
+  "version": "v3.2.0",
+  "category": "AI & Automation",
+  "price": "Free",
+  "author": "AI Integrations",
+  "license": "MIT",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "LangChain",
+    "LlamaIndex",
+    "Agents",
+    "RAG"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "logLevel": "info",
+    "param1Label": "Tool Name Prefix",
+    "param1Value": "cmox_db_",
+    "param2Label": "Read-Only Mode Enforced",
+    "param2Value": "true"
+  }
+}

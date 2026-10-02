@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-team-workspace-rbac",
+  "version": "2.5.0",
+  "description": "Collaborate with developers and DBAs with real-time cursor presence, shared queries, and fine-grained permissions.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Team",
+    "RBAC",
+    "Collaboration",
+    "Multiplayer"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

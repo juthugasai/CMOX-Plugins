@@ -1,0 +1,38 @@
+{
+  "id": "vercel-cache-invalidator",
+  "name": "Vercel Edge Serverless Cache Invalidator",
+  "version": "v2.3.0",
+  "category": "Cloud & Edge",
+  "price": "Free",
+  "author": "Vercel Partner",
+  "license": "MIT",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Vercel",
+    "Next.js",
+    "ISR",
+    "Cache Invalidation"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "endpoint": "https://my-app.vercel.app/api/revalidate",
+    "apiKeyPlaceholder": "vercel_revalidate_secret",
+    "logLevel": "info",
+    "param1Label": "Tag Map Strategy",
+    "param1Value": "table-name-tag",
+    "param2Label": "Throttle Delay (ms)",
+    "param2Value": "500"
+  }
+}

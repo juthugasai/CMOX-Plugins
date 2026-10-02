@@ -1,0 +1,37 @@
+{
+  "id": "vision-ocr-pipeline",
+  "name": "Vision AI Document OCR to Table Pipeline",
+  "version": "v1.5.0",
+  "category": "AI & Automation",
+  "price": "$22/mo",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Vision",
+    "OCR",
+    "PDF",
+    "Multimodal",
+    "AI"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "logLevel": "info",
+    "param1Label": "OCR Engine",
+    "param1Value": "Gemini-Vision-Pro",
+    "param2Label": "Confidence Threshold",
+    "param2Value": "0.85"
+  }
+}

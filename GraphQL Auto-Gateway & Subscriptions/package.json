@@ -1,0 +1,27 @@
+{
+  "name": "@cmox/plugin-graphql-gateway",
+  "version": "2.5.0",
+  "description": "Instantly expose your entire database schema as a production GraphQL API with live real-time subscriptions.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "CDUS Tech Core",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "GraphQL",
+    "API",
+    "Realtime",
+    "Subscriptions",
+    "Apollo"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "id": "mssql-bcp-ingest",
+  "name": "Microsoft SQL Server (MSSQL) BCP Ingest",
+  "version": "v2.2.0",
+  "category": "Import/Export",
+  "price": "$18/mo",
+  "author": "Enterprise Migrations",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "MSSQL",
+    "SQL Server",
+    "BCP",
+    "TDS"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "endpoint": "mssql://sa:password@localhost:1433/DatabaseName",
+    "logLevel": "info",
+    "param1Label": "Batch Packet Size",
+    "param1Value": "32768",
+    "param2Label": "Trust Server Certificate",
+    "param2Value": "true"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-doris-analytics-warehouse",
+  "version": "1.6.0",
+  "description": "Massively parallel processing (MPP) real-time data warehouse supporting sub-second ad-hoc queries.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "Community",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Doris",
+    "MPP",
+    "Warehouse",
+    "OLAP"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

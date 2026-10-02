@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-usb-auto-sync",
+  "version": "1.2.0",
+  "description": "Detect hot-plugged external hard drives and execute automated verified snapshot dumps with beep alerts.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "Community",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "USB",
+    "Hardware",
+    "Offline",
+    "Automation"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

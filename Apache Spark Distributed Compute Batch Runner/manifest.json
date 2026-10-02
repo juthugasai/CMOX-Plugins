@@ -1,0 +1,37 @@
+{
+  "id": "spark-batch-runner",
+  "name": "Apache Spark Distributed Compute Batch Runner",
+  "version": "v3.1.0",
+  "category": "Analytics & OLAP",
+  "price": "$35/mo",
+  "author": "Enterprise BigData",
+  "license": "Commercial",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Spark",
+    "PySpark",
+    "Distributed",
+    "Hadoop"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "endpoint": "spark://spark-master:7077",
+    "logLevel": "info",
+    "param1Label": "Executor Cores",
+    "param1Value": "4",
+    "param2Label": "Executor Memory",
+    "param2Value": "8g"
+  }
+}

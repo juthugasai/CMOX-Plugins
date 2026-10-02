@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-prometheus-exporter",
+  "version": "2.2.0",
+  "description": "Expose standard /metrics endpoints with 120+ Prometheus database metrics for Grafana dashboards.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "Community",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Prometheus",
+    "OpenTelemetry",
+    "Grafana",
+    "Metrics"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

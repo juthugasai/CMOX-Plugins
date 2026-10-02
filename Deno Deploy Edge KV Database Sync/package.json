@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-deno-deploy-kv-sync",
+  "version": "1.4.0",
+  "description": "Sync relational master data into Deno KV edge storage instances worldwide.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "Community",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Deno",
+    "DenoKV",
+    "Edge",
+    "TypeScript"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "id": "kyber-quantum-encryption",
+  "name": "Quantum-Resistant Kyber Encryption Bridge",
+  "version": "v1.1.0",
+  "category": "Security & IAM",
+  "price": "$29/mo",
+  "author": "Quantum Cryptography Labs",
+  "license": "FIPS 203 Approved",
+  "entry": "index.ts",
+  "types": "types.ts",
+  "verified": true,
+  "engines": [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "SQLite",
+    "ClickHouse",
+    "DuckDB"
+  ],
+  "tags": [
+    "Post-Quantum",
+    "Kyber",
+    "NIST",
+    "Cryptography"
+  ],
+  "features": [],
+  "defaultConfig": {
+    "enabled": false,
+    "autoUpdate": true,
+    "logLevel": "info",
+    "param1Label": "Kyber Security Level",
+    "param1Value": "ML-KEM-1024 (AES-256 Equiv)",
+    "param2Label": "Hybrid Mode with X25519",
+    "param2Value": "true"
+  }
+}

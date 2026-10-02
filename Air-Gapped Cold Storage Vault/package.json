@@ -1,0 +1,26 @@
+{
+  "name": "@cmox/plugin-air-gap-vault",
+  "version": "2.2.0",
+  "description": "Write digitally signed archive snapshots to isolated offline physical storage targets with cryptographic tamper seals.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "types.ts",
+  "author": "Security Labs",
+  "license": "Commercial",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "keywords": [
+    "cmox",
+    "database",
+    "plugin",
+    "Air-Gap",
+    "Offline",
+    "Defense",
+    "FIPS"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
