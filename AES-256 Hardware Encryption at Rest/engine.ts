@@ -16,6 +16,8 @@ import { AES256HardwareEncryptionatRestConfigManager } from './config';
 import { AES256HardwareEncryptionatRestClient } from './client';
 import { AES256HardwareEncryptionatRestPipeline } from './pipeline';
 import { AES256HardwareEncryptionatRestTelemetry } from './telemetry';
+import { AES256HardwareEncryptionatRestThirdPartyAdapter } from './adapter';
+import { AES256HardwareEncryptionatRestUniversalBridge } from './bridge';
 
 export class AES256HardwareEncryptionatRestEngine extends EventEmitter {
   public readonly id = 'aes256-encryption';
@@ -27,6 +29,8 @@ export class AES256HardwareEncryptionatRestEngine extends EventEmitter {
   private client: AES256HardwareEncryptionatRestClient;
   private pipeline: AES256HardwareEncryptionatRestPipeline;
   private telemetry: AES256HardwareEncryptionatRestTelemetry;
+  public readonly adapter: AES256HardwareEncryptionatRestThirdPartyAdapter;
+  private bridge: AES256HardwareEncryptionatRestUniversalBridge | null = null;
 
   private status: PluginStatus = 'uninitialized';
   private bufferQueue: StreamPayload[] = [];
@@ -37,15 +41,16 @@ export class AES256HardwareEncryptionatRestEngine extends EventEmitter {
     super();
     this.configManager = new AES256HardwareEncryptionatRestConfigManager(options);
     const config = this.configManager.get();
+    this.adapter = new AES256HardwareEncryptionatRestThirdPartyAdapter();
     this.client = new AES256HardwareEncryptionatRestClient(config);
-    this.pipeline = new AES256HardwareEncryptionatRestPipeline();
+    this.pipeline = new AES256HardwareEncryptionatRestPipeline(this.adapter);
     this.telemetry = new AES256HardwareEncryptionatRestTelemetry();
   }
 
   /**
-   * Initializes the plugin runtime and connects to remote or local socket pools.
+   * Initializes the plugin runtime, connects sockets, and starts the universal multi-language bridge.
    */
-  public async initialize(): Promise<boolean> {
+  public async initialize(enableBridge = true): Promise<boolean> {
     const config = this.configManager.get();
     if (!config.enabled) {
       this.status = 'idle' as PluginStatus;
@@ -56,6 +61,12 @@ export class AES256HardwareEncryptionatRestEngine extends EventEmitter {
     try {
       await this.client.connect();
       this.startRealtimeLoop();
+
+      if (enableBridge && config.bridgePort) {
+        this.bridge = new AES256HardwareEncryptionatRestUniversalBridge(this, config.bridgePort);
+        await this.bridge.start();
+      }
+
       this.status = 'healthy';
       this.emit('ready', { id: this.id, timestamp: Date.now() });
       return true;
@@ -97,7 +108,7 @@ export class AES256HardwareEncryptionatRestEngine extends EventEmitter {
   }
 
   /**
-   * Flushes queued payloads via the transport client.
+   * Flushes queued payloads via the transport client and third-party custom sinks.
    */
   public async flushBuffer(): Promise<number> {
     if (this.bufferQueue.length === 0) return 0;
@@ -106,6 +117,7 @@ export class AES256HardwareEncryptionatRestEngine extends EventEmitter {
 
     try {
       const result = await this.client.transmitBatch(batch);
+      await this.adapter.dispatchToCustomSinks(batch);
       this.telemetry.recordBatch(result.acknowledgedCount);
       this.emit('flushed', { count: result.acknowledgedCount, latencyMs: result.durationMs });
       return result.acknowledgedCount;
@@ -132,7 +144,8 @@ export class AES256HardwareEncryptionatRestEngine extends EventEmitter {
       endpoint: config.endpoint,
       lastHeartbeat: new Date().toISOString(),
       metrics: this.telemetry.getSnapshot(this.status, this.bufferQueue.length),
-      activeFeatures: ["Zero-overhead hardware acceleration using CPU AES-NI instructions","Full encryption for tables, JSON files, indexes, and WAL logs","Local master key derivation via Argon2id (100k rounds)","Zero plain-text residual data in RAM or swap files"]
+      activeFeatures: ["Zero-overhead hardware acceleration using CPU AES-NI instructions","Full encryption for tables, JSON files, indexes, and WAL logs","Local master key derivation via Argon2id (100k rounds)","Zero plain-text residual data in RAM or swap files"],
+      activeThirdPartyHooks: this.adapter.getActiveHookNames()
     };
   }
 
@@ -145,13 +158,17 @@ export class AES256HardwareEncryptionatRestEngine extends EventEmitter {
   }
 
   /**
-   * Graceful shutdown of socket interconnects and background daemon loops.
+   * Graceful shutdown of socket interconnects, bridge server, and daemon loops.
    */
   public async shutdown(): Promise<void> {
     this.isShuttingDown = true;
     if (this.loopTimer) {
       clearInterval(this.loopTimer);
       this.loopTimer = null;
+    }
+    if (this.bridge) {
+      await this.bridge.stop();
+      this.bridge = null;
     }
     await this.flushBuffer();
     await this.client.disconnect();

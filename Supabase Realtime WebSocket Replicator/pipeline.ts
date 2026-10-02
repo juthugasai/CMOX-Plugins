@@ -7,13 +7,16 @@
 import { createHash } from 'crypto';
 import { StreamPayload, MutationAction } from './types';
 import { SupabaseRealtimeWebSocketReplicatorGuardrails } from './guardrails';
+import { SupabaseRealtimeWebSocketReplicatorThirdPartyAdapter } from './adapter';
 
 export class SupabaseRealtimeWebSocketReplicatorPipeline {
   private guardrails: SupabaseRealtimeWebSocketReplicatorGuardrails;
+  private adapter: SupabaseRealtimeWebSocketReplicatorThirdPartyAdapter;
   private sequenceCounter: number = 0;
 
-  constructor() {
+  constructor(adapter?: SupabaseRealtimeWebSocketReplicatorThirdPartyAdapter) {
     this.guardrails = new SupabaseRealtimeWebSocketReplicatorGuardrails();
+    this.adapter = adapter || new SupabaseRealtimeWebSocketReplicatorThirdPartyAdapter();
   }
 
   public async process<T>(action: MutationAction, rawData: T, source = 'cmox.core'): Promise<StreamPayload<T>> {
@@ -31,7 +34,7 @@ export class SupabaseRealtimeWebSocketReplicatorPipeline {
     const checksum = createHash('sha256').update(payloadJson).digest('hex');
 
     // Stage 4: Envelope Construction
-    return {
+    let envelope: StreamPayload<T> = {
       id: `evt_${Date.now()}_${this.sequenceCounter}`,
       sequence: this.sequenceCounter,
       timestamp: Date.now(),
@@ -40,5 +43,10 @@ export class SupabaseRealtimeWebSocketReplicatorPipeline {
       data: validation.sanitizedData,
       checksumSha256: checksum
     };
+
+    // Stage 5: Third-party Pre-Ingest Middleware Interception
+    envelope = await this.adapter.executePreIngest(envelope);
+
+    return envelope;
   }
 }

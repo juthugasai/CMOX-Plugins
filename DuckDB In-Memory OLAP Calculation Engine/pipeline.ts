@@ -7,13 +7,16 @@
 import { createHash } from 'crypto';
 import { StreamPayload, MutationAction } from './types';
 import { DuckDBInMemoryOLAPCalculationEngineGuardrails } from './guardrails';
+import { DuckDBInMemoryOLAPCalculationEngineThirdPartyAdapter } from './adapter';
 
 export class DuckDBInMemoryOLAPCalculationEnginePipeline {
   private guardrails: DuckDBInMemoryOLAPCalculationEngineGuardrails;
+  private adapter: DuckDBInMemoryOLAPCalculationEngineThirdPartyAdapter;
   private sequenceCounter: number = 0;
 
-  constructor() {
+  constructor(adapter?: DuckDBInMemoryOLAPCalculationEngineThirdPartyAdapter) {
     this.guardrails = new DuckDBInMemoryOLAPCalculationEngineGuardrails();
+    this.adapter = adapter || new DuckDBInMemoryOLAPCalculationEngineThirdPartyAdapter();
   }
 
   public async process<T>(action: MutationAction, rawData: T, source = 'cmox.core'): Promise<StreamPayload<T>> {
@@ -31,7 +34,7 @@ export class DuckDBInMemoryOLAPCalculationEnginePipeline {
     const checksum = createHash('sha256').update(payloadJson).digest('hex');
 
     // Stage 4: Envelope Construction
-    return {
+    let envelope: StreamPayload<T> = {
       id: `evt_${Date.now()}_${this.sequenceCounter}`,
       sequence: this.sequenceCounter,
       timestamp: Date.now(),
@@ -40,5 +43,10 @@ export class DuckDBInMemoryOLAPCalculationEnginePipeline {
       data: validation.sanitizedData,
       checksumSha256: checksum
     };
+
+    // Stage 5: Third-party Pre-Ingest Middleware Interception
+    envelope = await this.adapter.executePreIngest(envelope);
+
+    return envelope;
   }
 }

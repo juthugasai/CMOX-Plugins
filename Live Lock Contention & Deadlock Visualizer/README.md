@@ -1,8 +1,8 @@
 # Live Lock Contention & Deadlock Visualizer
 
 [![CMOX Verified](https://img.shields.io/badge/CMOX-Verified-blue)](https://cmox.io)
+[![Polyglot Ready](https://img.shields.io/badge/Languages-TypeScript%20%7C%20Python%20%7C%20Go%20%7C%20Rust%20%7C%20CLI-purple)]()
 [![License](https://img.shields.io/badge/License-Commercial-green)](LICENSE)
-[![Category](https://img.shields.io/badge/Category-Monitoring%20%26%20Ops-purple)]()
 
 > **Visualize lock contention dependency graphs in real-time and resolve blocking transaction deadlocks instantly.**
 
@@ -12,65 +12,96 @@
 Displays interactive node graphs showing which transaction PID holds an exclusive lock and which transactions are blocked waiting. Includes 1-click `pg_terminate_backend()` kill action.
 
 ## ⚡ Key Capabilities
-- Sub-millisecond lock-free ring buffer ingestion
-- Vectorized binary serialization and exact-once semantics
-- Automated backpressure management and connection pooling
-- Hardware-accelerated cryptographic integrity verification (SHA-256)
+- **Multi-Language Support**: Native SDKs for **TypeScript/JavaScript**, **Python**, **Go**, **Rust**, and **Bash CLI**.
+- **Third-Party Extensible**: Middleware pipeline with `usePreIngest`, `usePostProcess`, and custom destination sinks.
+- **Universal JSON-RPC 2.0 & REST Bridge**: Enables external tools (Java, C#, PHP, C++, Swift) to interact with the plugin over standard HTTP.
+- **High Throughput**: Vectorized lock-free ring buffering with cryptographic SHA-256 integrity verification.
 
-## 📦 Package Architecture (12 Modular Files)
-| File | Responsibility |
+## 📦 Polyglot SDK File Directory (18 Modular Files)
+| File | Language / Responsibility |
 |---|---|
-| `index.ts` | Main module entrypoint and unified exports |
-| `engine.ts` | Asynchronous core lifecycle orchestrator |
-| `types.ts` | Exhaustive TypeScript interfaces and contracts |
-| `config.ts` | Configuration resolver and schema validator |
-| `client.ts` | TLS socket transport and connection pool |
-| `pipeline.ts` | 4-stage data transformation and hashing pipeline |
-| `guardrails.ts` | Rate limiting, AST guardrails, and sanitization |
-| `telemetry.ts` | Latency HDR histograms and Prometheus exporter |
-| `test.ts` | Automated runnable verification suite |
-| `manifest.json` | CMOX Marketplace metadata descriptor |
-| `package.json` | Standalone npm package specification |
-| `README.md` | Enterprise operational documentation |
+| `index.ts` | **TypeScript** Main Entrypoint & unified exports |
+| `engine.ts` | **TypeScript** Core async orchestrator |
+| `client.py` | **Python 3.10+** AsyncIO native client |
+| `client.go` | **Go (Golang)** Concurrent Goroutine client |
+| `client.rs` | **Rust** Tokio async client |
+| `cli.sh` | **Bash / cURL** Universal CLI tool |
+| `bridge.ts` | **Universal Bridge** JSON-RPC 2.0 & HTTP REST Server |
+| `adapter.ts` | **Third-Party Extensibility** Middleware & Custom Sinks |
+| `pipeline.ts` | **Pipeline** 4-stage data transformation & checksums |
+| `guardrails.ts` | **Guardrails** Rate limiting (50,000 ops/sec) & AST filters |
+| `telemetry.ts` | **Observability** Prometheus & OTEL exporter |
+| `test.ts` | **Testing** Automated validation test suite |
 
-## 🚀 Quickstart
+---
 
+## 🚀 Multi-Language Usage Examples
+
+### 1. TypeScript / Node.js
 ```typescript
 import { LiveLockContentionDeadlockVisualizerEngine } from '@cmox/plugin-lock-visualizer';
 
-const plugin = new LiveLockContentionDeadlockVisualizerEngine({
-  enabled: true,
-  endpoint: 'http://localhost:9092',
-  logLevel: 'info',
-  syncIntervalSec: 5
+const plugin = new LiveLockContentionDeadlockVisualizerEngine({ enabled: true });
+
+// Register Third-Party Middleware
+plugin.adapter.usePreIngest('custom_stamper', (payload) => {
+  payload.metadata = { customHeader: 'my_org_token' };
+  return payload;
 });
 
-// Initialize socket interconnect
 await plugin.initialize();
-
-// Ingest real-time database mutation
-const event = await plugin.ingest('insert', {
-  table: 'transactions',
-  recordId: 'tx_98241',
-  amount: 1450.00,
-  currency: 'USD'
-});
-
-console.log('Event ingested with SHA-256 checksum:', event.checksumSha256);
-
-// Inspect live metrics
-const health = plugin.getHealthReport();
-console.log('P99 Latency:', health.metrics.p99LatencyMs, 'ms');
+await plugin.ingest('insert', { table: 'orders', id: 'ord_123' });
 ```
 
-## ⚙️ Configuration Parameters
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `enabled` | `boolean` | `false` | Master runtime activation switch |
-| `autoUpdate` | `boolean` | `true` | Automatic patch synchronizer |
-| `endpoint` | `string` | `"http://localhost:9092"` | Interconnect host socket URL |
-| `logLevel` | `string` | `"info"` | Logging verbosity level (debug, info, warn, error) |
-| `syncIntervalSec` | `number` | `3` | Background batch flush period in seconds |
+### 2. Python (AsyncIO)
+```python
+import asyncio
+from client import LiveLockContentionDeadlockVisualizerEnginePythonClient
+
+async def run():
+    client = LiveLockContentionDeadlockVisualizerEnginePythonClient(bridge_url="http://localhost:7890")
+    event = await client.ingest("insert", {"user_id": 42, "role": "admin"})
+    print("Ingested event:", event)
+
+asyncio.run(run())
+```
+
+### 3. Go (Golang)
+```go
+package main
+
+import (
+	"fmt"
+	client "./client"
+)
+
+func main() {
+	c := client.NewClient("http://localhost:7890", "optional_api_key")
+	payload, _ := c.Ingest("insert", map[string]interface{}{"status": "active"})
+	fmt.Println("Ingested SHA-256:", payload.Checksum)
+}
+```
+
+### 4. Rust (Tokio)
+```rust
+use client::LiveLockContentionDeadlockVisualizerEngineRustClient;
+
+#[tokio::main]
+async fn main() {
+    let client = LiveLockContentionDeadlockVisualizerEngineRustClient::new("http://localhost:7890");
+    let payload = client.build_payload("insert", serde_json::json!({"action": "start"}));
+    println!("Payload ID: {}", payload.id);
+}
+```
+
+### 5. Bash / cURL CLI
+```bash
+# Ingest event directly via CLI
+./cli.sh ingest insert '{"entity": "sensor_01", "temp": 24.5}'
+
+# Inspect live health & Prometheus metrics
+./cli.sh health
+```
 
 ---
 *Built for CMOX Database Core Enterprise Architecture.*

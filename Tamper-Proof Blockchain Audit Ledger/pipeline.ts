@@ -7,13 +7,16 @@
 import { createHash } from 'crypto';
 import { StreamPayload, MutationAction } from './types';
 import { TamperProofBlockchainAuditLedgerGuardrails } from './guardrails';
+import { TamperProofBlockchainAuditLedgerThirdPartyAdapter } from './adapter';
 
 export class TamperProofBlockchainAuditLedgerPipeline {
   private guardrails: TamperProofBlockchainAuditLedgerGuardrails;
+  private adapter: TamperProofBlockchainAuditLedgerThirdPartyAdapter;
   private sequenceCounter: number = 0;
 
-  constructor() {
+  constructor(adapter?: TamperProofBlockchainAuditLedgerThirdPartyAdapter) {
     this.guardrails = new TamperProofBlockchainAuditLedgerGuardrails();
+    this.adapter = adapter || new TamperProofBlockchainAuditLedgerThirdPartyAdapter();
   }
 
   public async process<T>(action: MutationAction, rawData: T, source = 'cmox.core'): Promise<StreamPayload<T>> {
@@ -31,7 +34,7 @@ export class TamperProofBlockchainAuditLedgerPipeline {
     const checksum = createHash('sha256').update(payloadJson).digest('hex');
 
     // Stage 4: Envelope Construction
-    return {
+    let envelope: StreamPayload<T> = {
       id: `evt_${Date.now()}_${this.sequenceCounter}`,
       sequence: this.sequenceCounter,
       timestamp: Date.now(),
@@ -40,5 +43,10 @@ export class TamperProofBlockchainAuditLedgerPipeline {
       data: validation.sanitizedData,
       checksumSha256: checksum
     };
+
+    // Stage 5: Third-party Pre-Ingest Middleware Interception
+    envelope = await this.adapter.executePreIngest(envelope);
+
+    return envelope;
   }
 }

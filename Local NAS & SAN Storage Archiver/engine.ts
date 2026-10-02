@@ -16,6 +16,8 @@ import { LocalNASSANStorageArchiverConfigManager } from './config';
 import { LocalNASSANStorageArchiverClient } from './client';
 import { LocalNASSANStorageArchiverPipeline } from './pipeline';
 import { LocalNASSANStorageArchiverTelemetry } from './telemetry';
+import { LocalNASSANStorageArchiverThirdPartyAdapter } from './adapter';
+import { LocalNASSANStorageArchiverUniversalBridge } from './bridge';
 
 export class LocalNASSANStorageArchiverEngine extends EventEmitter {
   public readonly id = 'nas-backup';
@@ -27,6 +29,8 @@ export class LocalNASSANStorageArchiverEngine extends EventEmitter {
   private client: LocalNASSANStorageArchiverClient;
   private pipeline: LocalNASSANStorageArchiverPipeline;
   private telemetry: LocalNASSANStorageArchiverTelemetry;
+  public readonly adapter: LocalNASSANStorageArchiverThirdPartyAdapter;
+  private bridge: LocalNASSANStorageArchiverUniversalBridge | null = null;
 
   private status: PluginStatus = 'uninitialized';
   private bufferQueue: StreamPayload[] = [];
@@ -37,15 +41,16 @@ export class LocalNASSANStorageArchiverEngine extends EventEmitter {
     super();
     this.configManager = new LocalNASSANStorageArchiverConfigManager(options);
     const config = this.configManager.get();
+    this.adapter = new LocalNASSANStorageArchiverThirdPartyAdapter();
     this.client = new LocalNASSANStorageArchiverClient(config);
-    this.pipeline = new LocalNASSANStorageArchiverPipeline();
+    this.pipeline = new LocalNASSANStorageArchiverPipeline(this.adapter);
     this.telemetry = new LocalNASSANStorageArchiverTelemetry();
   }
 
   /**
-   * Initializes the plugin runtime and connects to remote or local socket pools.
+   * Initializes the plugin runtime, connects sockets, and starts the universal multi-language bridge.
    */
-  public async initialize(): Promise<boolean> {
+  public async initialize(enableBridge = true): Promise<boolean> {
     const config = this.configManager.get();
     if (!config.enabled) {
       this.status = 'idle' as PluginStatus;
@@ -56,6 +61,12 @@ export class LocalNASSANStorageArchiverEngine extends EventEmitter {
     try {
       await this.client.connect();
       this.startRealtimeLoop();
+
+      if (enableBridge && config.bridgePort) {
+        this.bridge = new LocalNASSANStorageArchiverUniversalBridge(this, config.bridgePort);
+        await this.bridge.start();
+      }
+
       this.status = 'healthy';
       this.emit('ready', { id: this.id, timestamp: Date.now() });
       return true;
@@ -97,7 +108,7 @@ export class LocalNASSANStorageArchiverEngine extends EventEmitter {
   }
 
   /**
-   * Flushes queued payloads via the transport client.
+   * Flushes queued payloads via the transport client and third-party custom sinks.
    */
   public async flushBuffer(): Promise<number> {
     if (this.bufferQueue.length === 0) return 0;
@@ -106,6 +117,7 @@ export class LocalNASSANStorageArchiverEngine extends EventEmitter {
 
     try {
       const result = await this.client.transmitBatch(batch);
+      await this.adapter.dispatchToCustomSinks(batch);
       this.telemetry.recordBatch(result.acknowledgedCount);
       this.emit('flushed', { count: result.acknowledgedCount, latencyMs: result.durationMs });
       return result.acknowledgedCount;
@@ -132,7 +144,8 @@ export class LocalNASSANStorageArchiverEngine extends EventEmitter {
       endpoint: config.endpoint,
       lastHeartbeat: new Date().toISOString(),
       metrics: this.telemetry.getSnapshot(this.status, this.bufferQueue.length),
-      activeFeatures: ["100% On-Premise data path — zero external cloud telemetry","Direct SMB, NFSv4, and local UNC file path support","Automatic digital signature and SHA-256 integrity checks","Automated grandfather-father-son (GFS) rotation retention"]
+      activeFeatures: ["100% On-Premise data path — zero external cloud telemetry","Direct SMB, NFSv4, and local UNC file path support","Automatic digital signature and SHA-256 integrity checks","Automated grandfather-father-son (GFS) rotation retention"],
+      activeThirdPartyHooks: this.adapter.getActiveHookNames()
     };
   }
 
@@ -145,13 +158,17 @@ export class LocalNASSANStorageArchiverEngine extends EventEmitter {
   }
 
   /**
-   * Graceful shutdown of socket interconnects and background daemon loops.
+   * Graceful shutdown of socket interconnects, bridge server, and daemon loops.
    */
   public async shutdown(): Promise<void> {
     this.isShuttingDown = true;
     if (this.loopTimer) {
       clearInterval(this.loopTimer);
       this.loopTimer = null;
+    }
+    if (this.bridge) {
+      await this.bridge.stop();
+      this.bridge = null;
     }
     await this.flushBuffer();
     await this.client.disconnect();

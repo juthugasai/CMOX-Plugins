@@ -10,6 +10,8 @@ export * from './guardrails';
 export * from './telemetry';
 export * from './client';
 export * from './pipeline';
+export * from './adapter';
+export * from './bridge';
 export * from './engine';
 
 import { PagerDutyOpsGenieIncidentDispatcherEngine } from './engine';

@@ -16,6 +16,8 @@ import { AIHubConfigManager } from './config';
 import { AIHubClient } from './client';
 import { AIHubPipeline } from './pipeline';
 import { AIHubTelemetry } from './telemetry';
+import { AIHubThirdPartyAdapter } from './adapter';
+import { AIHubUniversalBridge } from './bridge';
 
 export class AIHubEngine extends EventEmitter {
   public readonly id = 'ai-hub';
@@ -27,6 +29,8 @@ export class AIHubEngine extends EventEmitter {
   private client: AIHubClient;
   private pipeline: AIHubPipeline;
   private telemetry: AIHubTelemetry;
+  public readonly adapter: AIHubThirdPartyAdapter;
+  private bridge: AIHubUniversalBridge | null = null;
 
   private status: PluginStatus = 'uninitialized';
   private bufferQueue: StreamPayload[] = [];
@@ -37,15 +41,16 @@ export class AIHubEngine extends EventEmitter {
     super();
     this.configManager = new AIHubConfigManager(options);
     const config = this.configManager.get();
+    this.adapter = new AIHubThirdPartyAdapter();
     this.client = new AIHubClient(config);
-    this.pipeline = new AIHubPipeline();
+    this.pipeline = new AIHubPipeline(this.adapter);
     this.telemetry = new AIHubTelemetry();
   }
 
   /**
-   * Initializes the plugin runtime and connects to remote or local socket pools.
+   * Initializes the plugin runtime, connects sockets, and starts the universal multi-language bridge.
    */
-  public async initialize(): Promise<boolean> {
+  public async initialize(enableBridge = true): Promise<boolean> {
     const config = this.configManager.get();
     if (!config.enabled) {
       this.status = 'idle' as PluginStatus;
@@ -56,6 +61,12 @@ export class AIHubEngine extends EventEmitter {
     try {
       await this.client.connect();
       this.startRealtimeLoop();
+
+      if (enableBridge && config.bridgePort) {
+        this.bridge = new AIHubUniversalBridge(this, config.bridgePort);
+        await this.bridge.start();
+      }
+
       this.status = 'healthy';
       this.emit('ready', { id: this.id, timestamp: Date.now() });
       return true;
@@ -97,7 +108,7 @@ export class AIHubEngine extends EventEmitter {
   }
 
   /**
-   * Flushes queued payloads via the transport client.
+   * Flushes queued payloads via the transport client and third-party custom sinks.
    */
   public async flushBuffer(): Promise<number> {
     if (this.bufferQueue.length === 0) return 0;
@@ -106,6 +117,7 @@ export class AIHubEngine extends EventEmitter {
 
     try {
       const result = await this.client.transmitBatch(batch);
+      await this.adapter.dispatchToCustomSinks(batch);
       this.telemetry.recordBatch(result.acknowledgedCount);
       this.emit('flushed', { count: result.acknowledgedCount, latencyMs: result.durationMs });
       return result.acknowledgedCount;
@@ -132,7 +144,8 @@ export class AIHubEngine extends EventEmitter {
       endpoint: config.endpoint,
       lastHeartbeat: new Date().toISOString(),
       metrics: this.telemetry.getSnapshot(this.status, this.bufferQueue.length),
-      activeFeatures: ["Multi-provider LLM gateway (Google Gemini 3.5, OpenAI GPT-4o, Claude 3.7, Local Ollama)","Autonomous schema blueprint generator from natural language prompts","Real-time text-to-SQL query generation with safety AST guardrails","High-dimensional vector embedding generation & cosine similarity search","Semantic prompt caching with 90%+ latency reduction for repeated analytical queries","Automated slow query remediation & index synthesis"]
+      activeFeatures: ["Multi-provider LLM gateway (Google Gemini 3.5, OpenAI GPT-4o, Claude 3.7, Local Ollama)","Autonomous schema blueprint generator from natural language prompts","Real-time text-to-SQL query generation with safety AST guardrails","High-dimensional vector embedding generation & cosine similarity search","Semantic prompt caching with 90%+ latency reduction for repeated analytical queries","Automated slow query remediation & index synthesis"],
+      activeThirdPartyHooks: this.adapter.getActiveHookNames()
     };
   }
 
@@ -145,13 +158,17 @@ export class AIHubEngine extends EventEmitter {
   }
 
   /**
-   * Graceful shutdown of socket interconnects and background daemon loops.
+   * Graceful shutdown of socket interconnects, bridge server, and daemon loops.
    */
   public async shutdown(): Promise<void> {
     this.isShuttingDown = true;
     if (this.loopTimer) {
       clearInterval(this.loopTimer);
       this.loopTimer = null;
+    }
+    if (this.bridge) {
+      await this.bridge.stop();
+      this.bridge = null;
     }
     await this.flushBuffer();
     await this.client.disconnect();

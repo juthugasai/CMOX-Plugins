@@ -7,13 +7,16 @@
 import { createHash } from 'crypto';
 import { StreamPayload, MutationAction } from './types';
 import { FIDO2PasskeyWebAuthnLoginProtectionGuardrails } from './guardrails';
+import { FIDO2PasskeyWebAuthnLoginProtectionThirdPartyAdapter } from './adapter';
 
 export class FIDO2PasskeyWebAuthnLoginProtectionPipeline {
   private guardrails: FIDO2PasskeyWebAuthnLoginProtectionGuardrails;
+  private adapter: FIDO2PasskeyWebAuthnLoginProtectionThirdPartyAdapter;
   private sequenceCounter: number = 0;
 
-  constructor() {
+  constructor(adapter?: FIDO2PasskeyWebAuthnLoginProtectionThirdPartyAdapter) {
     this.guardrails = new FIDO2PasskeyWebAuthnLoginProtectionGuardrails();
+    this.adapter = adapter || new FIDO2PasskeyWebAuthnLoginProtectionThirdPartyAdapter();
   }
 
   public async process<T>(action: MutationAction, rawData: T, source = 'cmox.core'): Promise<StreamPayload<T>> {
@@ -31,7 +34,7 @@ export class FIDO2PasskeyWebAuthnLoginProtectionPipeline {
     const checksum = createHash('sha256').update(payloadJson).digest('hex');
 
     // Stage 4: Envelope Construction
-    return {
+    let envelope: StreamPayload<T> = {
       id: `evt_${Date.now()}_${this.sequenceCounter}`,
       sequence: this.sequenceCounter,
       timestamp: Date.now(),
@@ -40,5 +43,10 @@ export class FIDO2PasskeyWebAuthnLoginProtectionPipeline {
       data: validation.sanitizedData,
       checksumSha256: checksum
     };
+
+    // Stage 5: Third-party Pre-Ingest Middleware Interception
+    envelope = await this.adapter.executePreIngest(envelope);
+
+    return envelope;
   }
 }

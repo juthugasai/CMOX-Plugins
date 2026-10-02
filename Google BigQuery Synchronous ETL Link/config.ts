@@ -30,6 +30,7 @@ export class GoogleBigQuerySynchronousETLLinkConfigManager {
       connectionPoolSize: custom?.connectionPoolSize ?? 8,
       backpressureThreshold: custom?.backpressureThreshold ?? 10000,
       enableEncryption: custom?.enableEncryption ?? true,
+      bridgePort: custom?.bridgePort ?? (Number(process.env[`${envPrefix}BRIDGE_PORT`]) || 7890),
       param1: custom?.param1 || process.env[`${envPrefix}PARAM1`] || "corp-production-ai",
       param2: custom?.param2 || process.env[`${envPrefix}PARAM2`] || "cmox_analytics",
       customOptions: custom?.customOptions || {}

@@ -16,6 +16,8 @@ import { KafkaEventStreamConnectorConfigManager } from './config';
 import { KafkaEventStreamConnectorClient } from './client';
 import { KafkaEventStreamConnectorPipeline } from './pipeline';
 import { KafkaEventStreamConnectorTelemetry } from './telemetry';
+import { KafkaEventStreamConnectorThirdPartyAdapter } from './adapter';
+import { KafkaEventStreamConnectorUniversalBridge } from './bridge';
 
 export class KafkaEventStreamConnectorEngine extends EventEmitter {
   public readonly id = 'kafka-connector';
@@ -27,6 +29,8 @@ export class KafkaEventStreamConnectorEngine extends EventEmitter {
   private client: KafkaEventStreamConnectorClient;
   private pipeline: KafkaEventStreamConnectorPipeline;
   private telemetry: KafkaEventStreamConnectorTelemetry;
+  public readonly adapter: KafkaEventStreamConnectorThirdPartyAdapter;
+  private bridge: KafkaEventStreamConnectorUniversalBridge | null = null;
 
   private status: PluginStatus = 'uninitialized';
   private bufferQueue: StreamPayload[] = [];
@@ -37,15 +41,16 @@ export class KafkaEventStreamConnectorEngine extends EventEmitter {
     super();
     this.configManager = new KafkaEventStreamConnectorConfigManager(options);
     const config = this.configManager.get();
+    this.adapter = new KafkaEventStreamConnectorThirdPartyAdapter();
     this.client = new KafkaEventStreamConnectorClient(config);
-    this.pipeline = new KafkaEventStreamConnectorPipeline();
+    this.pipeline = new KafkaEventStreamConnectorPipeline(this.adapter);
     this.telemetry = new KafkaEventStreamConnectorTelemetry();
   }
 
   /**
-   * Initializes the plugin runtime and connects to remote or local socket pools.
+   * Initializes the plugin runtime, connects sockets, and starts the universal multi-language bridge.
    */
-  public async initialize(): Promise<boolean> {
+  public async initialize(enableBridge = true): Promise<boolean> {
     const config = this.configManager.get();
     if (!config.enabled) {
       this.status = 'idle' as PluginStatus;
@@ -56,6 +61,12 @@ export class KafkaEventStreamConnectorEngine extends EventEmitter {
     try {
       await this.client.connect();
       this.startRealtimeLoop();
+
+      if (enableBridge && config.bridgePort) {
+        this.bridge = new KafkaEventStreamConnectorUniversalBridge(this, config.bridgePort);
+        await this.bridge.start();
+      }
+
       this.status = 'healthy';
       this.emit('ready', { id: this.id, timestamp: Date.now() });
       return true;
@@ -97,7 +108,7 @@ export class KafkaEventStreamConnectorEngine extends EventEmitter {
   }
 
   /**
-   * Flushes queued payloads via the transport client.
+   * Flushes queued payloads via the transport client and third-party custom sinks.
    */
   public async flushBuffer(): Promise<number> {
     if (this.bufferQueue.length === 0) return 0;
@@ -106,6 +117,7 @@ export class KafkaEventStreamConnectorEngine extends EventEmitter {
 
     try {
       const result = await this.client.transmitBatch(batch);
+      await this.adapter.dispatchToCustomSinks(batch);
       this.telemetry.recordBatch(result.acknowledgedCount);
       this.emit('flushed', { count: result.acknowledgedCount, latencyMs: result.durationMs });
       return result.acknowledgedCount;
@@ -132,7 +144,8 @@ export class KafkaEventStreamConnectorEngine extends EventEmitter {
       endpoint: config.endpoint,
       lastHeartbeat: new Date().toISOString(),
       metrics: this.telemetry.getSnapshot(this.status, this.bufferQueue.length),
-      activeFeatures: ["Sub-millisecond write-to-topic latency","Confluent Schema Registry Avro & Protobuf integration","Automatic partition key hashing on primary keys","Dead-letter queue (DLQ) retry orchestration","SASL/SSL, Kerberos, and mTLS security handshakes"]
+      activeFeatures: ["Sub-millisecond write-to-topic latency","Confluent Schema Registry Avro & Protobuf integration","Automatic partition key hashing on primary keys","Dead-letter queue (DLQ) retry orchestration","SASL/SSL, Kerberos, and mTLS security handshakes"],
+      activeThirdPartyHooks: this.adapter.getActiveHookNames()
     };
   }
 
@@ -145,13 +158,17 @@ export class KafkaEventStreamConnectorEngine extends EventEmitter {
   }
 
   /**
-   * Graceful shutdown of socket interconnects and background daemon loops.
+   * Graceful shutdown of socket interconnects, bridge server, and daemon loops.
    */
   public async shutdown(): Promise<void> {
     this.isShuttingDown = true;
     if (this.loopTimer) {
       clearInterval(this.loopTimer);
       this.loopTimer = null;
+    }
+    if (this.bridge) {
+      await this.bridge.stop();
+      this.bridge = null;
     }
     await this.flushBuffer();
     await this.client.disconnect();

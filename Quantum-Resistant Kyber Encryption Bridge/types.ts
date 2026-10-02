@@ -9,7 +9,7 @@
 
 export type PluginLogLevel = 'debug' | 'info' | 'warn' | 'error';
 export type PluginStatus = 'uninitialized' | 'initializing' | 'connected' | 'healthy' | 'degraded' | 'reconnecting' | 'disconnected' | 'terminated';
-export type MutationAction = 'insert' | 'update' | 'delete' | 'stream' | 'telemetry' | 'schema_change' | 'audit_event';
+export type MutationAction = 'insert' | 'update' | 'delete' | 'stream' | 'telemetry' | 'schema_change' | 'audit_event' | 'custom_hook';
 
 export interface QuantumResistantKyberEncryptionBridgeEngineConfig {
   enabled: boolean;
@@ -24,6 +24,7 @@ export interface QuantumResistantKyberEncryptionBridgeEngineConfig {
   connectionPoolSize: number;
   backpressureThreshold: number;
   enableEncryption: boolean;
+  bridgePort?: number;
   param1?: string;
   param2?: string;
   customOptions?: Record<string, any>;
@@ -38,6 +39,7 @@ export interface StreamPayload<T = any> {
   data: T;
   checksumSha256: string;
   retryCount?: number;
+  metadata?: Record<string, any>;
 }
 
 export interface MetricSnapshot {
@@ -65,6 +67,7 @@ export interface HealthReport {
   lastHeartbeat: string;
   metrics: MetricSnapshot;
   activeFeatures: string[];
+  activeThirdPartyHooks: string[];
 }
 
 export interface ValidationResult {
@@ -72,3 +75,5 @@ export interface ValidationResult {
   errors: string[];
   sanitizedData?: any;
 }
+
+export type MiddlewareHandler<T = any> = (payload: StreamPayload<T>) => Promise<StreamPayload<T>> | StreamPayload<T>;

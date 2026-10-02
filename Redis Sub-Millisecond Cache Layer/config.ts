@@ -30,6 +30,7 @@ export class RedisSubMillisecondCacheLayerConfigManager {
       connectionPoolSize: custom?.connectionPoolSize ?? 8,
       backpressureThreshold: custom?.backpressureThreshold ?? 10000,
       enableEncryption: custom?.enableEncryption ?? true,
+      bridgePort: custom?.bridgePort ?? (Number(process.env[`${envPrefix}BRIDGE_PORT`]) || 7890),
       param1: custom?.param1 || process.env[`${envPrefix}PARAM1`] || "allkeys-lru",
       param2: custom?.param2 || process.env[`${envPrefix}PARAM2`] || "cmox:cache:",
       customOptions: custom?.customOptions || {}

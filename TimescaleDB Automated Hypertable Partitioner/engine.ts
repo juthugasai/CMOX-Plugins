@@ -16,6 +16,8 @@ import { TimescaleDBAutomatedHypertablePartitionerConfigManager } from './config
 import { TimescaleDBAutomatedHypertablePartitionerClient } from './client';
 import { TimescaleDBAutomatedHypertablePartitionerPipeline } from './pipeline';
 import { TimescaleDBAutomatedHypertablePartitionerTelemetry } from './telemetry';
+import { TimescaleDBAutomatedHypertablePartitionerThirdPartyAdapter } from './adapter';
+import { TimescaleDBAutomatedHypertablePartitionerUniversalBridge } from './bridge';
 
 export class TimescaleDBAutomatedHypertablePartitionerEngine extends EventEmitter {
   public readonly id = 'timescaledb-partitioner';
@@ -27,6 +29,8 @@ export class TimescaleDBAutomatedHypertablePartitionerEngine extends EventEmitte
   private client: TimescaleDBAutomatedHypertablePartitionerClient;
   private pipeline: TimescaleDBAutomatedHypertablePartitionerPipeline;
   private telemetry: TimescaleDBAutomatedHypertablePartitionerTelemetry;
+  public readonly adapter: TimescaleDBAutomatedHypertablePartitionerThirdPartyAdapter;
+  private bridge: TimescaleDBAutomatedHypertablePartitionerUniversalBridge | null = null;
 
   private status: PluginStatus = 'uninitialized';
   private bufferQueue: StreamPayload[] = [];
@@ -37,15 +41,16 @@ export class TimescaleDBAutomatedHypertablePartitionerEngine extends EventEmitte
     super();
     this.configManager = new TimescaleDBAutomatedHypertablePartitionerConfigManager(options);
     const config = this.configManager.get();
+    this.adapter = new TimescaleDBAutomatedHypertablePartitionerThirdPartyAdapter();
     this.client = new TimescaleDBAutomatedHypertablePartitionerClient(config);
-    this.pipeline = new TimescaleDBAutomatedHypertablePartitionerPipeline();
+    this.pipeline = new TimescaleDBAutomatedHypertablePartitionerPipeline(this.adapter);
     this.telemetry = new TimescaleDBAutomatedHypertablePartitionerTelemetry();
   }
 
   /**
-   * Initializes the plugin runtime and connects to remote or local socket pools.
+   * Initializes the plugin runtime, connects sockets, and starts the universal multi-language bridge.
    */
-  public async initialize(): Promise<boolean> {
+  public async initialize(enableBridge = true): Promise<boolean> {
     const config = this.configManager.get();
     if (!config.enabled) {
       this.status = 'idle' as PluginStatus;
@@ -56,6 +61,12 @@ export class TimescaleDBAutomatedHypertablePartitionerEngine extends EventEmitte
     try {
       await this.client.connect();
       this.startRealtimeLoop();
+
+      if (enableBridge && config.bridgePort) {
+        this.bridge = new TimescaleDBAutomatedHypertablePartitionerUniversalBridge(this, config.bridgePort);
+        await this.bridge.start();
+      }
+
       this.status = 'healthy';
       this.emit('ready', { id: this.id, timestamp: Date.now() });
       return true;
@@ -97,7 +108,7 @@ export class TimescaleDBAutomatedHypertablePartitionerEngine extends EventEmitte
   }
 
   /**
-   * Flushes queued payloads via the transport client.
+   * Flushes queued payloads via the transport client and third-party custom sinks.
    */
   public async flushBuffer(): Promise<number> {
     if (this.bufferQueue.length === 0) return 0;
@@ -106,6 +117,7 @@ export class TimescaleDBAutomatedHypertablePartitionerEngine extends EventEmitte
 
     try {
       const result = await this.client.transmitBatch(batch);
+      await this.adapter.dispatchToCustomSinks(batch);
       this.telemetry.recordBatch(result.acknowledgedCount);
       this.emit('flushed', { count: result.acknowledgedCount, latencyMs: result.durationMs });
       return result.acknowledgedCount;
@@ -132,7 +144,8 @@ export class TimescaleDBAutomatedHypertablePartitionerEngine extends EventEmitte
       endpoint: config.endpoint,
       lastHeartbeat: new Date().toISOString(),
       metrics: this.telemetry.getSnapshot(this.status, this.bufferQueue.length),
-      activeFeatures: ["Real-time Streaming","Lock-Free Ring Buffer","Dynamic Backpressure"]
+      activeFeatures: ["Real-time Streaming","Lock-Free Ring Buffer","Dynamic Backpressure"],
+      activeThirdPartyHooks: this.adapter.getActiveHookNames()
     };
   }
 
@@ -145,13 +158,17 @@ export class TimescaleDBAutomatedHypertablePartitionerEngine extends EventEmitte
   }
 
   /**
-   * Graceful shutdown of socket interconnects and background daemon loops.
+   * Graceful shutdown of socket interconnects, bridge server, and daemon loops.
    */
   public async shutdown(): Promise<void> {
     this.isShuttingDown = true;
     if (this.loopTimer) {
       clearInterval(this.loopTimer);
       this.loopTimer = null;
+    }
+    if (this.bridge) {
+      await this.bridge.stop();
+      this.bridge = null;
     }
     await this.flushBuffer();
     await this.client.disconnect();

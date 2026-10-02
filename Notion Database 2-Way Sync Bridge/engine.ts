@@ -16,6 +16,8 @@ import { NotionDatabase2WaySyncBridgeConfigManager } from './config';
 import { NotionDatabase2WaySyncBridgeClient } from './client';
 import { NotionDatabase2WaySyncBridgePipeline } from './pipeline';
 import { NotionDatabase2WaySyncBridgeTelemetry } from './telemetry';
+import { NotionDatabase2WaySyncBridgeThirdPartyAdapter } from './adapter';
+import { NotionDatabase2WaySyncBridgeUniversalBridge } from './bridge';
 
 export class NotionDatabase2WaySyncBridgeEngine extends EventEmitter {
   public readonly id = 'notion-bridge';
@@ -27,6 +29,8 @@ export class NotionDatabase2WaySyncBridgeEngine extends EventEmitter {
   private client: NotionDatabase2WaySyncBridgeClient;
   private pipeline: NotionDatabase2WaySyncBridgePipeline;
   private telemetry: NotionDatabase2WaySyncBridgeTelemetry;
+  public readonly adapter: NotionDatabase2WaySyncBridgeThirdPartyAdapter;
+  private bridge: NotionDatabase2WaySyncBridgeUniversalBridge | null = null;
 
   private status: PluginStatus = 'uninitialized';
   private bufferQueue: StreamPayload[] = [];
@@ -37,15 +41,16 @@ export class NotionDatabase2WaySyncBridgeEngine extends EventEmitter {
     super();
     this.configManager = new NotionDatabase2WaySyncBridgeConfigManager(options);
     const config = this.configManager.get();
+    this.adapter = new NotionDatabase2WaySyncBridgeThirdPartyAdapter();
     this.client = new NotionDatabase2WaySyncBridgeClient(config);
-    this.pipeline = new NotionDatabase2WaySyncBridgePipeline();
+    this.pipeline = new NotionDatabase2WaySyncBridgePipeline(this.adapter);
     this.telemetry = new NotionDatabase2WaySyncBridgeTelemetry();
   }
 
   /**
-   * Initializes the plugin runtime and connects to remote or local socket pools.
+   * Initializes the plugin runtime, connects sockets, and starts the universal multi-language bridge.
    */
-  public async initialize(): Promise<boolean> {
+  public async initialize(enableBridge = true): Promise<boolean> {
     const config = this.configManager.get();
     if (!config.enabled) {
       this.status = 'idle' as PluginStatus;
@@ -56,6 +61,12 @@ export class NotionDatabase2WaySyncBridgeEngine extends EventEmitter {
     try {
       await this.client.connect();
       this.startRealtimeLoop();
+
+      if (enableBridge && config.bridgePort) {
+        this.bridge = new NotionDatabase2WaySyncBridgeUniversalBridge(this, config.bridgePort);
+        await this.bridge.start();
+      }
+
       this.status = 'healthy';
       this.emit('ready', { id: this.id, timestamp: Date.now() });
       return true;
@@ -97,7 +108,7 @@ export class NotionDatabase2WaySyncBridgeEngine extends EventEmitter {
   }
 
   /**
-   * Flushes queued payloads via the transport client.
+   * Flushes queued payloads via the transport client and third-party custom sinks.
    */
   public async flushBuffer(): Promise<number> {
     if (this.bufferQueue.length === 0) return 0;
@@ -106,6 +117,7 @@ export class NotionDatabase2WaySyncBridgeEngine extends EventEmitter {
 
     try {
       const result = await this.client.transmitBatch(batch);
+      await this.adapter.dispatchToCustomSinks(batch);
       this.telemetry.recordBatch(result.acknowledgedCount);
       this.emit('flushed', { count: result.acknowledgedCount, latencyMs: result.durationMs });
       return result.acknowledgedCount;
@@ -132,7 +144,8 @@ export class NotionDatabase2WaySyncBridgeEngine extends EventEmitter {
       endpoint: config.endpoint,
       lastHeartbeat: new Date().toISOString(),
       metrics: this.telemetry.getSnapshot(this.status, this.bufferQueue.length),
-      activeFeatures: ["Real-time Streaming","Lock-Free Ring Buffer","Dynamic Backpressure"]
+      activeFeatures: ["Real-time Streaming","Lock-Free Ring Buffer","Dynamic Backpressure"],
+      activeThirdPartyHooks: this.adapter.getActiveHookNames()
     };
   }
 
@@ -145,13 +158,17 @@ export class NotionDatabase2WaySyncBridgeEngine extends EventEmitter {
   }
 
   /**
-   * Graceful shutdown of socket interconnects and background daemon loops.
+   * Graceful shutdown of socket interconnects, bridge server, and daemon loops.
    */
   public async shutdown(): Promise<void> {
     this.isShuttingDown = true;
     if (this.loopTimer) {
       clearInterval(this.loopTimer);
       this.loopTimer = null;
+    }
+    if (this.bridge) {
+      await this.bridge.stop();
+      this.bridge = null;
     }
     await this.flushBuffer();
     await this.client.disconnect();

@@ -16,6 +16,8 @@ import { PrismaDrizzleTypeORMModelGeneratorConfigManager } from './config';
 import { PrismaDrizzleTypeORMModelGeneratorClient } from './client';
 import { PrismaDrizzleTypeORMModelGeneratorPipeline } from './pipeline';
 import { PrismaDrizzleTypeORMModelGeneratorTelemetry } from './telemetry';
+import { PrismaDrizzleTypeORMModelGeneratorThirdPartyAdapter } from './adapter';
+import { PrismaDrizzleTypeORMModelGeneratorUniversalBridge } from './bridge';
 
 export class PrismaDrizzleTypeORMModelGeneratorEngine extends EventEmitter {
   public readonly id = 'orm-models-generator';
@@ -27,6 +29,8 @@ export class PrismaDrizzleTypeORMModelGeneratorEngine extends EventEmitter {
   private client: PrismaDrizzleTypeORMModelGeneratorClient;
   private pipeline: PrismaDrizzleTypeORMModelGeneratorPipeline;
   private telemetry: PrismaDrizzleTypeORMModelGeneratorTelemetry;
+  public readonly adapter: PrismaDrizzleTypeORMModelGeneratorThirdPartyAdapter;
+  private bridge: PrismaDrizzleTypeORMModelGeneratorUniversalBridge | null = null;
 
   private status: PluginStatus = 'uninitialized';
   private bufferQueue: StreamPayload[] = [];
@@ -37,15 +41,16 @@ export class PrismaDrizzleTypeORMModelGeneratorEngine extends EventEmitter {
     super();
     this.configManager = new PrismaDrizzleTypeORMModelGeneratorConfigManager(options);
     const config = this.configManager.get();
+    this.adapter = new PrismaDrizzleTypeORMModelGeneratorThirdPartyAdapter();
     this.client = new PrismaDrizzleTypeORMModelGeneratorClient(config);
-    this.pipeline = new PrismaDrizzleTypeORMModelGeneratorPipeline();
+    this.pipeline = new PrismaDrizzleTypeORMModelGeneratorPipeline(this.adapter);
     this.telemetry = new PrismaDrizzleTypeORMModelGeneratorTelemetry();
   }
 
   /**
-   * Initializes the plugin runtime and connects to remote or local socket pools.
+   * Initializes the plugin runtime, connects sockets, and starts the universal multi-language bridge.
    */
-  public async initialize(): Promise<boolean> {
+  public async initialize(enableBridge = true): Promise<boolean> {
     const config = this.configManager.get();
     if (!config.enabled) {
       this.status = 'idle' as PluginStatus;
@@ -56,6 +61,12 @@ export class PrismaDrizzleTypeORMModelGeneratorEngine extends EventEmitter {
     try {
       await this.client.connect();
       this.startRealtimeLoop();
+
+      if (enableBridge && config.bridgePort) {
+        this.bridge = new PrismaDrizzleTypeORMModelGeneratorUniversalBridge(this, config.bridgePort);
+        await this.bridge.start();
+      }
+
       this.status = 'healthy';
       this.emit('ready', { id: this.id, timestamp: Date.now() });
       return true;
@@ -97,7 +108,7 @@ export class PrismaDrizzleTypeORMModelGeneratorEngine extends EventEmitter {
   }
 
   /**
-   * Flushes queued payloads via the transport client.
+   * Flushes queued payloads via the transport client and third-party custom sinks.
    */
   public async flushBuffer(): Promise<number> {
     if (this.bufferQueue.length === 0) return 0;
@@ -106,6 +117,7 @@ export class PrismaDrizzleTypeORMModelGeneratorEngine extends EventEmitter {
 
     try {
       const result = await this.client.transmitBatch(batch);
+      await this.adapter.dispatchToCustomSinks(batch);
       this.telemetry.recordBatch(result.acknowledgedCount);
       this.emit('flushed', { count: result.acknowledgedCount, latencyMs: result.durationMs });
       return result.acknowledgedCount;
@@ -132,7 +144,8 @@ export class PrismaDrizzleTypeORMModelGeneratorEngine extends EventEmitter {
       endpoint: config.endpoint,
       lastHeartbeat: new Date().toISOString(),
       metrics: this.telemetry.getSnapshot(this.status, this.bufferQueue.length),
-      activeFeatures: ["Real-time Streaming","Lock-Free Ring Buffer","Dynamic Backpressure"]
+      activeFeatures: ["Real-time Streaming","Lock-Free Ring Buffer","Dynamic Backpressure"],
+      activeThirdPartyHooks: this.adapter.getActiveHookNames()
     };
   }
 
@@ -145,13 +158,17 @@ export class PrismaDrizzleTypeORMModelGeneratorEngine extends EventEmitter {
   }
 
   /**
-   * Graceful shutdown of socket interconnects and background daemon loops.
+   * Graceful shutdown of socket interconnects, bridge server, and daemon loops.
    */
   public async shutdown(): Promise<void> {
     this.isShuttingDown = true;
     if (this.loopTimer) {
       clearInterval(this.loopTimer);
       this.loopTimer = null;
+    }
+    if (this.bridge) {
+      await this.bridge.stop();
+      this.bridge = null;
     }
     await this.flushBuffer();
     await this.client.disconnect();

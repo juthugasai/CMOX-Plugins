@@ -17,6 +17,22 @@
     "ClickHouse",
     "DuckDB"
   ],
+  "polyglotSupport": {
+    "typescript": "index.ts",
+    "python": "client.py",
+    "golang": "client.go",
+    "rust": "client.rs",
+    "cli": "cli.sh",
+    "universalBridge": "bridge.ts"
+  },
+  "thirdPartyExtensibility": {
+    "adapter": "adapter.ts",
+    "supportsPreIngestHooks": true,
+    "supportsPostProcessHooks": true,
+    "supportsCustomSinks": true,
+    "jsonRpc2": true,
+    "restApi": true
+  },
   "tags": [
     "Audit",
     "Immutable",

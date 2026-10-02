@@ -7,13 +7,16 @@
 import { createHash } from 'crypto';
 import { StreamPayload, MutationAction } from './types';
 import { RowLevelSecurityRLSPolicyManagerGuardrails } from './guardrails';
+import { RowLevelSecurityRLSPolicyManagerThirdPartyAdapter } from './adapter';
 
 export class RowLevelSecurityRLSPolicyManagerPipeline {
   private guardrails: RowLevelSecurityRLSPolicyManagerGuardrails;
+  private adapter: RowLevelSecurityRLSPolicyManagerThirdPartyAdapter;
   private sequenceCounter: number = 0;
 
-  constructor() {
+  constructor(adapter?: RowLevelSecurityRLSPolicyManagerThirdPartyAdapter) {
     this.guardrails = new RowLevelSecurityRLSPolicyManagerGuardrails();
+    this.adapter = adapter || new RowLevelSecurityRLSPolicyManagerThirdPartyAdapter();
   }
 
   public async process<T>(action: MutationAction, rawData: T, source = 'cmox.core'): Promise<StreamPayload<T>> {
@@ -31,7 +34,7 @@ export class RowLevelSecurityRLSPolicyManagerPipeline {
     const checksum = createHash('sha256').update(payloadJson).digest('hex');
 
     // Stage 4: Envelope Construction
-    return {
+    let envelope: StreamPayload<T> = {
       id: `evt_${Date.now()}_${this.sequenceCounter}`,
       sequence: this.sequenceCounter,
       timestamp: Date.now(),
@@ -40,5 +43,10 @@ export class RowLevelSecurityRLSPolicyManagerPipeline {
       data: validation.sanitizedData,
       checksumSha256: checksum
     };
+
+    // Stage 5: Third-party Pre-Ingest Middleware Interception
+    envelope = await this.adapter.executePreIngest(envelope);
+
+    return envelope;
   }
 }
